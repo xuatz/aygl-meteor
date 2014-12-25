@@ -1,0 +1,12 @@
+/* CSS declarations go here */
+body {
+    background:#000;
+}
+
+.textcontent {
+    color:#FFF;
+}
+
+.toppadding {
+    padding-top: 10px;
+}

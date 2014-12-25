@@ -1,0 +1,35 @@
+<head>
+    <title>
+        Act Yi Ge League
+    </title>
+</head>
+
+<body>
+
+</body>
+
+<template name="main">
+    <div class="row">
+        <div class="col-xs-10"></div>
+        <div class="col-xs-2">
+            <a href="{{steamloginlink}}">
+                <img src="/steamlogin.png" class="toppadding">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <img src="/logo.jpg" class="center-block" width="50%" height="50%">
+        </div>
+    </div>
+    <div class="row">
+        <h1 class="text-center textcontent">Coming March 2015</h1>
+    </div>
+</template>
+
+
+<template name="MainLayout">
+    <div class="container-fluid">
+        {{> yield}}
+    </div>
+</template>
