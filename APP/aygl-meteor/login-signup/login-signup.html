@@ -17,12 +17,11 @@ To hold the HTML code for Login/Sign-up pages
         <div class="col-xs-6">
             {{> yield "form"}}
         </div>
-        <div class="col-xs-1"></div>
+        <div class="col-xs-2"></div>
         <div class="col-xs-4">
             <!-- SHOW STEAM INFO HERE -->
             {{> yield "info"}}
         </div>
-        <div class="col-xs-1"></div>
     </div>
     <div class="row">
         <p class="textcontent">
@@ -37,8 +36,40 @@ To hold the HTML code for Login/Sign-up pages
         <h1 class="textcontent">New AYGL Account</h1>
         <hr>
         <form class="form-horizontal" role="register">
+            <div class="form-group {{validUserState.form}}">
+                <label for="username" class="col-xs-3 control-label textcontent">AYGL Account Name</label>
+                <div class="col-xs-9">
+                    <input class="form-control" id="username" type="text" placeholder="e.g. LeCrystalMaid98" title="Reminder" data-toggle="popover" data-content="Your account name should only consist of alphanumeric, hyphen & underscore characters.">
+                    <span class="glyphicon {{validUserState.logo}} form-control-feedback"></span>
+                    <p class="help-block textcontent">
+                        {{usernameCharLeft}} Characters left
+                    </p>
+                </div>
+            </div>
             <div class="form-group">
-
+                <label for="password" class="col-xs-3 control-label textcontent">Password</label>
+                <div class="col-xs-9">
+                    <input class="form-control" id="password" type="password" placeholder="e.g. AYGLrawks98" title="Reminder" data-toggle="popover" data-content="Don't forget your password!">
+                </div>
+            </div>
+            <div class="form-group {{validPassState.form}}">
+                <label for="password1" class="col-xs-3 control-label textcontent">Re-enter Password</label>
+                <div class="col-xs-9">
+                    <input class="form-control" id="password1" type="password" placeholder="ARE YOU SURE?!?" data-toggle="popover" title="Warning" data-content="Passwords do not match!">
+                    <span class="glyphicon {{validPassState.logo}} form-control-feedback"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-xs-3 control-label textcontent">Email</label>
+                <div class="col-xs-9">
+                    <input class="form-control" id="email" type="text" placeholder="e.g. maiden4ever@aygl.com" data-toggle="popover" title="Reminder" data-content="This is optional. We will be using email to send out any reminders/notifications to our users.">
+                </div>
+            </div>
+            <div class="form-group">
+            	<div class="col-xs-9"></div>
+            	<div class="col-xs-3">
+            		<button class="btn btn-primary btn-block">Submit</button>
+            	</div>
             </div>
         </form>
     </div>
@@ -46,22 +77,22 @@ To hold the HTML code for Login/Sign-up pages
 
 <template name="verifiedsignupinfo">
     <div class="well dark">
-        <h1 class="textcontent">Player Profile</h1>
+        <h1 class="textcontent">Steam Profile</h1>
         <hr>
-        <img src="{{idty.avatar}}" class="center-block tiny avatar">
+        <img src="{{idty.avatar}}" class="center-block small avatar textcontent" alt="retrieving...">
         <br>
         <form role="display" class="form-horizontal">
             <fieldset disabled>
                 <div class="form-group">
-                    <label for="steamID" class="col-xs-2 control-label textcontent">steamID</label>
-                    <div class="col-xs-10">
-                        <input class="form-control" id="steamID" type="text" placeholder="missing steamID!" value="{{idty.steamID}}">
+                    <label for="steamID" class="col-xs-3 control-label textcontent">steamID</label>
+                    <div class="col-xs-9">
+                        <input class="form-control" id="steamID" type="text" placeholder="loading steamID..." value="{{idty.steamID}}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="IGN" class="col-xs-2 control-label textcontent">IGN:</label>
-                    <div class="col-xs-10">
-                        <input class="form-control" id="IGN" type="text" placeholder="missing IGN!" value="{{idty.personaname}}">
+                    <label for="IGN" class="col-xs-3 control-label textcontent">IGN:</label>
+                    <div class="col-xs-9">
+                        <input class="form-control" id="IGN" type="text" placeholder="loading IGN..." value="{{idty.personaname}}">
                     </div>
                 </div>
             </fieldset>
