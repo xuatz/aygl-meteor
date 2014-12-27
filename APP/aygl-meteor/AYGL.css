@@ -1,12 +1,23 @@
 /* CSS declarations go here */
+
 body {
-    background:#000;
+    background: #111;
 }
-
+img.huge {
+    width: 750px;
+}
+img.large {
+    width: 450px;
+}
+img.medium {
+    width: 250px;
+}
+img.small {
+    width: 150px;
+}
 .textcontent {
-    color:#FFF;
+    color: #FFF;
 }
-
 .toppadding {
     padding-top: 10px;
 }

@@ -5,7 +5,9 @@
 </head>
 
 <body>
-
+    <div class="container-fluid toppadding">
+    {{> Router}}
+    </div>
 </body>
 
 <template name="main">
@@ -13,23 +15,41 @@
         <div class="col-xs-10"></div>
         <div class="col-xs-2">
             <a href="{{steamloginlink}}">
-                <img src="/steamlogin.png" class="toppadding">
+                <img src="/steamlogin.png">
             </a>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <img src="/logo.jpg" class="center-block" width="50%" height="50%">
+            <img src="/logo.png" class="center-block huge">
         </div>
     </div>
     <div class="row">
-        <h1 class="text-center textcontent">Coming March 2015</h1>
+      <h1 class="text-center textcontent">Inaugural Season</h1>
+        <h1 class="text-center textcontent">March 2015</h1>
     </div>
 </template>
 
+<template name="verifiedsignup">
+  <div class="row">
+    <div class="col-xs-2"></div>
+      <img src="/logo.png" class="large">
+  </div>
+</template>
 
-<template name="MainLayout">
-    <div class="container-fluid">
-        {{> yield}}
+<template name="loading">
+    <!-- INSERT LOADING PAGE HERE-->
+    <div class="row">
+      <div class="col-xs-12">
+          <img src="/logo.png" class="center-block large">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="text-center textcontent">Verifying Your Details</h3>
+      </div>
+    </div>
+    <div class="row">
+      <img src="/loader.gif" width="30px" class="center-block">
     </div>
 </template>
