@@ -3,6 +3,7 @@ VerifyTab = new Mongo.Collection('vtab');
 Router.route('/', function() {
     this.render('main');
 });
+
 Router.route('/verifiedsignup/', function() {
     var sig = encodeURI(this.params.query['s']) + '=';
     var routerObj = this;
@@ -11,21 +12,27 @@ Router.route('/verifiedsignup/', function() {
         if (!res) {
             //NOPES. Please Try again
             console.log(res);
+            //TODO render NOPE PAGE!!!
         } else {
             //RENDER REGISTRATION PAGE
-            console.log(res);
-            routerObj.render('verifiedsignup', {
+            registeringNow = Meteor.subscribe('registeringPlayers', sig);
+            routerObj.layout('verifiedsignup1', {
                 data: function() {
                     var returnme = {
-                        steamID: res,
+                        identity: res,
                         sig: sig
                     };
                     return returnme;
                 }
             });
+            routerObj.render('verifiedsignupinfo', {
+                to: 'info'
+            });
+            routerObj.render('verifiedsignupform', {
+                to: 'form'
+            });
         }
     });
-
 });
 
 Router.route('/signin', function() {
@@ -57,7 +64,6 @@ Router.route('/signin', function() {
 
 
 if (Meteor.isClient) {
-    Meteor.subscribe('lol');
     Template.main.helpers({
         steamloginlink: function() {
             var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://localhost:3000/&openid.return_to=http://localhost:3000/signin/';
@@ -66,13 +72,20 @@ if (Meteor.isClient) {
 
         }
     });
+    Template.verifiedsignupinfo.helpers({
+        idty: function() {
+            return VerifyTab.findOne();
+        }
+    });
 }
 
 if (Meteor.isServer) {
     Meteor.startup(function() {
         // code to run on server at startup
-        Meteor.publish('lol', function() {
-            return VerifyTab.find();
+        Meteor.publish('registeringPlayers', function(sig) {
+            return VerifyTab.find({
+                sig: sig
+            });
         });
     });
 
@@ -127,7 +140,7 @@ if (Meteor.isServer) {
             } else {
                 return VerifyTab.findOne({
                     sig: siggy
-                })['steamID'];
+                });
             }
         }
     });

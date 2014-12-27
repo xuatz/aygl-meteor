@@ -37,30 +37,45 @@
         </div>
         <div class="col-xs-1"></div>
         <div class="col-xs-9">
-            <h1 class="textcontent">Thank you for verifying your identity, itchyfishy.</h1>
+            <h1 class="textcontent">Thank you for verifying your identity.</h1>
             <h3 class="textcontent">Please complete your registration below</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-4">
+            <!-- ACTUAL FORM HERE -->
+        </div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-4">
+            <!-- SHOW STEAM INFO HERE -->
             <div class="well dark">
-                <form role="register" class="form-horizontal">
-                    <fieldset>
+                <img src="{{identity.avatar}}" class="center-block tiny avatar">
+                <br>
+                <form role="display" class="form-horizontal">
+                    <fieldset disabled>
                         <div class="form-group">
                             <label for="steamID" class="col-xs-2 control-label textcontent">steamID</label>
                             <div class="col-xs-10">
-                                <input class="form-control" id="steamID" type="text" placeholder="missing steamID!" value="{{steamID}}" disabled>
+                                <input class="form-control" id="steamID" type="text" placeholder="missing steamID!" value="{{identity.steamID}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="IGN" class="col-xs-2 control-label textcontent">IGN:</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="IGN" type="text" placeholder="missing IGN!" value="{{identity.personaname}}">
                             </div>
                         </div>
                     </fieldset>
                 </form>
             </div>
         </div>
+        <div class="col-xs-1"></div>
     </div>
     <div class="row">
         <p class="textcontent">
             sig = {{sig}}
-            <br /> steamID = {{steamID}}
+            <br /> steamID = {{identity.steamID}}
         </p>
     </div>
 </template>

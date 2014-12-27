@@ -15,6 +15,13 @@ img.medium {
 img.small {
     width: 150px;
 }
+img.tiny {
+    width: 100px;
+}
+
+img.avatar {
+    border: 4px double #000;
+}
 .textcontent {
     color: #FFF;
 }
