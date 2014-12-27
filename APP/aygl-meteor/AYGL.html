@@ -6,7 +6,7 @@
 
 <body>
     <div class="container-fluid toppadding">
-    {{> Router}}
+        {{> Router}}
     </div>
 </body>
 
@@ -25,31 +25,59 @@
         </div>
     </div>
     <div class="row">
-      <h1 class="text-center textcontent">Inaugural Season</h1>
+        <h1 class="text-center textcontent">Inaugural Season</h1>
         <h1 class="text-center textcontent">March 2015</h1>
     </div>
 </template>
 
 <template name="verifiedsignup">
-  <div class="row">
-    <div class="col-xs-2"></div>
-      <img src="/logo.png" class="large">
-  </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="/logo.png" class="medium">
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-9">
+            <h1 class="textcontent">Thank you for verifying your identity, itchyfishy.</h1>
+            <h3 class="textcontent">Please complete your registration below</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="well dark">
+                <form role="register" class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="steamID" class="col-xs-2 control-label textcontent">steamID</label>
+                            <div class="col-xs-10">
+                                <input class="form-control" id="steamID" type="text" placeholder="missing steamID!" value="{{steamID}}" disabled>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p class="textcontent">
+            sig = {{sig}}
+            <br /> steamID = {{steamID}}
+        </p>
+    </div>
 </template>
 
 <template name="loading">
     <!-- INSERT LOADING PAGE HERE-->
     <div class="row">
-      <div class="col-xs-12">
-          <img src="/logo.png" class="center-block large">
-      </div>
+        <div class="col-xs-12">
+            <img src="/logo.png" class="center-block large">
+        </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">
-        <h3 class="text-center textcontent">Verifying Your Details</h3>
-      </div>
+        <div class="col-xs-12">
+            <h3 class="text-center textcontent">Verifying Your Details</h3>
+        </div>
     </div>
     <div class="row">
-      <img src="/loader.gif" width="30px" class="center-block">
+        <img src="/loader.gif" width="30px" class="center-block">
     </div>
 </template>

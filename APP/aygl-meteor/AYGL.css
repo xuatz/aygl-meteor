@@ -21,3 +21,7 @@ img.small {
 .toppadding {
     padding-top: 10px;
 }
+.well.dark {
+    background-color: #333333;
+    border:1px solid #212121;
+}

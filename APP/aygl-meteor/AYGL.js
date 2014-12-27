@@ -3,16 +3,26 @@ VerifyTab = new Mongo.Collection('vtab');
 Router.route('/', function() {
     this.render('main');
 });
-Router.route('/verifiedsignup/:sig', function() {
-    var sig = encodeURI(this.params.sig);
+Router.route('/verifiedsignup/', function() {
+    var sig = encodeURI(this.params.query['s']) + '=';
     var routerObj = this;
     routerObj.render('loading');
-    Meteor.call('checkValidSignup',sig, function(err, res) {
-        if(!res) {
-          //NOPES. Please Try again
-        } else{
-          //RENDER REGISTRATION PAGE
-          routerObj.render('loading');
+    Meteor.call('checkValidSignup', sig, function(err, res) {
+        if (!res) {
+            //NOPES. Please Try again
+            console.log(res);
+        } else {
+            //RENDER REGISTRATION PAGE
+            console.log(res);
+            routerObj.render('verifiedsignup', {
+                data: function() {
+                    var returnme = {
+                        steamID: res,
+                        sig: sig
+                    };
+                    return returnme;
+                }
+            });
         }
     });
 
@@ -20,10 +30,6 @@ Router.route('/verifiedsignup/:sig', function() {
 
 Router.route('/signin', function() {
     var newparams = this.params.query;
-    VerifyTab.insert({
-        steamID: newparams['openid.claimed_id'].substring(36, newparams['openid.claimed_id'].length),
-        sig: encodeURI(newparams['openid.sig'])
-    });
     var newurl = 'https://steamcommunity.com/openid/login';
     var rinstance = this;
     var newlink = newurl + this.originalUrl;
@@ -31,8 +37,12 @@ Router.route('/signin', function() {
     HTTP.call('POST', newlink, function(err, res) {
         if (res.content.search('is_valid:true') !== -1) {
             //IS VALID
+            VerifyTab.insert({
+                steamID: newparams['openid.claimed_id'].substring(36, newparams['openid.claimed_id'].length),
+                sig: encodeURI(newparams['openid.sig'])
+            });
             rinstance.response.writeHead(301, {
-                'Location': '/verifiedsignup/' + newparams['openid.sig']
+                'Location': '/verifiedsignup/?s=' + newparams['openid.sig']
             });
             rinstance.response.end();
         } else {
@@ -65,6 +75,48 @@ if (Meteor.isServer) {
             return VerifyTab.find();
         });
     });
+
+    Meteor.setInterval(function() {
+        var STEAMKEY = '1E6F8CF6D531EB7ACD9AF9F08C41F02B';
+        var api_steam_playerSummary = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + STEAMKEY;
+        var playersToRetrieve = VerifyTab.find({
+            updated: {
+                $ne: true
+            }
+        }, {
+            fields: {
+                steamID: 1
+            },
+            limit: 100
+        }).fetch();
+        var steamIDs;
+        var doRetrieve = false;
+        if (playersToRetrieve.length >= 1) {
+            doRetrieve = true;
+            steamIDs = playersToRetrieve[0]['steamID'];
+        }
+        if (playersToRetrieve.length > 1) {
+            for (var i = 1; i < playersToRetrieve.length; i++) {
+                steamIDs = steamIDs + ',' + playersToRetrieve[i]['steamID'];
+            }
+        }
+        if (doRetrieve) {
+            var url = api_steam_playerSummary + '&steamids=' + steamIDs;
+            HTTP.call('GET', url, function(err, res) {
+                var playerArray = res.data.response.players;
+                for (var j = playerArray.length - 1; j >= 0; j--) {
+                    VerifyTab.update(playersToRetrieve[j], {
+                        $set: {
+                            personaname: playerArray[j]['personaname'],
+                            avatar: playerArray[j]['avatarfull'],
+                            updated: true
+                        }
+                    });
+                };
+                console.log(playerArray.length + ' players retrieved from Steam.');
+            });
+        }
+    }, 5000);
 
     Meteor.methods({
         checkValidSignup: function(siggy) {
