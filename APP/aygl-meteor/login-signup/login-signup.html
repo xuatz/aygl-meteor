@@ -49,7 +49,7 @@ To hold the HTML code for Login/Sign-up pages
             <div class="form-group">
                 <label for="password" class="col-xs-3 control-label textcontent">Password</label>
                 <div class="col-xs-9">
-                    <input class="form-control" id="password" type="password" placeholder="e.g. AYGLrawks98" title="Reminder" data-toggle="popover" data-content="Don't forget your password!">
+                    <input class="form-control" id="password" type="password" placeholder="e.g. AYGLrawks98">
                 </div>
             </div>
             <div class="form-group {{validPassState.form}}">
@@ -68,7 +68,7 @@ To hold the HTML code for Login/Sign-up pages
             <div class="form-group">
             	<div class="col-xs-9"></div>
             	<div class="col-xs-3">
-            		<button class="btn btn-primary btn-block">Submit</button>
+            		<button class="btn {{allowSubmit.state}} btn-block" id="submit" disabled>{{allowSubmit.btn}}</button>
             	</div>
             </div>
         </form>

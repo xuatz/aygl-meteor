@@ -76,29 +76,29 @@ if (Meteor.isClient) {
     Template.verifiedsignupform.helpers({
         validUserState: function() {
             var result;
-            if (Session.get('usernameValid')===true) {
+            if (Session.get('usernameValid') === true) {
                 result = {
                     form: "has-success has-feedback",
                     logo: "glyphicon-ok"
                 };
                 return result;
-            } else if(Session.get('usernameValid')===false){
+            } else if (Session.get('usernameValid') === false) {
                 result = {
                     form: "has-error has-feedback",
                     logo: "glyphicon-remove"
                 };
                 return result;
             } else {
-              result = {
-                form:" ",
-                logo:" "
-              };
-              return result;
+                result = {
+                    form: " ",
+                    logo: " "
+                };
+                return result;
             }
         },
         validPassState: function() {
             var result;
-            if (Session.get('passwordValid')) {
+            if (Session.get('passwordValid') || Session.get('passwordValid')===undefined) {
                 result = {
                     form: " ",
                     logo: " "
@@ -119,13 +119,36 @@ if (Meteor.isClient) {
             }
         },
         usernameCharLeft: function() {
-          return Session.get('usernameCharLeft');
+            return Session.get('usernameCharLeft');
+        },
+        allowSubmit: function() {
+          var result;
+            if (Session.get('usernameValid') && Session.get('passwordValid')) {
+                $(function() {
+                    $('#submit').prop('disabled', false);
+                });
+                result = {
+                  btn:"Submit",
+                  state:"btn-primary"
+                };
+                return result;
+
+            } else {
+                $(function() {
+                    $('#submit').prop('disabled', true);
+                });
+                result={
+                  btn:"Submit",
+                  state:"btn-warning"
+                };
+                return result;
+            }
         }
     });
 
     Template.verifiedsignupform.rendered = function() {
         $(function() {
-            $("#username,#password,#email").popover({
+            $("#username,#email").popover({
                 placement: 'right',
                 trigger: 'focus',
                 container: 'body'
@@ -139,7 +162,6 @@ if (Meteor.isClient) {
             });
         });
         Session.set('usernameCharLeft', 25);
-        Session.set('passwordValid', true);
     };
 
     Template.verifiedsignupform.events({
@@ -163,12 +185,15 @@ if (Meteor.isClient) {
             var pass = Template.instance().find('#password').value;
 
             if (pass === "" || pass1 === "") {
-                Session.set('passwordValid', true);
-            }else if (pass1 !== pass) {
+                Session.set('passwordValid', undefined);
+            } else if (pass1 !== pass) {
                 Session.set('passwordValid', false);
             } else {
                 Session.set('passwordValid', true);
             }
+        },
+        'click #submit': function(evt) {
+            evt.preventDefault();
         }
     });
 
