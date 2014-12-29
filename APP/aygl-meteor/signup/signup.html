@@ -1,15 +1,18 @@
 <!--
-To hold the HTML code for Login/Sign-up pages
+TEMPLATE DEFINITIONS FOR SIGNUP PROCESS
+Any Templates used for the Signup Process will be placed here
 -->
-<template name="verifiedsignup1">
+
+<!-- LAYOUT TEMPLATE-->
+<template name="verifiedsignup">
     <div class="row">
         <div class="col-xs-2">
             <img src="/logo.png" class="medium">
         </div>
         <div class="col-xs-1"></div>
         <div class="col-xs-9">
-            <h1 class="textcontent">Thank you for verifying your identity.</h1>
-            <h3 class="textcontent">Please complete your registration below</h3>
+            <h1 class="textcontent">Welcome to AYGL</h1>
+            <h3 class="textcontent">Create new account</h3>
         </div>
     </div>
     <div class="row">
@@ -23,17 +26,13 @@ To hold the HTML code for Login/Sign-up pages
             {{> yield "info"}}
         </div>
     </div>
-    <div class="row">
-        <p class="textcontent">
-            sig = {{sig}}
-            <br /> steamID = {{identity.steamID}}
-        </p>
-    </div>
 </template>
 
+
+<!-- RENDERED TEMPLATES-->
 <template name="verifiedsignupform">
     <div class="well dark">
-        <h1 class="textcontent">New AYGL Account</h1>
+        <h1 class="textcontent">Account Information</h1>
         <hr>
         <form class="form-horizontal" role="register">
             <div class="form-group {{validUserState.form}}">
@@ -66,10 +65,10 @@ To hold the HTML code for Login/Sign-up pages
                 </div>
             </div>
             <div class="form-group">
-            	<div class="col-xs-9"></div>
-            	<div class="col-xs-3">
-            		<button class="btn {{allowSubmit.state}} btn-block" id="submit" disabled>{{allowSubmit.btn}}</button>
-            	</div>
+                <div class="col-xs-9"></div>
+                <div class="col-xs-3">
+                    <button class="btn {{allowSubmit.state}} btn-block" id="submit" disabled>{{allowSubmit.btn}}</button>
+                </div>
             </div>
         </form>
     </div>
@@ -79,7 +78,7 @@ To hold the HTML code for Login/Sign-up pages
     <div class="well dark">
         <h1 class="textcontent">Steam Profile</h1>
         <hr>
-        <img src="{{idty.avatar}}" class="center-block small avatar textcontent" alt="retrieving...">
+        <img src="{{idty.avatar}}" id="avatar" class="center-block small avatar textcontent" alt="retrieving...">
         <br>
         <form role="display" class="form-horizontal">
             <fieldset disabled>
