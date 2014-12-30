@@ -1,7 +1,7 @@
 /*  
 ======================================================================================================
-	Template Helpers
-	All Template helpers affecting the templates defined within signup.html will be placed here.
+    Template Helpers
+    All Template helpers affecting the templates defined within signup.html will be placed here.
 ======================================================================================================
 */
 
@@ -146,7 +146,9 @@ Template.verifiedsignupform.events({
             profile: {
                 steamID: steamIdentity.steamID,
                 personaname: steamIdentity.personaname,
-                avatar: steamIdentity.avatar
+                avatar: steamIdentity.avatar,
+                hash: steamIdentity.sig,
+                updated: true
             }
         }, function(err) {
             if (err !== undefined) {
@@ -188,7 +190,3 @@ Template.verifiedsignupform.rendered = function() {
     });
     Session.set('usernameCharLeft', 25);
 };
-
-
-
-

@@ -1,7 +1,6 @@
 VerifyTab = new Mongo.Collection('vtab');
 
 if (Meteor.isClient) {
-    Meteor.subscribe('name');
     Template.mainregister.helpers({
         steamloginlink: function() {
             var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://localhost:3000/&openid.return_to=http://localhost:3000/signin/';
@@ -43,10 +42,6 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-    Meteor.publish('name', function() {
-        return Meteor.users.find();
-    });
-
     Meteor.startup(function() {
 
         //Allow users to find their own temporary profiles during registration
@@ -86,7 +81,7 @@ if (Meteor.isServer) {
             },
             limit: 75
         }).fetch();
-        var playersList = _.map(playersToUpdate, function(x) {
+        var playersList = playersToUpdate.map(function(x) {
             return x.profile;
         });
 
@@ -107,6 +102,7 @@ if (Meteor.isServer) {
             }
         }
         if (doRetrieve) {
+            console.log('---------- Account Retrieval Start ----------');
             console.log(playersToUpdate.length + ' profile refreshes');
             console.log(playersToRetrieve.length + ' registration verifications');
             var url = api_steam_playerSummary + '&steamids=' + steamIDs;
@@ -114,45 +110,50 @@ if (Meteor.isServer) {
             var userCount = 0;
 
             HTTP.call('GET', url, function(err, res) {
-                var playerArray = res.data.response.players;
-                console.log(playerArray.length + ' steam accounts retrieved.');
+                if (res !== null) {
+                    var playerArray = res.data.response.players;
+                    console.log('---------- ' + playerArray.length + ' steam accounts retrieved ----------');
 
-                playerArray.forEach(function(player) {
-                    VerifyTab.update({
-                        updated: {
-                            $ne: true
-                        },
-                        steamID: player['steamid']
-                    }, {
-                        $set: {
-                            personaname: player['personaname'],
-                            avatar: player['avatarfull'],
-                            updated: true
-                        }
-                    }, function(vErr, vRes) {
-                        if (vErr) {
-                            console.log(vErr);
-                        }
-                        if (vRes === 0) {
-                            Meteor.users.update({
-                                "profile.updated": {
-                                    $ne: true
-                                },
-                                "profile.steamID": player['steamid']
-                            }, {
-                                $set: {
-                                    "profile.personaname": player['personaname'],
-                                    "profile.avatar": player['avatarfull'],
-                                    "profile.updated": true
-                                }
-                            }, function(uErr, uRes) {
-                                if (uErr) {
-                                    console.log(uErr);
-                                }
-                            });
-                        }
+                    playerArray.forEach(function(player) {
+                        VerifyTab.update({
+                            updated: {
+                                $ne: true
+                            },
+                            steamID: player['steamid']
+                        }, {
+                            $set: {
+                                personaname: player['personaname'],
+                                avatar: player['avatarfull'],
+                                updated: true
+                            }
+                        }, function(vErr, vRes) {
+                            if (vErr) {
+                                console.log(vErr);
+                            }
+                            if (vRes === 0) {
+                                Meteor.users.update({
+                                    "profile.updated": {
+                                        $ne: true
+                                    },
+                                    "profile.steamID": player['steamid']
+                                }, {
+                                    $set: {
+                                        "profile.personaname": player['personaname'],
+                                        "profile.avatar": player['avatarfull'],
+                                        "profile.updated": true
+                                    }
+                                }, function(uErr, uRes) {
+                                    if (uErr) {
+                                        console.log(uErr);
+                                    }
+                                });
+                            }
+                        });
                     });
-                });
+                } else {
+                    console.log('Error retrieving results from Steam');
+                }
+                console.log('---------- End of Retrieval ----------');
             });
         }
     }, 5000);

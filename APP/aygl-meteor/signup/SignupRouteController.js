@@ -1,36 +1,4 @@
-Router.onBeforeAction(function() {
-    this.render('loading');
-    if (Meteor.loggingIn()) {
-
-    } else if (!Meteor.user()) {
-        Router.go('/');
-    } else {
-        this.next();
-    }
-}, {
-    except: ['root', 'verifiedsignup', 'signin']
-});
-
-Router.route('/', function() {
-    this.layout('main');
-    if (!Meteor.loggingIn()) {
-        if (Meteor.user()) {
-            this.render('mainloggedin');
-            this.render('mainlogoutbutton', {
-                to: "register"
-            });
-        } else {
-            this.render('mainloggedout');
-            this.render('mainregister', {
-                to: "register"
-            });
-        }
-    } else {
-        this.render('mainloggingin');
-    }
-}, {
-    name: "root"
-});
+SignupController = RouteController.extend();
 
 Router.route('/verifiedsignup/', function() {
     var sig = encodeURI(this.params.query['s']) + '=';
@@ -62,7 +30,8 @@ Router.route('/verifiedsignup/', function() {
         }
     });
 }, {
-    name: "verifiedsignup"
+    name: 'verifiedsignup',
+    controller:'SignupController'
 });
 
 Router.route('/signin', function() {
@@ -89,5 +58,6 @@ Router.route('/signin', function() {
     });
 }, {
     where: 'server',
-    name: 'signin'
+    name: 'signin',
+    controller:'SignupController'
 });
