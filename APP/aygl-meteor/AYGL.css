@@ -1,8 +1,5 @@
 /* CSS declarations go here */
 
-body {
-    background: #111;
-}
 img.huge {
     width: 750px;
 }
@@ -18,7 +15,6 @@ img.small {
 img.tiny {
     width: 100px;
 }
-
 img.avatar {
     border: 4px double #000;
 }
@@ -30,9 +26,33 @@ img.avatar {
 }
 .well.dark {
     background-color: #333333;
-    border:1px solid #212121;
+    border: 1px solid #212121;
 }
 input.dark {
     background-color: #333333;
-    border:1px solid #212121;
+    border: 1px solid #212121;
+}
+
+.double-unit {
+    height:221px;
+    overflow-y:auto;
+    word-wrap:break-word;
+}
+
+.unit {
+    height:100px;
+    overflow-y:auto;
+    word-wrap:break-word;
+}
+
+.quad-unit {
+    height:463px;
+    overflow-y:auto;
+    word-wrap:break-word;
+}
+
+.triple-unit {
+    height:342px;
+    overflow-y:auto;
+    word-wrap:break-word;
 }

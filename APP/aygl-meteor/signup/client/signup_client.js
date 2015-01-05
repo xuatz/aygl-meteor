@@ -148,7 +148,7 @@ Template.verifiedsignupform.events({
                 personaname: steamIdentity.personaname,
                 avatar: steamIdentity.avatar,
                 hash: steamIdentity.sig,
-                updated: true
+                updated: steamIdentity.updated
             }
         }, function(err) {
             if (err !== undefined) {
