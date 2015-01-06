@@ -17,14 +17,9 @@ Any Templates used for the Home Screen will be placed here
         <div class="col-xs-3">
             <div class="panel panel-warning quad-unit">
                 <div class="panel-heading">
-                    <h1 class="panel-title">
-    					Le Profile
-    				</h1>
+                    <h1 class="panel-title">Profile</h1>
                 </div>
-                <div class="panel-body">
-                    <p> A peekture, and some stats
-                    </p>
-                </div>
+                {{>yield "profile"}}
             </div>
         </div>
         <div class="col-xs-6">
@@ -41,9 +36,7 @@ Any Templates used for the Home Screen will be placed here
                 			Online
                 			</h1>
                         </div>
-                        <div class="panel-body">
-                            10,000
-                        </div>
+                        {{>yield "onlinecounter"}}
                     </div>
                 </div>
                 <div class="col-xs-6">
@@ -53,9 +46,7 @@ Any Templates used for the Home Screen will be placed here
                 			In Queue
                 		</h1>
                         </div>
-                        <div class="panel-body">
-                            2939359
-                        </div>
+                        {{>yield "queuecounter"}}
                     </div>
                 </div>
             </div>
@@ -67,9 +58,7 @@ Any Templates used for the Home Screen will be placed here
                 			Notifications
                 		</h1>
                         </div>
-                        <div class="panel-body">
-                            This could be above the 2 Player counters as well.
-                        </div>
+                        {{>yield "notification"}}
                     </div>
                 </div>
             </div>
@@ -77,9 +66,7 @@ Any Templates used for the Home Screen will be placed here
     </div>
     <div class="row">
         <div class="col-xs-6">
-            <div class="well dark quad-unit">
-                Table for Top 10 Players
-            </div>
+            {{>yield "top10"}}
         </div>
         <div class="col-xs-6">
             <div class="well dark quad-unit">
@@ -91,26 +78,79 @@ Any Templates used for the Home Screen will be placed here
 
 <!--RENDERED TEMPLATES -->
 
-<template name="profile">
-
+<template name="homeprofile">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
+                <figcaption class="text-center">{{myprofile.username}}</figcaption>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Win %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>90</td>
+                            <td>90</td>
+                            <td>50 %</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="text-center">Rank:</h1>
+                <h2 class="text-center">1223</h2>
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="homecontent">
 
 </template>
 
-<template name="counters">
-
+<template name="homeonlinecounter">
+    <div class="panel-body">
+        10,000
+    </div>
 </template>
 
-<template name="notificationpanel">
-
+<template name="homequeuecounter">
+    <div class="panel-body">
+        2939359
+    </div>
 </template>
 
-<template name="top10">
+<template name="homenotification">
+    <div class="panel-body">
+        This could be above the 2 Player counters as well.
+    </div>
+</template>
 
+<template name="hometop10">
+    <div class="well dark quad-unit">
+        Table for Top 10 Players
+    </div>
 </template>
 
 <template name="advert">
-	
+
+</template>
+
+<template name="homeloading">
+    <div class="centerme">
+        <p class="text-center">Loading...
+            <img src="/loader2.gif" class="center-block micro">
+        </p>
+    </div>
 </template>

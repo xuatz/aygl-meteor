@@ -15,6 +15,9 @@ img.small {
 img.tiny {
     width: 100px;
 }
+img.micro {
+    width: 30px;
+}
 img.avatar {
     border: 4px double #000;
 }
@@ -32,27 +35,33 @@ input.dark {
     background-color: #333333;
     border: 1px solid #212121;
 }
-
 .double-unit {
-    height:221px;
-    overflow-y:auto;
-    word-wrap:break-word;
+    height: 221px;
+    overflow-y: auto;
+    word-wrap: break-word;
 }
-
 .unit {
-    height:100px;
-    overflow-y:auto;
-    word-wrap:break-word;
+    height: 100px;
+    overflow-y: auto;
+    word-wrap: break-word;
 }
-
 .quad-unit {
-    height:463px;
-    overflow-y:auto;
-    word-wrap:break-word;
+    height: 463px;
+    overflow-y: auto;
+    word-wrap: break-word;
 }
-
 .triple-unit {
-    height:342px;
-    overflow-y:auto;
-    word-wrap:break-word;
+    height: 342px;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+.centerme {
+    #position:relative;
+    #top:50%;
+    #transform: translateY(-100%);
+    padding-top: 10px;
+}
+table.padded td, table.padded th {
+    padding-right:50px;
+    padding-top:10px;
 }
