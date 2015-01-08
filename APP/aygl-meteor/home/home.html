@@ -7,58 +7,85 @@ Any Templates used for the Home Screen will be placed here
 <template name="homeLayout">
     <div class="row">
         <div class="col-xs-9">
-            <p class="well dark"> Banner/Logo</p>
+            <h1 class="panel">Act Yi Ge Home Screen Title</h1>
         </div>
         <div class="col-xs-3">
-            <p class="well dark"> Buttons for Search Game as Player/Capt</p>
+            <div class="panel">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class="text-center">Search for Match:</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="btn btn-sm btn-warning btn-block" id="joinCapt">Join as Captain</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-sm btn-primary btn-block" id="joinPlayer">Join as Player</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-3">
-            <div class="panel panel-warning quad-unit">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h1 class="panel-title">Profile</h1>
                 </div>
-                {{>yield "profile"}}
+                <div class="panel-body quad-unit">
+                    {{>yield "profile"}}
+                </div>
             </div>
         </div>
         <div class="col-xs-6">
-            <p class="well dark quad-unit">
-                MAIN KONTENT
-            </p>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="text-center panel-title">Match History</h1>
+                </div>
+                <div class="panel-body quad-unit">
+                    {{>yield "maincontent"}}
+                </div>
+            </div>
         </div>
         <div class="col-xs-3">
             <div class="row">
                 <div class="col-xs-6">
-                    <div class="panel panel-info unit">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                			Online
-                			</h1>
+                            Online
+                            </h1>
                         </div>
-                        {{>yield "onlinecounter"}}
+                        <div class="panel-body unit">
+                            {{>yield "onlinecounter"}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="panel panel-primary unit">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                			In Queue
-                		</h1>
+                            In Queue
+                        </h1>
                         </div>
-                        {{>yield "queuecounter"}}
+                        <div class="panel-body unit">
+                            {{>yield "queuecounter"}}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="panel panel-danger triple-unit">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                			Notifications
-                		</h1>
+                            Notifications
+                        </h1>
                         </div>
-                        {{>yield "notification"}}
+                        <div class="panel-body triple-unit">
+                            {{>yield "notification"}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,12 +93,10 @@ Any Templates used for the Home Screen will be placed here
     </div>
     <div class="row">
         <div class="col-xs-6">
-            {{>yield "top10"}}
+            <h2 class="text-center">Top 10 Players</h2> {{>yield "top10"}}
         </div>
         <div class="col-xs-6">
-            <div class="well dark quad-unit">
-                YouTube/ Advertisement/ Random space for random shit
-            </div>
+            <h2 class="text-center">Plays of the Week</h2> {{>yield "xtra"}}
         </div>
     </div>
 </template>
@@ -79,72 +104,262 @@ Any Templates used for the Home Screen will be placed here
 <!--RENDERED TEMPLATES -->
 
 <template name="homeprofile">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-xs-12">
-                <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
-                <figcaption class="text-center">{{myprofile.username}}</figcaption>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <table class="table table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th>Wins</th>
-                            <th>Losses</th>
-                            <th>Win %</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>90</td>
-                            <td>90</td>
-                            <td>50 %</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h1 class="text-center">Rank:</h1>
-                <h2 class="text-center">1223</h2>
-            </div>
-        </div>
-    </div>
+    <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
+    <figcaption class="text-center">{{myprofile.username}}</figcaption>
+    <br>
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>90</td>
+                <td>90</td>
+                <td>50 %</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h1 class="text-center">Rank:</h1>
+    <h2 class="text-center">1223</h2>
 </template>
 
-<template name="homecontent">
-
+<template name="homemaincontent">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Matchmaking ID</th>
+                <th class="col-xs-3">DotA 2 Match ID</th>
+                <th class="col-xs-3">Team</th>
+                <th class="col-xs-1">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="success">Win</td>
+            </tr>
+            <tr>
+                <td>1181</td>
+                <td>11912848124</td>
+                <td>Radiant</td>
+                <td class="danger">Loss</td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <template name="homeonlinecounter">
-    <div class="panel-body">
-        10,000
-    </div>
+    <p class="text-center counter">32232</p>
 </template>
 
 <template name="homequeuecounter">
-    <div class="panel-body">
-        2939359
-    </div>
+    <p class="text-center counter">22020</p>
 </template>
 
 <template name="homenotification">
-    <div class="panel-body">
-        This could be above the 2 Player counters as well.
-    </div>
+    This could be above the 2 Player counters as well.
 </template>
 
 <template name="hometop10">
-    <div class="well dark quad-unit">
-        Table for Top 10 Players
-    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="col-xs-1">Rank</th>
+                <th class="col-xs-3">Username</th>
+                <th class="col-xs-3">Wins</th>
+                <th class="col-xs-3">% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>122</td>
+                <td>76.8 %</td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
-<template name="advert">
-
+<template name="homextra">
+    <div class="well dark quad-unit">
+        YouTube/ Advertisement/ Random space for random shit
+    </div>
 </template>
 
 <template name="homeloading">

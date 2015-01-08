@@ -35,33 +35,33 @@ input.dark {
     background-color: #333333;
     border: 1px solid #212121;
 }
-.double-unit {
-    height: 221px;
-    overflow-y: auto;
-    word-wrap: break-word;
-}
 .unit {
-    height: 100px;
+    height: 85px;
     overflow-y: auto;
     word-wrap: break-word;
 }
-.quad-unit {
-    height: 463px;
+.double-unit {
+    height: 216px;
     overflow-y: auto;
     word-wrap: break-word;
 }
 .triple-unit {
-    height: 342px;
+    height: 347px;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+.quad-unit {
+    height: 478px;
     overflow-y: auto;
     word-wrap: break-word;
 }
 .centerme {
-    #position:relative;
-    #top:50%;
-    #transform: translateY(-100%);
-    padding-top: 10px;
+    #padding-top: 5px;
 }
 table.padded td, table.padded th {
-    padding-right:50px;
-    padding-top:10px;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+p.counter {
+    font-size: 24pt;
 }

@@ -2122,7 +2122,7 @@ th {
   border-bottom-width: 2px;
 }
 .table-striped > tbody > tr:nth-child(odd) {
-  background-color: #a9a9a9;
+  background-color: #333333;
 }
 .table-hover > tbody > tr:hover {
   background-color: #515151;
@@ -5064,10 +5064,10 @@ a.list-group-item-danger.active:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .panel-body {
-  padding: 15px;
+  padding: 10px;
 }
 .panel-heading {
-  padding: 5px 15px;
+  padding: 2px 15px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: -1;
   border-top-left-radius: -1;

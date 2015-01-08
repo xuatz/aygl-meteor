@@ -153,6 +153,9 @@ Template.verifiedsignupform.events({
         }, function(err) {
             if (err !== undefined) {
                 alert(err);
+                if (err.error === "Signup_Err_005" || err.error === "Signup_Err_004") {
+                    Router.go('/');
+                }
             } else {
                 registeringNow.stop();
                 Meteor.call('registrationComplete', steamIdentity.sig);

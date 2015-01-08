@@ -3,20 +3,26 @@ HomeController = RouteController.extend({
 });
 
 Router.route('/home', function() {
-    this.render('homeloading', {
+    this.render('homeprofile', {
         to: "profile"
     });
-    this.render('homeloading', {
+    this.render('homemaincontent', {
+        to: "maincontent"
+    });
+    this.render('homeonlinecounter', {
         to: "onlinecounter"
     });
-    this.render('homeloading', {
+    this.render('homequeuecounter', {
         to: "queuecounter"
     });
-    this.render('homeloading', {
+    this.render('homenotification', {
         to: "notification"
     });
-    this.render('homeloading', {
+    this.render('hometop10', {
         to: "top10"
+    });
+    this.render('homextra', {
+        to: "xtra"
     });
     this.next()
 }, {
