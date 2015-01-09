@@ -1,4 +1,4 @@
-/* CSS declarations go here */
+/* Custom classes not related to Bootstrap */
 
 img.huge {
     width: 750px;
@@ -58,10 +58,21 @@ input.dark {
 .centerme {
     #padding-top: 5px;
 }
-table.padded td, table.padded th {
-    padding-right: 50px;
-    padding-top: 10px;
-}
 p.counter {
     font-size: 24pt;
+}
+
+table.text-center thead tr th, table.text-center tbody tr td {
+    text-align: center;
+}
+/*
+
+Direct Modification to bootstrap classes
+
+*/
+.panel-body {
+  padding: 10px;
+}
+.panel-heading {
+  padding: 2px 15px;
 }

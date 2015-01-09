@@ -1,9 +1,10 @@
 VerifyTab = new Mongo.Collection('vtab');
+le_web_address = 'localhost:3000';
 
 if (Meteor.isClient) {
     Template.mainregister.helpers({
         steamloginlink: function() {
-            var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://localhost:3000/&openid.return_to=http://localhost:3000/signin/';
+            var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://'+le_web_address+'/&openid.return_to=http://'+le_web_address+'/signin/';
 
             return url;
 
