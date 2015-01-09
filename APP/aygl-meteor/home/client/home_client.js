@@ -48,10 +48,13 @@ shownotification = function(name) {
             exit: "animated bounceOutRight"
         },
         placement: {
-            from: "bottom",
+            from: "top",
             align: "center"
         },
         type: 'success',
+        offset:{
+            y:150
+        },
         template: '\
 <div data-growl="container" class="alert col-xs-4" role="alert">\
 	<button type="button" class="close" data-growl="dismiss">\
