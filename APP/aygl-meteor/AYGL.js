@@ -11,6 +11,8 @@ if (Meteor.isClient) {
             horrible
             horrible
 
+            hi sexy
+
             *plz do not delete this line*
 
             return url;
