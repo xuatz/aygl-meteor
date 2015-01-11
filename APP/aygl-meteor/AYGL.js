@@ -5,16 +5,8 @@ howeasdasdasd
 if (Meteor.isClient) {
     Template.mainregister.helpers({
         steamloginlink: function() {
-
-        	*plz do not delete this line*
-
-            horrible
-            horrible
-
-            hi sexy
-
-            *plz do not delete this line*
-
+		var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://'+le_web_address+'/&openid.return_to=http://'+le_web_address+'/signin/';
+	// these guys really suck, alot of rubbish code.
             return url;
 
         }
