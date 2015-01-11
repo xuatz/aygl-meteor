@@ -4,8 +4,7 @@ le_web_address = '128.199.86.69:3001';
 if (Meteor.isClient) {
     Template.mainregister.helpers({
         steamloginlink: function() {
-            var url = 'https://steamcommunity.com/openid/login?openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.realm=http://'+le_web_address+'/&openid.return_to=http://'+le_web_address+'/signin/';
-
+            var url = '';
             return url;
 
         }
