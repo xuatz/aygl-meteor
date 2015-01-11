@@ -1,5 +1,5 @@
 VerifyTab = new Mongo.Collection('vtab');
-le_web_address = 'you are die';
+le_web_address = 'you are die234234234234';
 
 if (Meteor.isClient) {
     Template.mainregister.helpers({
