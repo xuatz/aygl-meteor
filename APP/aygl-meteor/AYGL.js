@@ -1,5 +1,4 @@
 VerifyTab = new Mongo.Collection('vtab');
-le_web_address = '1asdasdj/123123123./.123123';
 le_web_address = '128.199.86.69:3001';
 
 if (Meteor.isClient) {
