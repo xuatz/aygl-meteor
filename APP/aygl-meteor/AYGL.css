@@ -15,6 +15,9 @@ img.small {
 img.tiny {
     width: 100px;
 }
+img.mini {
+    width:50px;
+}
 img.micro {
     width: 30px;
 }
@@ -65,6 +68,85 @@ p.counter {
 table.text-center thead tr th, table.text-center tbody tr td {
     text-align: center;
 }
+
+/* Drafting Page */
+.drafting
+{
+    height:400px;
+}
+
+.drafting.radiant, .drafting.pool, .drafting.dire
+{
+    width:100%;
+    display:inline-block;
+}
+
+
+.drafting.pool
+{
+    border: 3px solid #212121;
+    border-radius:2px;
+    /*background:#bea770;*/
+}
+.drafting_radiant_title
+{
+    background:#31a30b;
+}
+
+.drafting_dire_title
+{
+    background:#890d0d;
+}
+
+.drafting_title
+{
+    text-align:right;
+    text-decoration: underline;
+    font-size: 20px;
+}
+.drafting_listing
+{
+    margin: 5px 0px 5px 0px;
+    height:54px;
+    border: 2px solid #212121;
+}
+
+.drafting_chosen
+{
+    border: 2px solid #212121;
+    width:200px;
+}
+.drafting_chosen img
+{
+    width: 54px;
+    display:inline-block;
+    position:absolute;
+}
+.drafting_chosen_name
+{
+    display:inline-block;
+    overflow:hidden;
+    width:100%;
+    background:cyan;
+}
+
+
+
+.drafting_table
+{
+    overflow:hidden;
+}
+
+
+.drafting_details
+{
+    margin-top:-3px;
+    border: 3px solid #212121;
+    border-radius:2px;
+    height:50px;
+    background:#F39C12;
+}
+
 /*
 
 Direct Modification to bootstrap classes

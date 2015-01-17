@@ -133,9 +133,49 @@ Any Templates used for the Home Screen will be placed here
 </template>
 
 <template name="homemaincontent">
+    <!--
     <div class="well dark text-center">
         This area is awaiting enligtenment soon. Patience, my young Padawan...
+    </div>-->
+    
+    {{>yield "draftingcontent"}}
+    
+
+</template>
+
+<template name="homedraftingcontent">
+    <div class="col-xs-4 drafting" >
+        <div class="drafting radiant">
+            <div class="drafting_radiant_title">
+            Radiant
+            </div>
+            <div class="drafting_listing">
+            <div class="drafting_table">
+            <img src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/b1/b174f661a12f7e4a95a8c00947952c036c2dd554_full.jpg" class="avatar mini">
+            <div class="drafting_chosen_name">qweasddddddddddddddddddddddddzzzzzzzzzq
+            </div>
+            </div>
+            </div>
+        </div>
     </div>
+    <div class="col-xs-4">
+        <div class="drafting pool text-center">
+        Chosen
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class="drafting dire text-center">
+        Dire
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="drafting_details">
+        Some details here
+        </div>
+    </div>
+    
 </template>
 
 <template name="homeonlinecounter">
