@@ -86,14 +86,6 @@ table.text-center thead tr th, table.text-center tbody tr td {
     font-weight: bolder;
     color:#f2b613;
 }
-
-.drafting-text, .drafting-radiant-turn, .drafting-dire-turn
-{
-    display:inline;
-    font-weight:bold;
-    width:30px;   
-    height:30px;
-}
 .drafting-turn
 {
     text-align:center;
@@ -127,9 +119,10 @@ table.text-center thead tr th, table.text-center tbody tr td {
 }
 .drafting-members-wrapper
 {
-    width: calc(100% - 130px);
+    width: calc(100% - 140px);
     height: 65px;
     display:inline-block;
+    float:right;
 }
 .drafting-radiant .drafting-teammate, .drafting-radiant .drafting-captain
 {
@@ -142,28 +135,67 @@ table.text-center thead tr th, table.text-center tbody tr td {
 .drafting-captain
 {
     height: 130px;
+    margin: 0px 5px 0px 5px;
 }
 .drafting-teammate
 {
     height: 55px;
-    width: 48%%;
+    width: 49%;
     margin-top:5px;
-    margin-left:1%;
     display:inline-block;
     text-align: center;
 }
-.drafting-teammate-pic
+.drafting-radiant .drafting-teammate
+{
+    float:left;
+}
+.drafting-dire .drafting-teammate
+{
+    float:right;
+}
+.drafting-radiant .drafting-teammate-pic
 {
     height: 51px;
     border-right:2px solid #000000;
 }
-
-
-.drafting-page-bottom
+.drafting-dire .drafting-teammate-pic
 {
-    
+    height: 51px;
+    border-left:2px solid #000000;
 }
 
+.drafting-page-bottom h1
+{
+    display:inline;
+    color:#c4a77b;
+}
+.drafting-page-bottom-title
+{
+    margin:10px;
+    height:50px;
+}
+.drafting-note
+{
+    display:inline;
+    float: right;
+    margin-top:16px;
+    vertical-align: bottom;
+}
+
+.drafting-pool
+{
+    display:block;
+    border:2px solid #000000;
+    border-radius:5px;
+    overflow:auto;
+    height:500px;
+}
+.drafting-divider
+{
+    border:2px solid #c4a77b;
+    border-radius:5px;
+    margin:20px;
+}
 
 
 

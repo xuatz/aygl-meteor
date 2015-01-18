@@ -24,9 +24,6 @@ Router.route('/home', function() {
     this.render('homextra', {
         to: "xtra"
     });
-    this.render('homedraftingcontent', {
-        to: "draftingcontent"
-    });
     this.next()
 }, {
     name: 'home',

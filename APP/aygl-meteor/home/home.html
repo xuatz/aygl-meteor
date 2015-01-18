@@ -5,87 +5,380 @@ Any Templates used for the Home Screen will be placed here
 
 <!--LAYOUT TEMPLATE -->
 <template name="homeLayout">
-    <div class="drafting-page-top">
-        <div class="col-xs-5" >
-            <div class="drafting-radiant">
-                <div class="drafting-radiant-title">
-                Radiant
-                </div>
-                <div class="drafting-team-wrapper">
-                    <img src="../profileimg.jpg" class="drafting-captain">
-                    <div class="drafting-members-wrapper">
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi1
-
-                        </div>
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi2
-                        
-                        </div>
-                    </div>
-                    <div class="drafting-members-wrapper">
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi1
-
-                        </div>
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi2
-                        
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+    <div class="row">
+        <div class="col-xs-9">
+            <h1>Act Yi Ge Home Screen Title</h1>
         </div>
-        <div class="col-xs-2" >
-            <div class="drafting-title">
-                Drafting
-            </div>
-            <div class="drafting-time">
-            60
-            </div>
-            <div class="drafting-turn">
-                Your Turn!
-            </div>
-        </div>
-        <div class="col-xs-5" >
-            <div class="drafting-dire">
-                <div class="drafting-dire-title">
-                Dire
+        <div class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4 class="text-center">Search for Match:</h4>
                 </div>
-                <div class="drafting-team-wrapper">
-                    <img src="../profileimg.jpg" class="drafting-captain">
-                    <div class="drafting-members-wrapper">
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi1
-
-                        </div>
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi2
-                        
-                        </div>
-                    </div>
-                    <div class="drafting-members-wrapper">
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi1
-
-                        </div>
-                        <div class ="drafting-teammate">
-
-                            <img src="../profileimg.jpg" class="drafting-teammate-pic">hihi2
-                        
-                        </div>
-                    </div>
-                   
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button class="btn btn-sm btn-warning btn-block" id="joinCapt">Join as Captain</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-sm btn-primary btn-block" id="joinPlayer">Join as Player</button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row toppadding">
+        <div class="col-xs-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Profile</h1>
+                </div>
+                <div class="panel-body quad-unit">
+                    {{>yield "profile"}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="text-center panel-title">Some Content Here!</h1>
+                </div>
+                <div class="panel-body quad-unit">
+                    {{>yield "maincontent"}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                            Online
+                            </h1>
+                        </div>
+                        <div class="panel-body unit">
+                            {{>yield "onlinecounter"}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                            In Queue
+                        </h1>
+                        </div>
+                        <div class="panel-body unit">
+                            {{>yield "queuecounter"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                            This Space for RENT!!
+                        </h1>
+                        </div>
+                        <div id="pewpew" class="panel-body triple-unit">
+                            {{>yield "notification"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <h2 class="text-center">Top 10 Players</h2>
+                <div class="well well-sm quad-unit">
+            {{>yield "top10"}}
+        </div>
+        </div>
+        <div class="col-xs-6">
+            <h2 class="text-center">Match History</h2> 
+                <div class="well well-sm quad-unit">
+            {{>yield "xtra"}}
+        </div>
+        </div>
+    </div>
+</template>
+
+<!--RENDERED TEMPLATES -->
+
+<template name="homeprofile">
+    <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
+    <figcaption class="text-center">{{myprofile.username}}</figcaption>
+    <br>
+    <table class="table table-condensed table-hover text-center">
+        <thead>
+            <tr>
+                <th class="col-xs-4">Wins</th>
+                <th class="col-xs-4">Losses</th>
+                <th class="col-xs-4">% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>90</td>
+                <td>90</td>
+                <td>50 %</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h1 class="text-center">Rank:</h1>
+    <h2 class="text-center">1223</h2>
+</template>
+
+<template name="homemaincontent">
+    <div class="well dark text-center">
+        This area is awaiting enligtenment soon. Patience, my young Padawan...
+    </div>
+</template>
+
+<template name="homeonlinecounter">
+    <p class="text-center counter">32232</p>
+</template>
+
+<template name="homequeuecounter">
+    <p class="text-center counter">22020</p>
+</template>
+
+<template name="homenotification">
+    <div class="alert alert-dismissable alert-warning">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4>Oh dear!</h4>
+        <p class="text-justify">It seems like we might not need this panel to show notifications anymore because we already have another system in place. To see a test notification, click <a id="testnotification" href="#">HERE</a>!</p>
+    </div>
+        <div class="alert alert-dismissable alert-warning">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4>Oh, by the way...</h4>
+        <p class="text-justify">I've configured the new notifications to auto-dismiss. This will <strong class="text-danger">NOT</strong> be the case when the website is live. Let me know your suggestions for this space or any huge layout revamps via SLACK ok?</p>
+    </div>
+</template>
+
+<template name="hometop10">
+    <table class="table table-striped table-hover text-center">
+        <thead>
+            <tr>
+                <th class="col-xs-1">Rank</th>
+                <th class="col-xs-3">Username</th>
+                <th class="col-xs-3">Wins</th>
+                <th class="col-xs-3">% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>itchyfishy</td>
+                <td>9001</td>
+                <td>96.8 %</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>every_mother_son</td>
+                <td>8774</td>
+                <td>86.8 %</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>senpai</td>
+                <td>4554</td>
+                <td>77.8 %</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>minnasan</td>
+                <td>3434</td>
+                <td>73.8 %</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>cookie-monster99</td>
+                <td>3433</td>
+                <td>57.8 %</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>smartplaya</td>
+                <td>3432</td>
+                <td>55.8 %</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>a_username</td>
+                <td>233</td>
+                <td>54.8 %</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>clicky</td>
+                <td>122</td>
+                <td>53.8 %</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>flyings212</td>
+                <td>100</td>
+                <td>51.8 %</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>oh_gawd_why</td>
+                <td>20</td>
+                <td>50.8 %</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
+
+<template name="homextra">
+    <table class="table table-striped table-hover text-center quad-unit">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Matchmaking ID</th>
+                <th class="col-xs-3">DotA 2 Match ID</th>
+                <th class="col-xs-3">Team</th>
+                <th class="col-xs-1">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>234523342</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>8724524533</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2135324634</td>
+                <td>Radiant</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>123414123</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>2525235236</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>363346346</td>
+                <td>Dire</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>623235235</td>
+                <td>Radiant</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>232344423</td>
+                <td>Radiant</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>5523523552</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>5235235235</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>235235233</td>
+                <td>Dire</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>1212312415</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>16516161714</td>
+                <td>Dire</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>16666716151</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>11512435245</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>44433626246</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>246243523334</td>
+                <td>Radiant</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>1123125153</td>
+                <td>Radiant</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>61356246344</td>
+                <td>Dire</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>1241223666</td>
+                <td>Dire</td>
+                <td class="text-success">Win</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>66666666666</td>
+                <td>Dire</td>
+                <td class="text-danger">Loss</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
+
+<template name="homeloading">
+    <div class="centerme">
+        <p class="text-center">Loading...
+            <img src="/loader2.gif" class="center-block micro">
+        </p>
     </div>
 </template>
