@@ -15,9 +15,6 @@ img.small {
 img.tiny {
     width: 100px;
 }
-img.mini {
-    width:50px;
-}
 img.micro {
     width: 30px;
 }
@@ -70,82 +67,106 @@ table.text-center thead tr th, table.text-center tbody tr td {
 }
 
 /* Drafting Page */
-.drafting
+.drafting-page-top
 {
-    height:400px;
+    height:180px;
+    overflow-y:auto;
+}
+.drafting-title
+{
+    text-align: center; 
+    font-size:30px;
+    font-weight: bolder;
+    color:#c4a77b;
+}
+.drafting-time
+{
+    text-align: center;
+    font-size:60px;
+    font-weight: bolder;
+    color:#f2b613;
 }
 
-.drafting.radiant, .drafting.pool, .drafting.dire
+.drafting-text, .drafting-radiant-turn, .drafting-dire-turn
 {
-    width:100%;
-    display:inline-block;
+    display:inline;
+    font-weight:bold;
+    width:30px;   
+    height:30px;
 }
-
-
-.drafting.pool
+.drafting-turn
 {
-    border: 3px solid #212121;
-    border-radius:2px;
-    /*background:#bea770;*/
+    text-align:center;
+    color:#13abf2;
+    font-size:20px;
 }
-.drafting_radiant_title
+.drafting-radiant-title
 {
-    background:#31a30b;
+    text-align:left;
+    color:#5AA043;
+    font-size:30px;
 }
-
-.drafting_dire_title
-{
-    background:#890d0d;
-}
-
-.drafting_title
+.drafting-dire-title
 {
     text-align:right;
-    text-decoration: underline;
-    font-size: 20px;
+    color:#DB2020;
+    font-size:30px;    
 }
-.drafting_listing
+.drafting-team-wrapper
 {
-    margin: 5px 0px 5px 0px;
-    height:54px;
-    border: 2px solid #212121;
+    height: 130px;
 }
 
-.drafting_chosen
-{
-    border: 2px solid #212121;
-    width:200px;
+.drafting-radiant .drafting-team-wrapper img
+{   
+    float:left;
 }
-.drafting_chosen img
+.drafting-dire .drafting-team-wrapper img
+{   
+    float:right;
+}
+.drafting-members-wrapper
 {
-    width: 54px;
+    width: calc(100% - 130px);
+    height: 65px;
     display:inline-block;
-    position:absolute;
 }
-.drafting_chosen_name
+.drafting-radiant .drafting-teammate, .drafting-radiant .drafting-captain
 {
+    border:2px solid #5AA043
+}
+.drafting-dire .drafting-teammate, .drafting-dire .drafting-captain
+{
+    border:2px solid #DB2020;
+}
+.drafting-captain
+{
+    height: 130px;
+}
+.drafting-teammate
+{
+    height: 55px;
+    width: 48%%;
+    margin-top:5px;
+    margin-left:1%;
     display:inline-block;
-    overflow:hidden;
-    width:100%;
-    background:cyan;
+    text-align: center;
 }
-
-
-
-.drafting_table
+.drafting-teammate-pic
 {
-    overflow:hidden;
+    height: 51px;
+    border-right:2px solid #000000;
 }
 
 
-.drafting_details
+.drafting-page-bottom
 {
-    margin-top:-3px;
-    border: 3px solid #212121;
-    border-radius:2px;
-    height:50px;
-    background:#F39C12;
+    
 }
+
+
+
+
 
 /*
 
