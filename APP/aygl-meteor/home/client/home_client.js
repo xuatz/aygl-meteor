@@ -11,8 +11,66 @@ Template.homeprofile.helpers({
     }
 });
 
+Template.homecaptainslobby.helpers({
+    info: function() {
+        return Games.findOne({
+            lobby_id: Meteor.user().room
+        });
+    }
+});
 
+Template.challengerprofile.helpers({
+    selectedChallenger: function() {
+        return Meteor.users.findOne({
+            username: Session.get('selectedChallenger')
+        });
+    }
+});
 
+Template.homemaincontent.helpers({
+    list_lobby_hosted: function() {
+        var rowLength = 2;
+        var modifiedList = [];
+        var originalList = Games.find({
+            state: "hosted"
+        }).fetch();
+        var listSize = originalList.length;
+        var noOfLines = Math.floor(listSize / rowLength);
+        var remainder = listSize % rowLength;
+
+        for (var i = 0; i < noOfLines; i++) {
+            var currentRow = [];
+            for (var j = 0; j < rowLength; j++) {
+                currentRow.push(originalList.pop());
+            }
+            modifiedList.push(currentRow);
+        }
+
+        if (originalList.length !== 0) {
+            var currentRow = [];
+            for (var k = 0; k < remainder; k++) {
+                currentRow.push(originalList.pop());
+            }
+            modifiedList.push(currentRow);
+        }
+        return modifiedList;
+    },
+    list_lobby_waiting: function() {
+        //TODO ADJUST FILTER
+        return Games.find({
+            state: "waiting"
+        });
+    },
+    lobbyIsEmpty: function() {
+        var result;
+        if (Games.find().count() === 0) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
+});
 
 /*
 ======================================================================================================
@@ -21,10 +79,44 @@ All Template handlers for templates defined within signup.html will be placed he
 ======================================================================================================
 */
 
-Template.homenotification.events({
+Template.homesidecontent.events({
     'click #testnotification': function(evt) {
         evt.preventDefault();
         shownotification(Meteor.user().username);
+    }
+});
+
+Template.homeLayout.events({
+    'click #joinCapt': function(evt) {
+        evt.preventDefault();
+        $('#hostmodal').modal('show');
+        /*
+        Meteor.call('createNewGame', function(err, res) {
+            if (err) {
+                alert(err);
+            } else {
+                Session.set('gameId', res);
+            }
+        });
+        */
+    }
+});
+
+Template.hostmodal.events({
+    'click #buttoncancel': function (evt) {
+        evt.preventDefault();
+        $('#hostmodal').modal('hide');
+    },
+    'click #buttonhost': function(evt, template) {
+        evt.preventDefault();
+        console.log(template.$('#gametitle'));
+        Meteor.call('createNewGame',template.$('#gametitle')[0].value, function(err, res) {
+            if(err) {
+                alert(err);
+            } else {
+                Session.set('gameId', res);
+            }
+        });
     }
 });
 
@@ -52,19 +144,25 @@ shownotification = function(name) {
             align: "center"
         },
         type: 'success',
-        offset:{
-            y:150
+        offset: {
+            y: 150
         },
         template: '\
 <div data-growl="container" class="alert col-xs-4" role="alert">\
-	<button type="button" class="close" data-growl="dismiss">\
-		<span aria-hidden="true">×</span>\
-		<span class="sr-only">Close</span>\
-	</button>\
-	<span data-growl="icon"></span> - \
-	<span data-growl="title"></span> : \
-	<span data-growl="message"></span>\
-	<a href="#" data-growl="url"></a>\
+    <button type="button" class="close" data-growl="dismiss">\
+        <span aria-hidden="true">×</span>\
+        <span class="sr-only">Close</span>\
+    </button>\
+    <span data-growl="icon"></span> - \
+    <span data-growl="title"></span> : \
+    <span data-growl="message"></span>\
+    <a href="#" data-growl="url"></a>\
 </div>'
     });
 }
+
+/*
+TEST CODE AREA
+*/
+
+Meteor.subscribe('displayCurrentMatches');

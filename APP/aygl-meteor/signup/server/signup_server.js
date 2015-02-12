@@ -66,6 +66,7 @@ Accounts.validateNewUser(function(user) {
     if (Meteor.users.find({
             "profile.steamID": user.profile.steamID
         }).count() > 0) {
+        VerifyTab.remove({sig: user.profile.hash});
         throw signup_error_005_DUPLICATE_STEAMUSER;
     }
 

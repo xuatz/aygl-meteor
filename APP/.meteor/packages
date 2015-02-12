@@ -11,3 +11,4 @@ mizzao:user-status
 jquery
 iron:router
 http
+percolate:synced-cron
