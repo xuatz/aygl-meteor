@@ -6,6 +6,7 @@ Any Errors which will be thrown will be defined in this section
 */
 
 home_error_001_ALREADY_IN_GAME = new Meteor.Error('Home_Err_001', 'You are already part of a game.');
+home_error_002_TITLE_TOO_LONG = new Meteor.Error('Home_Err_002', 'The title cannot exceed 45 characters');
 
 
 /*
@@ -24,15 +25,22 @@ Meteor.methods({
         });
 
         //Check if user is already part of a game
-        if (hostingplayer.profile.state === 'hosting' || hostingplayer.profile.state === 'drafting' || hostingplayer.profile.state === 'in-match') {
+        if (hostingplayer.profile.state === 'hosting' ||
+            hostingplayer.profile.state === 'drafting' ||
+            hostingplayer.profile.state === 'in-match' ||
+            hostingplayer.profile.state === 'waiting') {
             throw home_error_001_ALREADY_IN_GAME;
         }
-        console.log(title + " IS BEFORE");
+
+        //Check if the title is too long
+        if (title.length > 45) {
+            throw home_error_002_TITLE_TOO_LONG;
+        }
+
         //Setting the default title if needed
         if (!title || title.trim() === '') {
             title = "Just Another AYGL Match";
         }
-        console.log(title + " IS FINAL");
 
         //Create the game JSON to be inserted into the Collection
         var newGame;
@@ -67,30 +75,66 @@ Meteor.methods({
         return gameId;
     },
     resetState: function(user) {
-        //If and only if, called by SERVER, take note of the userId supplied
+        //If and only if, called by SERVER, take note of the userId supplied, else perform reset on the user who called the method
         var targetUser;
-        if (this.userId === null) {
+        if (!this.userId) {
             targetUser = user;
         } else {
-            targetUser = Meteor.findOne({
+            targetUser = Meteor.users.findOne({
                 _id: this.userId
             });
         }
 
         if (targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
             //All is well, do nothing
+            return;
         } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting") {
             //User is a captain. We must remove the game and inform the involved players about the removal
-            Games.update({
+            //Removing Game
+            Games.remove({
                 _id: targetUser.profile.room
-            }, {});
+            });
+
+            //TODO: Notification for other users
+
         } else if (targetUser.profile.state === "pending accept") {
             //User has challenged a captain. He/She should be removed from the Game list and reset to idle
+            //Remove the player from the Challengers' List
+            Games.update({
+                _id: targetUser.profile.room
+            }, {
+                $pull: {
+                    challengers: {
+                        name: targetUser.username
+                    }
+                }
+            });
+
         } else if (targetUser.profile.state === "ready" || targetUser.profile.state === "reserved") {
             //User shld be returned to idle. Nothing else done.
+            //DOING NOTHING NOW
         } else if (targetUser.profile.state === "selected") {
             //User was already drafted into a team. He/She should be removed from the team
+            Games.update({
+                _id: targetuser.profile.room
+            }, {
+                $pull: {
+                    "draft": {
+                        name: targetUser.username
+                    }
+                }
+            });
         }
+
+        //Setting status to idle
+        Meteor.users.update({
+            _id: targetUser._id
+        }, {
+            $set: {
+                "profile.state": "idle"
+            }
+        });
+
     }
 });
 
@@ -174,11 +218,10 @@ Meteor.users.find({
 }).observe({
     added: function(id) {
         // id just came online
-        console.log(id.username + " JUST CAME ONLINE");
     },
     removed: function(id) {
         // id just went offline
         var pstate = id.profile.state;
-        console.log(pstate + " IS THE STATE");
+        Meteor.call('resetState', id);
     }
 });

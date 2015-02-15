@@ -6,6 +6,18 @@ Router.route('/home', function() {
     /*
         Main Content Block Rendering Logic
     */
+    if (Meteor.user().profile.state === 'hosting' ||
+        Meteor.user().profile.state === 'drafting' ||
+        Meteor.user().profile.state === 'in-match' ||
+        Meteor.user().profile.state === 'waiting') {
+        this.render('joinedmenu', {
+            to: "toprightcorner"
+        });
+    } else {
+        this.render('joinmenu', {
+            to: "toprightcorner"
+        });
+    }
 
     if (Meteor.user().profile.state === 'hosting') {
         this.render('homecaptainslobby', {

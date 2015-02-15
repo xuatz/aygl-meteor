@@ -5,6 +5,30 @@
 ======================================================================================================
 */
 
+Template.homeLayout.helpers({
+    state: function() {
+        if (Meteor.user()) {
+            return Meteor.user().profile.state;
+        } else {
+            return "meh";
+        }
+    },
+    catchphrase: function() {
+        var result;
+
+        var index = Math.floor(Math.random() * HOME_CATCHPHRASES.length);
+
+        if (index === 0) {
+            result = false;
+        } else {
+            result = {
+                string: "\"" + HOME_CATCHPHRASES[index] + "\""
+            }
+        }
+        return result;
+    }
+});
+
 Template.homeprofile.helpers({
     myprofile: function() {
         return Meteor.user();
@@ -79,6 +103,12 @@ All Template handlers for templates defined within signup.html will be placed he
 ======================================================================================================
 */
 
+Template.joinedmenu.events({
+    'click #leavegame': function() {
+        Meteor.call('resetState');
+    }
+});
+
 Template.homesidecontent.events({
     'click #testnotification': function(evt) {
         evt.preventDefault();
@@ -90,33 +120,27 @@ Template.homeLayout.events({
     'click #joinCapt': function(evt) {
         evt.preventDefault();
         $('#hostmodal').modal('show');
-        /*
-        Meteor.call('createNewGame', function(err, res) {
-            if (err) {
-                alert(err);
-            } else {
-                Session.set('gameId', res);
-            }
-        });
-        */
     }
 });
 
 Template.hostmodal.events({
-    'click #buttoncancel': function (evt) {
+    'click #buttoncancel': function(evt) {
         evt.preventDefault();
         $('#hostmodal').modal('hide');
     },
     'click #buttonhost': function(evt, template) {
         evt.preventDefault();
-        console.log(template.$('#gametitle'));
-        Meteor.call('createNewGame',template.$('#gametitle')[0].value, function(err, res) {
-            if(err) {
+        $('#hostmodal').modal('hide');
+        Meteor.call('createNewGame', template.$('#gametitle')[0].value, function(err, res) {
+            if (err) {
                 alert(err);
             } else {
-                Session.set('gameId', res);
+                template.$('#gametitle')[0].value = "";
             }
         });
+    },
+    'submit': function(evt) {
+        evt.preventDefault();
     }
 });
 
@@ -128,6 +152,11 @@ All Template.rendered handlers for templates defined in signup.html will be plac
 ======================================================================================================
 */
 
+Template.homeLayout.rendered = function() {
+    $('#hostmodal').on('shown.bs.modal', function(eve) {
+        $('#gametitle')[0].focus();
+    });
+};
 
 shownotification = function(name) {
     $.growl({

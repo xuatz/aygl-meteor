@@ -5,22 +5,28 @@
     font-family: 'Cuprum', sans-serif;
 }
 img.huge {
-    width: 750px;
+    width: 650px;
+    height:auto;
 }
 img.large {
-    width: 450px;
+    width: 390px;
+    height:auto;
 }
 img.medium {
-    width: 250px;
+    width: 200px;
+    height:auto;
 }
 img.small {
-    width: 150px;
+    width: 130px;
+    height:auto;
 }
 img.tiny {
-    width: 100px;
+    width: 50px;
+    height:auto;
 }
 img.micro {
-    width: 30px;
+    width: 25px;
+    height:auto;
 }
 img.avatar {
     border: 4px double #000;
@@ -62,6 +68,11 @@ input.dark {
 .centerme {
     #padding-top: 5px;
 }
+
+.wraptext {
+    word-wrap:break-word;
+}
+
 p.counter {
     font-size: 24pt;
 }
