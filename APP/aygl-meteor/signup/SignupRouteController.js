@@ -6,9 +6,8 @@ Router.route('/verifiedsignup/', function() {
     routerObj.render('loading');
     Meteor.call('checkValidSignup', sig, function(err, res) {
         if (!res) {
-            //NOPES. Please Try again
-            console.log(res);
-            //TODO render NOPE PAGE!!!
+            //Invalid Link
+            routerObj.render('signup_nope');
         } else {
             //RENDER REGISTRATION PAGE
             registeringNow = Meteor.subscribe('registeringPlayers', sig);

@@ -148,7 +148,22 @@ Template.verifiedsignupform.events({
                 personaname: steamIdentity.personaname,
                 avatar: steamIdentity.avatar,
                 hash: steamIdentity.sig,
-                updated: steamIdentity.updated
+                matchmaking: {
+                    preferred_role: null,
+                    top3: {
+                        hero1: null,
+                        hero2: null,
+                        hero3: null
+                    }
+                },
+                ranking: {
+                    rank: 'TBD',
+                    percentile: 'TBD',
+                    calibration: 5
+                },
+                updated: steamIdentity.updated,
+                state: 'idle',
+                room: null
             }
         }, function(err) {
             if (err !== undefined) {

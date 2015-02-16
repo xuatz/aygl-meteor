@@ -1,22 +1,32 @@
 /* Custom classes not related to Bootstrap */
 
+@import url(http://fonts.googleapis.com/css?family=Cuprum);
+.cuprum {
+    font-family: 'Cuprum', sans-serif;
+}
 img.huge {
-    width: 750px;
+    width: 650px;
+    height:auto;
 }
 img.large {
-    width: 450px;
+    width: 390px;
+    height:auto;
 }
 img.medium {
-    width: 250px;
+    width: 200px;
+    height:auto;
 }
 img.small {
-    width: 150px;
+    width: 130px;
+    height:auto;
 }
 img.tiny {
-    width: 100px;
+    width: 50px;
+    height:auto;
 }
 img.micro {
-    width: 30px;
+    width: 25px;
+    height:auto;
 }
 img.avatar {
     border: 4px double #000;
@@ -58,21 +68,42 @@ input.dark {
 .centerme {
     #padding-top: 5px;
 }
+
+.wraptext {
+    word-wrap:break-word;
+}
+
 p.counter {
     font-size: 24pt;
 }
-
 table.text-center thead tr th, table.text-center tbody tr td {
     text-align: center;
+}
+.profilecircle {
+    width: 70px;
+    height: 70px;
+    vertical-align:middle;
+    -webkit-border-radius: 99em;
+    -moz-border-radius: 99em;
+    border-radius: 50%;
+    border: 3px solid #aaa;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 /*
 
 Direct Modification to bootstrap classes
 
 */
+
+body {
+    font-family: 'Cuprum', sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Cuprum', sans-serif;
+}
 .panel-body {
-  padding: 10px;
+    padding: 10px;
 }
 .panel-heading {
-  padding: 2px 15px;
+    padding: 2px 15px;
 }
