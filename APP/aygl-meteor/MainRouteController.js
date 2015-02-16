@@ -1,4 +1,5 @@
 Router.onBeforeAction(function() {
+    console.log('XZ:DEBUG:15/2/15: MainRouteController.onBeforeAction');
     this.render('loading');
     if (Meteor.loggingIn()) {
 
@@ -31,5 +32,8 @@ Router.route('/', function() {
 }, {
     name: "root"
 });
+
+
+
 
 

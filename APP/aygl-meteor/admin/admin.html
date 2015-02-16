@@ -1,0 +1,81 @@
+<!--
+TEMPLATE DEFINITIONS FOR SIGNUP PROCESS
+Any Templates used for the Signup Process will be placed here
+-->
+
+<!-- LAYOUT TEMPLATE-->
+<template name="adminLayout">
+    <div class="row">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a id="tab1" href="#" data-toggle="tab">Match Listing</a>
+            </li>
+            <li>
+                <a id="tab2" href="#" data-toggle="tab">Pending Match to Review</a>
+            </li>
+            <li>
+                <a id="tab3" href="#" data-toggle="tab">Report Listing</a>
+            </li>
+            <li>
+                <a id="tab4" href="#" data-toggle="tab">Pending Report to Review</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container-fluid">    
+        {{>yield "tabContent"}}
+    </div>
+</template>
+
+
+<!-- RENDERED TEMPLATES-->
+<template name="adminMatchPendingUpdateList">
+    <div>
+        {{> adminMatchTable}}
+    </div>
+</template>
+
+<template name="adminMatchTable">
+    <table class="table table-striped table-hover text-center">
+        <thead>
+            <tr>
+                <th>Test1</th>
+                <th>Test2</th>
+                <th>Test3</th>
+                <th class="col-xs-3">% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+            </tr>
+            <tr>
+                {{#each matchPendingUpdateList}}
+                    {{> matchPendingUpdateRow}}
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
+</template>
+
+<template name="matchPendingUpdateRow">
+    <td>
+        <span> {{placeholder1}} </span>
+    </td>
+    <td>
+        <span> {{matchId}} </span>
+    </td>
+</template>
+
+
