@@ -89,6 +89,149 @@ table.text-center thead tr th, table.text-center tbody tr td {
     border: 3px solid #aaa;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
+
+/* Drafting Page */
+.drafting-page-top
+{
+    height:180px;
+    overflow-y:auto;
+}
+.drafting-title
+{
+    text-align: center; 
+    font-size:30px;
+    font-weight: bolder;
+    color:#c4a77b;
+}
+.drafting-time
+{
+    text-align: center;
+    font-size:60px;
+    font-weight: bolder;
+    color:#f2b613;
+}
+.drafting-turn
+{
+    text-align:center;
+    color:#13abf2;
+    font-size:20px;
+}
+.drafting-radiant-title
+{
+    text-align:left;
+    color:#5AA043;
+    font-size:30px;
+}
+.drafting-dire-title
+{
+    text-align:right;
+    color:#DB2020;
+    font-size:30px;    
+}
+.drafting-team-wrapper
+{
+    height: 130px;
+}
+
+.drafting-radiant .drafting-team-wrapper img
+{   
+    float:left;
+}
+.drafting-dire .drafting-team-wrapper img
+{   
+    float:right;
+}
+.drafting-members-wrapper
+{
+    width: calc(100% - 140px);
+    height: 130px;
+    display:inline-block;
+    float:right;
+}
+.drafting-radiant .drafting-teammate, .drafting-radiant .drafting-captain
+{
+    border:2px solid #5AA043
+}
+.drafting-dire .drafting-teammate, .drafting-dire .drafting-captain
+{
+    border:2px solid #DB2020;
+}
+.drafting-captain
+{
+    height: 130px;
+    margin: 0px 5px 0px 5px;
+}
+.drafting-teammate
+{
+    height: 55px;
+    width:100%;
+    margin:5px 0 5px 0;
+    display:block;
+    text-align: center;
+}
+.member-name
+{
+    width:calc(100% - 53px);
+    height:51px;
+    word-wrap:break-word;
+    overflow-y:auto;
+    
+}
+.drafting-radiant .drafting-teammate
+{
+    float:left;
+}
+.drafting-dire .drafting-teammate
+{
+    float:right;
+}
+.drafting-radiant .drafting-teammate-pic
+{
+    height: 51px;
+    border-right:2px solid #5AA043;
+}
+.drafting-dire .drafting-teammate-pic
+{
+    height: 51px;
+    border-left:2px solid #DB2020;
+}
+
+.drafting-page-bottom h1
+{
+    display:inline;
+    color:#c4a77b;
+}
+.drafting-page-bottom-title
+{
+    margin:10px;
+    height:50px;
+}
+.drafting-note
+{
+    display:inline;
+    float: right;
+    margin-top:16px;
+    vertical-align: bottom;
+}
+
+.drafting-pool
+{
+    display:block;
+    border:2px solid #000000;
+    border-radius:5px;
+    overflow:auto;
+    height:500px;
+}
+.drafting-divider
+{
+    border:2px solid #c4a77b;
+    border-radius:5px;
+    margin:20px;
+}
+
+
+
+
 /*
 
 Direct Modification to bootstrap classes
