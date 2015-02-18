@@ -7,6 +7,10 @@
 
 Template.adminLayout.helpers({
     matchPendingUpdateList: function() {
+        //retrieveMatchesPendingUpdateFromMainDB
+
+        //Meteor.call('checkValidSignup', sig, function(err, res) {});
+
         //Collection.find()
     }
 });
