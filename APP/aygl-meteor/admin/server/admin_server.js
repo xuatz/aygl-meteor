@@ -13,8 +13,6 @@ Methods used by during the Signup process will be placed here
 ======================================================================================================
 */
 
-MatchesPendingUpdate = new Mongo.collection('')
-
 //TODO setup a hourly "cron job"?? to fetch list of matches pending update
 
 Meteor.methods({
