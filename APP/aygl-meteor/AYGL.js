@@ -94,6 +94,21 @@ Meteor.users.deny({
         return true;
     }
 });
+
+TabularTables = {};
+
+Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
+
+TabularTables.Test = new Tabular.Table({
+    name: "testName",
+    collection: MatchesPendingUpdate,
+    columns: [
+        {data: "aygl_match_id", title: "Title"},
+        {data: "status", title: "Author"},
+        {data: "author", title: "Author"},
+        {data: "author", title: "Author"}
+    ]
+});
 /*
 ======================================================================================================
 Prototypes for Mongo Collections

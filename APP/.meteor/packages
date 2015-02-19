@@ -12,3 +12,4 @@ jquery
 iron:router
 http
 percolate:synced-cron
+aldeed:tabular

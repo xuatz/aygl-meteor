@@ -17,8 +17,9 @@ Methods used by during the Signup process will be placed here
 
 Meteor.methods({
 	retrieveMatchesPendingUpdateFromMainDB: function() {
+		console.log('im in retrieveMatchesPendingUpdateFromMainDB');
 		//TODO get stuff from MainDB
-		matches: [{	"aygl_match_id" : "123", 
+		var matches = [{	"aygl_match_id" : "123", 
 					"status" : "PU", 
 					"created_dttm" : "20150101", 
 					"updated_dttm" : "20150101", 
@@ -40,7 +41,34 @@ Meteor.methods({
 		//TODO delete MatchesPendingUpdate
 		MatchesPendingUpdate.remove({});
 
+		MatchesPendingUpdate.insert(
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
+		);
+		MatchesPendingUpdate.insert(
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
+		);
+		MatchesPendingUpdate.insert(
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
+		);
+		MatchesPendingUpdate.insert(
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
+		);
+
 		//TODO put stuff in mongo
-		MatchesPendingUpdate.insert(matches);
+		//fail to insert list of objects
+		//MatchesPendingUpdate.insert(matches);
+
+
+
+		var sometghing = MatchesPendingUpdate.find({});
+
+		console.log('size2: ' + sometghing.count());
+		console.log('test: ' + sometghing.fetch()[0].status);
+
+		console.log('end of retrieveMatchesPendingUpdateFromMainDB');
 	}
 });

@@ -22,7 +22,11 @@ Any Templates used for the Signup Process will be placed here
         </ul>
     </div>
 
-    <div class="container-fluid">    
+    <div class="container-fluid">
+        {{> tabular table=TabularTables.Test class="table table-striped table-bordered table-condensed"}}
+
+        <br/>
+
         {{>yield "tabContent"}}
     </div>
 </template>
@@ -71,10 +75,16 @@ Any Templates used for the Signup Process will be placed here
 
 <template name="matchPendingUpdateRow">
     <td>
-        <span> {{placeholder1}} </span>
+        <span> {{aygl_match_id}} </span>
     </td>
     <td>
-        <span> {{matchId}} </span>
+        <span> {{status}} </span>
+    </td>
+    <td>
+        <span> {{aygl_match_id}} </span>
+    </td>
+    <td>
+        <span> {{status}} </span>
     </td>
 </template>
 

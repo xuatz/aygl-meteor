@@ -7,11 +7,11 @@
 
 Template.adminLayout.helpers({
     matchPendingUpdateList: function() {
-        //retrieveMatchesPendingUpdateFromMainDB
+        console.log('hi im in the matchPendingUpdateList helper');
 
         //Meteor.call('checkValidSignup', sig, function(err, res) {});
 
-        //Collection.find()
+        return MatchesPendingUpdate.find().fetch();    
     }
 });
 
@@ -29,7 +29,7 @@ Template.adminLayout.events({
         evt.preventDefault();
         console.log('clicked tab1');
         Session.set('adminTabSelection', 1);
-        //Meteor.call('populateStuffFromMainDB');
+        Meteor.call('retrieveMatchesPendingUpdateFromMainDB');
     },
     'click #tab2': function(evt) {
         evt.preventDefault();
