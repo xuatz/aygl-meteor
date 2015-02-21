@@ -135,6 +135,33 @@ Meteor.methods({
             }
         });
 
+    },
+    challengecpt: function(gameId) {
+        var challenger = Meteor.users.findOne({
+            _id: this.userId
+        });
+
+        //Get the info from the challenger
+        var result = {};
+
+        result.name = challenger.profile.username;
+        result.personaname = challenger.profile.personaname;
+
+        if (!challenger.profile.ranking.percentile) {
+            //GET FROM STATSDB
+        } else {
+            result.percentile = challenger.profile.ranking.percentile;
+        }
+
+        //Update the Game Object
+
+        Games.update({
+            _id: gameId
+        }, {
+            $push: {
+                "challengers": result
+            }
+        });
     }
 });
 

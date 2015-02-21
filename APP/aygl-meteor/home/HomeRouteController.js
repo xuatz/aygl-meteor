@@ -6,6 +6,9 @@ Router.route('/home', function() {
     /*
         Main Content Block Rendering Logic
     */
+
+    this.subscribe('displayCurrentMatches').wait();
+
     if (Meteor.user().profile.state === 'hosting' ||
         Meteor.user().profile.state === 'drafting' ||
         Meteor.user().profile.state === 'in-match' ||
@@ -23,6 +26,8 @@ Router.route('/home', function() {
         this.render('homecaptainslobby', {
             to: "maincontent"
         });
+    } else if(Meteor.user().profile.state === 'pending accept'){
+        //TODO RENDER PENDING ACCEPT HERE
     } else {
         this.render('homemaincontent', {
             to: "maincontent"

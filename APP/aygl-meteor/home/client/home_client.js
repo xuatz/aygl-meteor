@@ -144,6 +144,13 @@ Template.hostmodal.events({
     }
 });
 
+Template.lobbylistitem.events({
+    'click #challengecpt': function (evt, template) {
+        evt.preventDefault();
+        //Change Status to Pending Accept
+        //Add user details to Challengers List
+    }
+});
 
 /*
 ======================================================================================================
@@ -189,9 +196,3 @@ shownotification = function(name) {
 </div>'
     });
 }
-
-/*
-TEST CODE AREA
-*/
-
-Meteor.subscribe('displayCurrentMatches');
