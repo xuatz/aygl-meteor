@@ -10,8 +10,8 @@ Any Templates used for the Signup Process will be placed here
             <li class="active">
                 <a id="tab1" href="#" data-toggle="tab">Match Listing</a>
             </li>
-            <li id="tab2">
-                <a href="#" data-toggle="tab">Pending Match to Review</a>
+            <li>
+                <a id="tab2" href="#" data-toggle="tab">Pending Match to Review</a>
             </li>
             <li>
                 <a id="tab3" href="#" data-toggle="tab">Report Listing</a>
@@ -23,7 +23,10 @@ Any Templates used for the Signup Process will be placed here
     </div>
 
     <div class="container-fluid">
-        <br />
+        {{> tabular table=TabularTables.Test class="table table-striped table-bordered table-condensed"}}
+
+        <br/>
+
         {{>yield "tabContent"}}
     </div>
 </template>
@@ -32,51 +35,57 @@ Any Templates used for the Signup Process will be placed here
 <!-- RENDERED TEMPLATES-->
 <template name="adminMatchPendingUpdateList">
     <div>
-        {{> tabular table=TabularTables.Test class="table table-striped table-bordered table-condensed"}}
+        {{> adminMatchTable}}
     </div>
 </template>
 
-<template name="adminMatchPendingUpdateDetail">
-    <div>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-2">
-                       AYGL_MATCH_ID_COLON 
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.aygl_match_id}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       created_dttm
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.created_dttm}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       admin_assigned_to
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.admin_assigned_to}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       DOTA_MATCH_ID_COLON 
-                    </div>
-                    <div class="col-xs-4">
-                       <input type="text" class="form-control" id="gametitle" value="{{ MatchPlayerUpdateDetails.dota_match_id}}">
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        
-
-        <br/>
-    </div>
+<template name="adminMatchTable">
+    <table class="table table-striped table-hover text-center">
+        <thead>
+            <tr>
+                <th>Test1</th>
+                <th>Test2</th>
+                <th>Test3</th>
+                <th class="col-xs-3">% Wins</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+                <td>
+                    hi
+                </td>
+            </tr>
+            <tr>
+                {{#each matchPendingUpdateList}}
+                    {{> matchPendingUpdateRow}}
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
 </template>
+
+<template name="matchPendingUpdateRow">
+    <td>
+        <span> {{aygl_match_id}} </span>
+    </td>
+    <td>
+        <span> {{status}} </span>
+    </td>
+    <td>
+        <span> {{aygl_match_id}} </span>
+    </td>
+    <td>
+        <span> {{status}} </span>
+    </td>
+</template>
+
+
