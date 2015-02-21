@@ -186,14 +186,4 @@ SyncedCron.add({
     }
 });
 
-SyncedCron.add({
-    name: 'Fetch Matches Pending Update',
-    schedule: function(parser) {
-        return parser.cron('* 0 * * * *', true);
-    },
-    job: function() {
-        Meteor.call('retrieveMatchesPendingUpdateFromMainDB');
-    }
-});
-
 SyncedCron.start()
