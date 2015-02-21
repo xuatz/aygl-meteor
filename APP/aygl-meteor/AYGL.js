@@ -17,7 +17,6 @@ Below are the MongoDB Collections which will be used by this app.
 VerifyTab = new Mongo.Collection('vtab');
 OnlinePlayers = new Mongo.Collection('onlineplayers');
 Games = new Mongo.Collection('games');
-MatchesPendingUpdate = new Mongo.Collection('matchespendingupdate');
 
 if (Meteor.isServer) {
     if (Games.find().count() === 0) {
@@ -103,12 +102,33 @@ TabularTables.Test = new Tabular.Table({
     name: "testName",
     collection: MatchesPendingUpdate,
     columns: [
-        {data: "aygl_match_id", title: "Title"},
-        {data: "status", title: "Author"},
-        {data: "author", title: "Author"},
-        {data: "author", title: "Author"}
-    ]
+        {data: "aygl_match_id", title: "Match ID"},
+        {data: "status",        title: "Match Status"},
+        {data: "created_dttm",  title: "Created Date/Time"},
+        {data: "updated_dttm",  title: "Updated Date/Time"},
+        {data: "admin_assigned_to",  title: "Assigned to"}
+    ],
+
+    extraFields: ['firstName', 'lastName']
 });
+
+//TODO WIP, especially the collection used
+TabularTables.MatchPendingUpdateDetailTable = new Tabular.Table({
+    name: "matchPendingUpdateDetailTable",
+    collection: MatchesPendingUpdate,
+    columns: [
+        {data: "aygl_match_id", title: "Match ID"},
+        {data: "status",        title: "Match Status"},
+        {data: "created_dttm",  title: "Created Date/Time"},
+        {data: "updated_dttm",  title: "Updated Date/Time"},
+        {data: "admin_assigned_to",  title: "Assigned to"}
+    ],
+    selector: function() {
+        return { aygl_match_id: Session.get('selectedAyglMatchId') }
+    }
+});
+
+
 /*
 ======================================================================================================
 Prototypes for Mongo Collections

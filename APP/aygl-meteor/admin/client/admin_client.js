@@ -15,6 +15,12 @@ Template.adminLayout.helpers({
     }
 });
 
+Template.adminLayout.helpers({
+    adminMatchDetailSelector: function() {
+        return {author: Session.get('selectedAyglMatchId')};   
+    }
+});
+
 
 
 /*
@@ -45,6 +51,25 @@ Template.adminLayout.events({
         evt.preventDefault();
         console.log('clicked tab4');
         Session.set('adminTabSelection', 4);
+    },
+    'click tr': function (event) {
+        event.preventDefault();
+        console.log('tableOnClick');
+
+        var dataTable = $(event.target).closest('table').DataTable();
+        var rowData = dataTable.row(event.currentTarget).data();
+
+        switch (Session.get('adminTabSelection')) {
+        case 1:
+            console.log(rowData.status);
+
+            $('ul.nav-tabs li.active').removeClass('active');
+            $('#tab2').addClass('active');
+
+            Session.set('adminTabSelection', 2);
+            Session.set('selectedAyglMatchId', rowData.aygl_match_id);
+            break;
+        }
     }
 });
 

@@ -1,0 +1,1 @@
+MatchesPendingUpdate = new Mongo.Collection('matchespendingupdate');
