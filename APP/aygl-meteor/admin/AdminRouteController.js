@@ -39,7 +39,7 @@ Router.route('/admin', function() {
         });
         break;
     case 2:
-        this.render('adminMatchPendingUpdateDetail', {
+        this.render('reviewMatchDetail', {
             to: "tabContent"
         });
         break;

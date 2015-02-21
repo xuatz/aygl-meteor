@@ -1,14 +1,5 @@
 /*
 ======================================================================================================
-Module Variables
-Any Errors which will be thrown will be defined in this section
-======================================================================================================
-*/
-
-
-
-/*
-======================================================================================================
 Error Definitions for Signup Page
 Any Errors which will be thrown will be defined in this section
 ======================================================================================================
@@ -18,9 +9,11 @@ Any Errors which will be thrown will be defined in this section
 /*
 ======================================================================================================
 Server Methods
+Methods used by during the Signup process will be placed here
 ======================================================================================================
 */
 
+//TODO setup a hourly "cron job"?? to fetch list of matches pending update
 
 Meteor.methods({
 	retrieveMatchesPendingUpdateFromMainDB: function() {
@@ -43,42 +36,33 @@ Meteor.methods({
 					,{	"aygl_match_id" : "444", 
 					"status" : "PU", 
 					"created_dttm" : "20150101", 
-					"updated_dttm" : "20150101"}];
-
-		//var data = JSON.parse(matches);
+					"updated_dttm" : "20150101"}]
 
 		//TODO delete MatchesPendingUpdate
 		MatchesPendingUpdate.remove({});
 
-
-		matches.forEach(function (item, index, array) {
-            MatchesPendingUpdate.insert(item);
-        });
-
 		MatchesPendingUpdate.insert(
-			{ "aygl_match_id" : "1000",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
 		);
 		MatchesPendingUpdate.insert(
-			{ "aygl_match_id" : "1100",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
 		);
 		MatchesPendingUpdate.insert(
-			{ "aygl_match_id" : "1200",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
 		);
 		MatchesPendingUpdate.insert(
-			{ "aygl_match_id" : "1500",
-			"status" : "PU",
-			"admin_assigned_to" : "obama"}
+			{ "aygl_match_id" : "8800",
+			"status" : "PU"}
 		);
 
 		//TODO put stuff in mongo
 		//fail to insert list of objects
 		//MatchesPendingUpdate.insert(matches);
+
+
 
 		var sometghing = MatchesPendingUpdate.find({});
 
