@@ -7,6 +7,7 @@ Any Errors which will be thrown will be defined in this section
 
 home_error_001_ALREADY_IN_GAME = new Meteor.Error('Home_Err_001', 'You are already part of a game.');
 home_error_002_TITLE_TOO_LONG = new Meteor.Error('Home_Err_002', 'The title cannot exceed 45 characters');
+home_error_003_CANNOT_CHALLENGE_HOST = new Meteor.Error('Home_Err_003', 'Error while challenging host.');
 
 
 /*
@@ -155,13 +156,30 @@ Meteor.methods({
 
         //Update the Game Object
 
-        Games.update({
+        var updateResult = Games.update({
             _id: gameId
         }, {
             $push: {
                 "challengers": result
             }
         });
+
+        if (!updateResult) {
+            //display an error message for failed insert
+            throw home_error_003_CANNOT_CHALLENGE_HOST;
+        } else {
+            //if successful, change the user's state to "pending accept"
+            Meteor.users.update({
+                _id: this.userId
+            }, {
+                $set: {
+                    "profile.state": "pending accept"
+                }
+            });
+        }
+
+        return updateResult;
+
     }
 });
 

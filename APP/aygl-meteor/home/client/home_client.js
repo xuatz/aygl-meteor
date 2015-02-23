@@ -145,10 +145,18 @@ Template.hostmodal.events({
 });
 
 Template.lobbylistitem.events({
-    'click #challengecpt': function (evt, template) {
+    'click #challengecpt': function(evt, template) {
         evt.preventDefault();
-        //Change Status to Pending Accept
-        //Add user details to Challengers List
+        le_event = evt;
+        evt.currentTarget.innerHTML = "<b>CHALLENGE ISSUED</b>";
+        evt.currentTarget.className = evt.currentTarget.className.replace("btn-success", "btn-warning");
+        $('button#challengecpt').each(function() {
+            $(this)[0].disabled = true;
+        });
+        le_listy = template.$('button');
+
+        //Change status to Pending Accept and Add user details to Challengers List
+        //Meteor.call('challengecpt', )
     }
 });
 

@@ -205,37 +205,37 @@ Any Templates used for the Home Screen will be placed here
 
 <template name="challengerprofile">
     {{#with selectedChallenger}}
-    <div class="row">
-        <img class="center-block profile tiny" src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg">
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <h4 class="text-center">Challenger Profile</h4>
-            <p class="well dark">
-                <strong class="text-warning">
+        <div class="row">
+            <img class="center-block profile tiny" src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg">
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 class="text-center">Challenger Profile</h4>
+                <p class="well dark">
+                    <strong class="text-warning">
                                 Username: 
                             </strong>
-                <em class="text-muted">
+                    <em class="text-muted">
                                 {{username}}
                             </em>
-                <br><strong class="text-warning">
+                    <br><strong class="text-warning">
                                 Steam Name:
                             </strong>
-                <em class="text-muted">
+                    <em class="text-muted">
                                 {{profile.personaname}}
                             </em>
 
-                <br><strong class="text-warning">Rank:</strong> <em class="text-muted">{{profile.rank}}</em>
-                <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">12192</em>
-                <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31</em>
-            </p>
+                    <br><strong class="text-warning">Rank:</strong> <em class="text-muted">{{profile.rank}}</em>
+                    <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">12192</em>
+                    <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31</em>
+                </p>
+            </div>
         </div>
-    </div>
-    {{else}}
-    <h1 class="text-center">
+        {{else}}
+            <h1 class="text-center">
         Hosting a Match
     </h1>
-    <h4 class="text-center">
+            <h4 class="text-center">
     Accept a challenge to begin drafting.
     <br><br><i class="center-block fa fa-arrow-right fa-2x"></i>
     </h4> {{/with}}
@@ -308,16 +308,18 @@ Any Templates used for the Home Screen will be placed here
 <template name="homemaincontent">
     <div class="list-group col-xs-12">
         {{#if lobbyIsEmpty}}
-        <div class="well dark">
-            <p class="text-center">
-                <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
-            </p>
-        </div>
-        {{else}} {{#each list_lobby_hosted}}
-        <div class="row toppadding">
-            {{#each this}} {{> lobbylistitem}} {{/each}}
-        </div>
-        {{/each}} {{/if}}
+            <div class="well dark">
+                <p class="text-center">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
+                </p>
+            </div>
+        {{else}}
+            {{#each list_lobby_hosted}}
+                <div class="row toppadding">
+                    {{#each this}} {{> lobbylistitem}} {{/each}}
+                </div>
+            {{/each}}
+        {{/if}}
     </div>
 </template>
 
@@ -348,7 +350,7 @@ Any Templates used for the Home Screen will be placed here
             <div class="row">
                 <div class="col-xs-12">
                     <br>
-                    <button id ="challengecpt" class="btn btn-sm btn-success btn-block">Challenge!</button>
+                    <button id="challengecpt" class="btn btn-sm btn-success btn-block">CHALLENGE!</button>
                 </div>
             </div>
         </div>
