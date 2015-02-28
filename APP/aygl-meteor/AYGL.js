@@ -98,7 +98,7 @@ TabularTables = {};
 
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 
-TabularTables.Test = new Tabular.Table({
+TabularTables.MatchTable = new Tabular.Table({
     name: "testName",
     collection: MatchesPendingUpdate,
     columns: [
