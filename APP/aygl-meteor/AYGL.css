@@ -91,15 +91,16 @@ table.text-center thead tr th, table.text-center tbody tr td {
 }
 
 /* Drafting Page */
+/************************************************/
 .drafting-page-top
 {
     height:180px;
     overflow-y:auto;
 }
-.drafting-title
+.subpage-title
 {
     text-align: center; 
-    font-size:30px;
+    font-size:40px;
     font-weight: bolder;
     color:#c4a77b;
 }
@@ -227,6 +228,66 @@ table.text-center thead tr th, table.text-center tbody tr td {
     border:2px solid #c4a77b;
     border-radius:5px;
     margin:20px;
+}
+/************************************************/
+
+
+/* Match Page */
+/************************************************/
+.match .radiant .teammate img
+{
+    height:51px;
+    border-right:#5AA043 2px solid;
+    float:left;
+}
+.match .dire .teammate img
+{
+    height:51px;
+    border-left:#DB2020 2px solid;
+    float:right;
+}
+.teammate
+{
+    height: 55px;
+    width:100%;
+    margin:10px 0 10px 0;
+    display:block;
+    text-align: center;
+}
+.radiant .teamtitle
+{
+    text-align: left;
+    color:#5AA043;
+}
+.dire .teamtitle
+{
+    text-align: right;
+    color:#DB2020;
+}
+.radiant .teammate
+{
+    border:#5AA043 2px solid;
+}
+.dire .teammate
+{
+    border:#DB2020 2px solid;
+}
+.radiant .winlose
+{
+    display: block;
+    float:right;
+}
+.dire .winlose
+{
+    display: block;
+    float:left;
+}
+
+/*Landing Page*/
+/*************************************************/
+.landing p
+{
+    font-size: 18px;
 }
 
 
