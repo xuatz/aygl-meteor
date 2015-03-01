@@ -13,3 +13,5 @@ iron:router
 http
 percolate:synced-cron
 aldeed:tabular
+aldeed:autoform
+aldeed:collection2

@@ -1,3 +1,5 @@
+Meteor.subscribe('MatchesCollection');
+
 /*  
 ======================================================================================================
     Template Helpers
@@ -21,6 +23,11 @@ Template.adminLayout.helpers({
     }
 });
 
+Template.adminMatchPendingUpdateDetail.helpers({
+    selectedMatch: function() {
+        return MatchesCollection.findOne(Session.get('selectedAyglMatchId'));
+    }
+});
 
 
 /*
@@ -61,13 +68,17 @@ Template.adminLayout.events({
 
         switch (Session.get('adminTabSelection')) {
         case 1:
-            console.log(rowData.status);
+            // console.log(rowData.status);
+            // console.log('rowData._id: ' + rowData._id);
 
             $('ul.nav-tabs li.active').removeClass('active');
             $('#tab2').addClass('active');
 
             Session.set('adminTabSelection', 2);
-            Session.set('selectedAyglMatchId', rowData.aygl_match_id);
+            Session.set('selectedAyglMatchId', rowData._id);
+
+            //Meteor.call('updateSelectedMatchId', rowData._id);
+
             break;
         }
     }

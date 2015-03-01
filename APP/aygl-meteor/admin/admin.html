@@ -38,42 +38,35 @@ Any Templates used for the Signup Process will be placed here
 
 <template name="adminMatchPendingUpdateDetail">
     <div>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-2">
-                       AYGL_MATCH_ID_COLON 
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.aygl_match_id}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       created_dttm
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.created_dttm}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       admin_assigned_to
-                    </div>
-                    <div class="col-xs-4">
-                        {{ MatchPlayerUpdateDetails.admin_assigned_to}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-2">
-                       DOTA_MATCH_ID_COLON 
-                    </div>
-                    <div class="col-xs-4">
-                       <input type="text" class="form-control" id="gametitle" value="{{ MatchPlayerUpdateDetails.dota_match_id}}">
-                    </div>
-                </div>
+        {{#autoForm id=matchAutoForm type="update" collection="MatchesCollection" doc=selectedMatch autosave=true}}
+            {{> afQuickField name='aygl_match_id'}}
+            {{> afQuickField name='status'}}
+            <div>
+                <button type="submit">Submit</button>
             </div>
-        </form>
-        <br/>
+        {{/autoForm}}
+
+        <!-- <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <td style="width: 85px">Items</td>
+                    <td>Tags</td>
+                    <td style="width: 250px">Tags Edit</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.tags}}</td>
+                        <td>
+                            {{#autoForm id=makeUniqueID type="update" collection=Collections.Items doc=this autosave=true}}
+                            {{> afFormGroup name="tags" label=false}}
+                            {{/autoForm}}
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table> -->
     </div>
 </template>

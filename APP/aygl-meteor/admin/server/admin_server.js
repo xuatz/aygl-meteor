@@ -21,57 +21,77 @@ Server Methods
 ======================================================================================================
 */
 
-
 Meteor.methods({
+	getSelectedMatch: function(selectedMatchId) {
+		console.log('selectedMatchId: '+ Meteor.user().profile.selectedMatchId);
+        //var m = MatchesCollection.findOne(Meteor.user().profile.selectedMatchId);
+        var m = MatchesCollection.findOne();
+
+        console.log(m);
+
+        return m;
+	},
+	updateSelectedMatchId: function(selectedMatchId) {
+		console.log('=============');
+		console.log('check selectedMatchId: ' + selectedMatchId)
+		Meteor.users.update(
+            {"_id" : this.userId}, 
+            {
+                $set : {
+                    "profile.selectedMatchId" : selectedMatchId
+                }
+            }
+		);
+	},
 	retrieveMatchesPendingUpdateFromMainDB: function() {
-		MatchesCollection.remove({});
+		// MatchesCollection.remove({});
 
-		var matches = [{	"aygl_match_id" : "123", 
-					"status" : "PU", 
-					"created_dttm" : "20150101", 
-					"updated_dttm" : "20150101", 
-					"admin_assigned_to" : "moltencrap"}
-					,{	"aygl_match_id" : "222", 
-					"status" : "PU", 
-					"created_dttm" : "20150101", 
-					"updated_dttm" : "20150101", 
-					"admin_assigned_to" : "moltencrap"}
-					,{	"aygl_match_id" : "333", 
-					"status" : "PU", 
-					"created_dttm" : "20150101", 
-					"updated_dttm" : "20150101"}
-					,{	"aygl_match_id" : "444", 
-					"status" : "PU", 
-					"created_dttm" : "20150101", 
-					"updated_dttm" : "20150101"}];
+		// var matches = [{	"aygl_match_id" : "123", 
+		// 			"status" : "PU", 
+		// 			"created_dttm" : "20150101", 
+		// 			"updated_dttm" : "20150101", 
+		// 			"admin_assigned_to" : "moltencrap"}
+		// 			,{	"aygl_match_id" : "222", 
+		// 			"status" : "PU", 
+		// 			"created_dttm" : "20150101", 
+		// 			"updated_dttm" : "20150101", 
+		// 			"admin_assigned_to" : "moltencrap"}
+		// 			,{	"aygl_match_id" : "333", 
+		// 			"status" : "PU", 
+		// 			"created_dttm" : "20150101", 
+		// 			"updated_dttm" : "20150101"}
+		// 			,{	"aygl_match_id" : "444", 
+		// 			"status" : "PU", 
+		// 			"created_dttm" : "20150101", 
+		// 			"updated_dttm" : "20150101"}];
 
-		//var data = JSON.parse(matches);
+		// //var data = JSON.parse(matches);
 
-		matches.forEach(function (item, index, array) {
-            //MatchesPendingUpdate.insert(item);
-            MatchesCollection.insert(item);
-        });
+		// matches.forEach(function (item, index, array) {
+  //           //MatchesPendingUpdate.insert(item);
+  //           MatchesCollection.insert(item);
+  //       });
 
-        MatchesCollection.insert(
-			{ "aygl_match_id" : "1000",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
-		);
-		MatchesCollection.insert(
-			{ "aygl_match_id" : "1100",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
-		);
-		MatchesCollection.insert(
-			{ "aygl_match_id" : "1200",
-			"status" : "PU",
-			"admin_assigned_to" : "moltencrap"}
-		);
-		MatchesCollection.insert(
-			{ "aygl_match_id" : "1500",
-			"status" : "PU",
-			"admin_assigned_to" : "obama"}
-		);
+  //       MatchesCollection.insert(
+		// 	{ "aygl_match_id" : "1000",
+		// 	"status" : "PU",
+		// 	"admin_assigned_to" : "moltencrap"}
+		// );
+		// MatchesCollection.insert(
+		// 	{ "aygl_match_id" : "1100",
+		// 	"status" : "PU",
+		// 	"admin_assigned_to" : "moltencrap"}
+		// );
+		// MatchesCollection.insert(
+		// 	{ "aygl_match_id" : "1200",
+		// 	"status" : "PU",
+		// 	"admin_assigned_to" : "moltencrap"}
+		// );
+		// MatchesCollection.insert(
+		// 	{ "aygl_match_id" : "1500",
+		// 	"status" : "PU",
+		// 	"admin_assigned_to" : "obama"}
+		// );
 
 		var sometghing = MatchesCollection.find({});
 
@@ -80,4 +100,8 @@ Meteor.methods({
 
 		console.log('end of retrieveMatchesPendingUpdateFromMainDB');
 	}
+});
+
+Meteor.publish("MatchesCollection", function () {
+  	return MatchesCollection.find();
 });

@@ -39,6 +39,7 @@ Router.route('/admin', function() {
         });
         break;
     case 2:
+        console.log('selectedMatchId: ' + Session.get('selectedAyglMatchId'));
         this.render('adminMatchPendingUpdateDetail', {
             to: "tabContent"
         });
