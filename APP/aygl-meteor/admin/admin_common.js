@@ -1,3 +1,5 @@
 //git sucks ass
 
-MatchesPendingUpdate = new Mongo.Collection('matchespendingupdate');
+MatchesCollection = new Mongo.Collection('match');
+
+

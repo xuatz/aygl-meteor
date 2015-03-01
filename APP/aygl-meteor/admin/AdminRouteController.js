@@ -31,7 +31,7 @@ Router.onBeforeAction(function(){
 Router.route('/admin', function() {
     switch (Session.get('adminTabSelection')) {
     default:
-        //just go to case 1
+        Session.set('adminTabSelection', '1');
     case 1:
         console.log('im gonna render some nice stuff');
         this.render('adminMatchPendingUpdateList', {
