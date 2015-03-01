@@ -99,7 +99,7 @@ TabularTables = {};
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 
 TabularTables.MatchTable = new Tabular.Table({
-    name: "testName",
+    name: "MatchTable",
     collection: MatchesPendingUpdate,
     columns: [
         {data: "aygl_match_id", title: "Match ID"},
