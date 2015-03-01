@@ -38,35 +38,81 @@ Any Templates used for the Signup Process will be placed here
 
 <template name="adminMatchPendingUpdateDetail">
     <div>
-        {{#autoForm id=matchAutoForm type="update" collection="MatchesCollection" doc=selectedMatch autosave=true}}
-            {{> afQuickField name='aygl_match_id'}}
-            {{> afQuickField name='status'}}
+        <div class="row">
+            <div class="col-xs-2">
+                AYGL_MATCH_ID_COLON 
+            </div>
+            <div class="col-xs-4">
+                {{selectedMatch.aygl_match_id}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                status
+            </div>
+            <div class="col-xs-4">
+                {{selectedMatch.status}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                Admin Assiged to
+            </div>
+            <div class="col-xs-4">
+                {{selectedMatch.admin_assigned_to}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                screenshot url
+            </div>
+            <div class="col-xs-4">
+                {{selectedMatch.screenshot_url}}
+            </div>
+        </div>
+
+
+        {{#autoForm id=matchAutoForm type="update" collection="MatchesCollection" doc=selectedMatch }}
+            <div class="row">
+                {{> afQuickField name='result' template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10"}}
+            </div>
+
+            {{> afQuickField name="matchPlayerResultArr" minCount=10 maxCount=10 }}
+
+            <!-- <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <td>Username</td>
+                        <td>Player Slot</td>
+                        <td>No. of Kills</td>
+                        <td>No. of Deaths</td>
+                        <td>No. of Assists</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each selectedMatch.matchPlayerResultArr}}
+                        <tr>
+                            <td>{{this.username}}</td>
+                            <td>{{this.player_slot}}</td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                {{> afQuickField name='this.player_slot'}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table> -->
+
             <div>
                 <button type="submit">Submit</button>
             </div>
         {{/autoForm}}
 
-        <!-- <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <td style="width: 85px">Items</td>
-                    <td>Tags</td>
-                    <td style="width: 250px">Tags Edit</td>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each items}}
-                    <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.tags}}</td>
-                        <td>
-                            {{#autoForm id=makeUniqueID type="update" collection=Collections.Items doc=this autosave=true}}
-                            {{> afFormGroup name="tags" label=false}}
-                            {{/autoForm}}
-                        </td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table> -->
+        
     </div>
 </template>

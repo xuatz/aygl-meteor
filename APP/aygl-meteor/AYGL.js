@@ -133,32 +133,32 @@ MatchPlayerResult = new SimpleSchema({
   noOfKill: {
     type: Number,
     label: "Number of Kills",
-    optional: true,
-    custom: function () {
-        if (this.isUpdate) {
-            return "required";
-        }
-    }
+    optional: true
+    // ,custom: function () {
+    //     if (this.isUpdate) {
+    //         return "required";
+    //     }
+    // }
   },
   noOfDeath: {
     type: Number,
     label: "Number of Deaths",
-    optional: true,
-    custom: function () {
-        if (this.isUpdate) {
-            return "required";
-        }
-    }
+    optional: true
+    // ,custom: function () {
+    //     if (this.isUpdate) {
+    //         return "required";
+    //     }
+    // }
   },
   noOfAssist: {
     type: Number,
     label: "Number of Assists",
-    optional: true,
-    custom: function () {
-        if (this.isUpdate) {
-            return "required";
-        }
-    }
+    optional: true
+    // ,custom: function () {
+    //     if (this.isUpdate) {
+    //         return "required";
+    //     }
+    // }
   }
 
   /*
@@ -234,7 +234,17 @@ MatchesCollection.attachSchema(new SimpleSchema({
     type: String,
     max: 4,
     label: "Result",
-    optional: true
+    optional: true,
+    autoform: {
+      type: "select",
+      options: function () {
+        return [
+          {label: "Radiant Victory", value: "R"},
+          {label: "Dire Victory", value: "D"},
+          {label: "Match Voided", value: "V"}
+        ];
+      }
+    }
   },
   admin_assigned_to: {
     type: String,
@@ -246,6 +256,10 @@ MatchesCollection.attachSchema(new SimpleSchema({
     type: String,
     label: "Screenshot URL",
     optional: true
+  },
+  matchPlayerResultArr : {
+    type: [MatchPlayerResult],
+    label: "MatchPlayerResult Array"
   }
 }));
 

@@ -26,6 +26,9 @@ Template.adminLayout.helpers({
 Template.adminMatchPendingUpdateDetail.helpers({
     selectedMatch: function() {
         return MatchesCollection.findOne(Session.get('selectedAyglMatchId'));
+    },
+    makeUniqueID: function() {
+        return "matchPlayerResult:" + this._id;
     }
 });
 
