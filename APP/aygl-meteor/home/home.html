@@ -89,7 +89,7 @@ Any Templates used for the Home Screen will be placed here
     <div class="col-xs-8">
         <div class="row toppadding">
             <div class="col-xs-12">
-                <button id="leavegame" class="btn btn-block btn-danger">Leave Game</button>
+                <button id="leavegame" class="btn btn-block btn-danger">{{buttontext}}</button>
             </div>
         </div>
     </div>
@@ -325,7 +325,7 @@ Any Templates used for the Home Screen will be placed here
 
 <template name="lobbylistitem">
     <div class="col-xs-6">
-        <div class="list-group-item">
+        <div class="list-group-item {{info.listgroupitem}}">
             <div class="row">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-4">
@@ -350,7 +350,7 @@ Any Templates used for the Home Screen will be placed here
             <div class="row">
                 <div class="col-xs-12">
                     <br>
-                    <button id="challengecpt" class="btn btn-sm btn-success btn-block">CHALLENGE!</button>
+                    <button id="challengecpt" data-lobbyid="{{this._id}}" class="btn btn-sm {{info.buttonclass}} btn-block" {{info.disabled}} >{{info.buttontext}}</button>
                 </div>
             </div>
         </div>
