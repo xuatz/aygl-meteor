@@ -151,7 +151,7 @@ Meteor.methods({
         //Get the info from the challenger
         var result = {};
 
-        result.name = challenger.profile.username;
+        result.name = challenger.username;
         result.personaname = challenger.profile.personaname;
 
         if (!challenger.profile.ranking.percentile) {
