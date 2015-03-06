@@ -46,65 +46,67 @@ Meteor.methods({
 	retrieveMatchesPendingUpdateFromMainDB: function() {
 		//MatchesCollection.remove({});
 
-		// var matches = [
-		// 	{	"aygl_match_id" : "123", 
-		// 		"status" : "PU", 
-		// 		"created_dttm" : "20150101", 
-		// 		"updated_dttm" : "20150101", 
-		// 		"admin_assigned_to" : "moltencrap",
-		// 		"matchPlayerResultArr" : [
-		// 			{
-		// 			"username" : "player1",
-		// 			"player_slot" : "1",
-		// 			},
-		// 			{
-		// 			"username" : "player2",
-		// 			"player_slot" : "2",
-		// 			},
-		// 			{
-		// 			"username" : "player3",
-		// 			"player_slot" : "3",
-		// 			},
-		// 			{
-		// 			"username" : "player4",
-		// 			"player_slot" : "4",
-		// 			},
-		// 			{
-		// 			"username" : "player5",
-		// 			"player_slot" : "5",
-		// 			},
-		// 			{
-		// 			"username" : "player6",
-		// 			"player_slot" : "6",
-		// 			},
-		// 			{
-		// 			"username" : "player7",
-		// 			"player_slot" : "7",
-		// 			},
-		// 			{
-		// 			"username" : "player8",
-		// 			"player_slot" : "8",
-		// 			},
-		// 			{
-		// 			"username" : "player9",
-		// 			"player_slot" : "9",
-		// 			},
-		// 			{
-		// 			"username" : "player10",
-		// 			"player_slot" : "10",
-		// 			}
-		// 		]
-		// 	}
-		// ];
+		if (MatchesCollection.find().count() === 0) {
+			var matches = [
+				{	"aygl_match_id" : "123", 
+					"status" : "PU", 
+					"created_dttm" : "20150101", 
+					"updated_dttm" : "20150101", 
+					"admin_assigned_to" : "moltencrap",
+					"matchPlayerResultArr" : [
+						{
+						"username" : "player1",
+						"player_slot" : "1",
+						},
+						{
+						"username" : "player2",
+						"player_slot" : "2",
+						},
+						{
+						"username" : "player3",
+						"player_slot" : "3",
+						},
+						{
+						"username" : "player4",
+						"player_slot" : "4",
+						},
+						{
+						"username" : "player5",
+						"player_slot" : "5",
+						},
+						{
+						"username" : "player6",
+						"player_slot" : "6",
+						},
+						{
+						"username" : "player7",
+						"player_slot" : "7",
+						},
+						{
+						"username" : "player8",
+						"player_slot" : "8",
+						},
+						{
+						"username" : "player9",
+						"player_slot" : "9",
+						},
+						{
+						"username" : "player10",
+						"player_slot" : "10",
+						}
+					]
+				}
+			];
 
 
 
-		// //var data = JSON.parse(matches);
+			//var data = JSON.parse(matches);
 
-		// matches.forEach(function (item, index, array) {
-  //           //MatchesPendingUpdate.insert(item);
-  //           MatchesCollection.insert(item);
-  //       });
+			matches.forEach(function (item, index, array) {
+	            //MatchesPendingUpdate.insert(item);
+	            MatchesCollection.insert(item);
+	        });	
+		}
 
   //       MatchesCollection.insert(
 		// 	{ "aygl_match_id" : "1000",
