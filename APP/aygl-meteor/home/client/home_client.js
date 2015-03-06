@@ -96,6 +96,66 @@ Template.homemaincontent.helpers({
     }
 });
 
+Template.lobbylistitem.helpers({
+    info: function () {
+        var result = {};
+        /*
+            Components:
+             - listgroupitem : border of the list-group-item class
+             - buttontext    : text on the button
+             - disabled      : button disabled boolean
+             - buttonclass   : class of the button
+        */
+
+        var roomId = Template.currentData()._id;
+        if(Meteor.user().profile.state !== "pending accept"){
+            //CASE 1: Normal (not challenging any lobby)
+            result.buttontext = "CHALLENGE!";
+            result.buttonclass = "btn-success";
+
+        }else if (Meteor.user().profile.room !== roomId){
+            //CASE 2: Challenged another lobby
+            result.buttontext = "CHALLENGE!";
+            result.buttonclass = "btn-default"
+            result.disabled = "disabled";
+
+        }else{
+            //CASE 3: Challenged this lobby
+            result.buttontext = "CHALLENGE ISSUED";
+            result.buttonclass = "btn-warning";
+            result.listgroupitem = "challenged";
+            result.disabled = "disabled";
+        }
+
+        return result;
+    }
+});
+
+Template.joinedmenu.helpers({
+    buttontext: function () {
+        var result = "";
+        switch(Meteor.user().profile.state){
+            case "hosting":
+            case "waiting":
+                result = "Leave Lobby";
+                break;
+            case "drafting":
+                result = "Leave Drafting";
+                break;
+            case "in-match":
+                result = "Leave Match";
+                break;
+            case "pending accept":
+                result = "Stop Challenge";
+                break;
+            default:
+                result = "Stahp!";
+                break;
+        }
+        return result;
+    }
+});
+
 /*
 ======================================================================================================
 Template Event Handlers
@@ -147,16 +207,9 @@ Template.hostmodal.events({
 Template.lobbylistitem.events({
     'click #challengecpt': function(evt, template) {
         evt.preventDefault();
-        le_event = evt;
-        evt.currentTarget.innerHTML = "<b>CHALLENGE ISSUED</b>";
-        evt.currentTarget.className = evt.currentTarget.className.replace("btn-success", "btn-warning");
-        $('button#challengecpt').each(function() {
-            $(this)[0].disabled = true;
-        });
-        le_listy = template.$('button');
-
-        //Change status to Pending Accept and Add user details to Challengers List
-        //Meteor.call('challengecpt', )
+        //Make data changes if successful
+        var lobbyid = evt.target.dataset.lobbyid
+        Meteor.call('challengecpt', lobbyid);
     }
 });
 

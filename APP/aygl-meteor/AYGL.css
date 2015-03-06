@@ -229,7 +229,13 @@ table.text-center thead tr th, table.text-center tbody tr td {
     margin:20px;
 }
 
+/*
+Home Page - Lobby List Item
+*/
 
+.challenged {
+    border-color: red;
+}
 
 
 /*

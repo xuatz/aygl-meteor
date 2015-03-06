@@ -8,6 +8,7 @@ Any Errors which will be thrown will be defined in this section
 home_error_001_ALREADY_IN_GAME = new Meteor.Error('Home_Err_001', 'You are already part of a game.');
 home_error_002_TITLE_TOO_LONG = new Meteor.Error('Home_Err_002', 'The title cannot exceed 45 characters');
 home_error_003_CANNOT_CHALLENGE_HOST = new Meteor.Error('Home_Err_003', 'Error while challenging host.');
+home_error_004_CANNOT_CHALLENGE_MULTIPLE_HOST = new Meteor.Error('Home_Err_004', 'Cannot challenge more than one host at a time.');
 
 
 /*
@@ -142,6 +143,11 @@ Meteor.methods({
             _id: this.userId
         });
 
+        //Ensure challenger does not simultaneously challenge multiple captains
+        if(challenger.profile.state === "pending accept") {
+            throw home_error_004_CANNOT_CHALLENGE_MULTIPLE_HOST;
+        }
+
         //Get the info from the challenger
         var result = {};
 
@@ -149,7 +155,7 @@ Meteor.methods({
         result.personaname = challenger.profile.personaname;
 
         if (!challenger.profile.ranking.percentile) {
-            //GET FROM STATSDB
+            //GET FROM STATSDB (this might not be necesary. Continue to monitor behavior)
         } else {
             result.percentile = challenger.profile.ranking.percentile;
         }
@@ -173,7 +179,8 @@ Meteor.methods({
                 _id: this.userId
             }, {
                 $set: {
-                    "profile.state": "pending accept"
+                    "profile.state": "pending accept",
+                    "profile.room" : gameId
                 }
             });
         }

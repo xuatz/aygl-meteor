@@ -12,7 +12,8 @@ Router.route('/home', function() {
     if (Meteor.user().profile.state === 'hosting' ||
         Meteor.user().profile.state === 'drafting' ||
         Meteor.user().profile.state === 'in-match' ||
-        Meteor.user().profile.state === 'waiting') {
+        Meteor.user().profile.state === 'waiting' ||
+        Meteor.user().profile.state === 'pending accept') {
         this.render('joinedmenu', {
             to: "toprightcorner"
         });
