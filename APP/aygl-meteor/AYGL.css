@@ -288,10 +288,46 @@ table.text-center thead tr th, table.text-center tbody tr td {
 .landing p
 {
     font-size: 18px;
+    color:#b2b2b2;
 }
 
+.whatisaygl
+{
+    background-image: url("../wave.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.break
+{
+    height:50px;
+}
 
+.aygldifferent
+{
+    background-image: url("../wave2.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height:150px;
+}
 
+.phases
+{
+    background-image: url("../.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.footer
+{
+    background-image: url("../AYGL-Banner.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height:600px;
+}
 
 /*
 
