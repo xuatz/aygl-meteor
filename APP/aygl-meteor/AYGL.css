@@ -298,6 +298,29 @@ table.text-center thead tr th, table.text-center tbody tr td {
     background-repeat: no-repeat;
     background-size: contain;
 }
+.whatisaygl.title
+{
+    display:inline-block;
+    padding: 15px 50px 0px 0px;
+    height:85px;
+    background-image: url("../wave.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: auto 75px;
+}
+.prizes.title
+{
+    float:right;
+    display:inline-block;
+    padding: 10px 0px 0px 50px;
+    height:85px;
+    width: 400px;
+    background-image: url("../wave3.png");
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-size: auto 85px;
+}
+
 .break
 {
     height:50px;
@@ -328,6 +351,13 @@ table.text-center thead tr th, table.text-center tbody tr td {
     background-size: contain;
     height:600px;
 }
+.landing .title
+{
+    font-size:40px;
+    font-weight: bolder;
+    color:#c4a77b;
+}
+
 
 /*
 
