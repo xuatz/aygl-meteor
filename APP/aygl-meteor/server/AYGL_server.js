@@ -14,46 +14,12 @@ Meteor.publish('registeringPlayers', function(sig) {
     });
 });
 
-
 /*
-    Gives users access to:
-    1) Ended Matches which they were a part of
+    Allows users to read and access alerts which belong to them
 */
-Meteor.publish('match_history', function() {
-    var username = Meteor.users.findOne({
-        _id: this.userId
-    }).username;
-
-    var result = Games.find({
-        $and: [{
-            $or: [{
-                "teams.radiant": {
-                    $elemMatch: username
-                },
-                "teams.dire": {
-                    $elemMatch: username
-                }
-            }]
-        }, {
-            status: {
-                $in: ['ended']
-            }
-        }]
-    });
-    return result;
-
-});
-
-/*
-    Allows all Users basic information (rarely updated) of a user
-*/
-Meteor.publish('allbasicinfo', function() {
-    var result = Meteor.users.find({}, {
-        fields: {
-            "profile.personaname": 1,
-            "profile.avatar": 1,
-            username: 1
-        }
+Meteor.publish('myalerts', function() {
+    var result = Alerts.find({
+        recipient:this.userId
     });
 });
 

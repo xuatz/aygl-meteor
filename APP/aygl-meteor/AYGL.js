@@ -17,6 +17,7 @@ Below are the MongoDB Collections which will be used by this app.
 VerifyTab = new Mongo.Collection('vtab');
 OnlinePlayers = new Mongo.Collection('onlineplayers');
 Games = new Mongo.Collection('games');
+Alerts = new Mongo.Collection('alerts');
 
 if (Meteor.isServer) {
     if (Games.find().count() === 0) {
