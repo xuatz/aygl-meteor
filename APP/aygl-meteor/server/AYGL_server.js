@@ -19,8 +19,14 @@ Meteor.publish('registeringPlayers', function(sig) {
 */
 Meteor.publish('myalerts', function() {
     var result = Alerts.find({
-        recipient:this.userId
+        //recipient:this.userId
+    }, {
+        limit: 30,
+        sort: {
+            date: -1
+        }
     });
+    return result;
 });
 
 

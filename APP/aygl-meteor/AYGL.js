@@ -7,18 +7,6 @@ Server Configurations
 le_web_address = 'localhost:3000';
 //le_web_address = '128.199.86.69:80';
 
-/*
-======================================================================================================
-MongoDB Collections
-Below are the MongoDB Collections which will be used by this app.
-======================================================================================================
-*/
-
-VerifyTab = new Mongo.Collection('vtab');
-OnlinePlayers = new Mongo.Collection('onlineplayers');
-Games = new Mongo.Collection('games');
-Alerts = new Mongo.Collection('alerts');
-
 if (Meteor.isServer) {
     if (Games.find().count() === 0) {
         Games.insert({

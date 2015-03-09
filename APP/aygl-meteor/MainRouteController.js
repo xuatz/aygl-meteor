@@ -32,8 +32,3 @@ Router.route('/', function() {
 }, {
     name: "root"
 });
-
-
-
-
-
