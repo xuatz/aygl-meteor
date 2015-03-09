@@ -23,13 +23,19 @@ Any Templates used for the Drafting Screen will be placed here
             <div class="col-xs-4">
                 {{>yield "radiant"}}
             </div>
-            <div class="col-xs-2"></div>
+            <div class="col-xs-2">
+                <div class="winlose">
+                <a href="#" class="btn btn-success">Radiant Win</a>
+                <a href="#" class="btn btn-danger">Dire Win</a>
+
+            </div>
+            </div>
             <div class="col-xs-4">
                 {{>yield "dire"}}
             </div>
             <div class="col-xs-1"></div>
         </div>
-        <div class="drafting-divider"></div>
+        <div class="divider"></div>
         <div class="row">
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
@@ -53,7 +59,7 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="matchradiant">
   
     <div class="radiant">
-        <h2 class="teamtitle">Radiant</h2>
+        <h2 class="radiant-title">Radiant</h2>
         
         <div class ="teammate">
             <img src="../profileimg.jpg">TeamLeader
@@ -69,12 +75,7 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">dfdsfsdfsdfsdf
-        </div>
-        <div class="winlose">
-            <a href="#" class="btn btn-success">Win</a>
-            <a href="#" class="btn btn-danger">Lose</a>
-        </div>
-
+        </div>    
     </div>
     
   
@@ -82,7 +83,7 @@ Any Templates used for the Drafting Screen will be placed here
 
 <template name="matchdire">
     <div class="dire">
-        <h2 class="teamtitle">Dire</h2>
+        <h2 class="dire-title">Dire</h2>
         
         <div class ="teammate">
             <img src="../profileimg.jpg">TeamLeader
@@ -98,10 +99,6 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">dfdsfsdfsdfsdf
-        </div>
-        <div class="winlose">
-            <a href="#" class="btn btn-success">Win</a>
-            <a href="#" class="btn btn-danger">Lose</a>
         </div>
     </div>
    
