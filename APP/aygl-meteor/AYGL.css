@@ -291,19 +291,38 @@ table.text-center thead tr th, table.text-center tbody tr td {
     color:#b2b2b2;
 }
 
-.whatisaygl
+.whatisaygl.bottom
 {
     background-image: url("../wave.png");
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: contain;
+    height:150px;
+}
+.rubicktext
+{
+    float:left;
+    display:inline-block;
+    width:70%;
+}
+.rubick
+{
+    display:inline-block;
+    float:right;
+    width:30%;
+    padding:10px;
+}
+.rubick img
+{
+    height:auto;
+    width:100%;
 }
 .whatisaygl.title
 {
     display:inline-block;
     padding: 15px 50px 0px 0px;
     height:85px;
-    background-image: url("../wave.png");
+    background-image: url("../waveLeft.png");
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: auto 75px;
@@ -314,11 +333,21 @@ table.text-center thead tr th, table.text-center tbody tr td {
     display:inline-block;
     padding: 10px 0px 0px 50px;
     height:85px;
-    width: 400px;
-    background-image: url("../wave3.png");
+    width: 200px;
+    background-image: url("../waveRight.png");
     background-position: left bottom;
     background-repeat: no-repeat;
     background-size: auto 85px;
+}
+.prizes .well
+{
+    border:5px solid #00BC8C;
+    background-color: #222222;
+}
+.prizes .info
+{
+    font-size:50px;
+    text-align: center;
 }
 
 .break
@@ -345,11 +374,8 @@ table.text-center thead tr th, table.text-center tbody tr td {
 
 .footer
 {
-    background-image: url("../AYGL-Banner.jpg");
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height:600px;
+    width:100%;
+    height:auto;
 }
 .landing .title
 {
