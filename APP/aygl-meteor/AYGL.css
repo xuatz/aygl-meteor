@@ -238,15 +238,13 @@ table.text-center thead tr th, table.text-center tbody tr td {
     color:#b2b2b2;
 }
 
-<<<<<<< HEAD
 /*
 Home Page - Lobby List Item
 */
-
 .challenged {
     border-color: red;
     background-color: #222222;
-=======
+}
 .whatisaygl.bottom
 {
     background-image: url("../wave.png");
@@ -323,7 +321,6 @@ Home Page - Lobby List Item
     font-size:40px;
     font-weight: bolder;
     color:#c4a77b;
->>>>>>> refs/remotes/origin/ted
 }
 
 
