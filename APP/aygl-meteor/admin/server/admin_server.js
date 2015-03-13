@@ -108,27 +108,6 @@ Meteor.methods({
 	        });	
 		}
 
-  //       MatchesCollection.insert(
-		// 	{ "aygl_match_id" : "1000",
-		// 	"status" : "PU",
-		// 	"admin_assigned_to" : "moltencrap"}
-		// );
-		// MatchesCollection.insert(
-		// 	{ "aygl_match_id" : "1100",
-		// 	"status" : "PU",
-		// 	"admin_assigned_to" : "moltencrap"}
-		// );
-		// MatchesCollection.insert(
-		// 	{ "aygl_match_id" : "1200",
-		// 	"status" : "PU",
-		// 	"admin_assigned_to" : "moltencrap"}
-		// );
-		// MatchesCollection.insert(
-		// 	{ "aygl_match_id" : "1500",
-		// 	"status" : "PU",
-		// 	"admin_assigned_to" : "obama"}
-		// );
-
 		var sometghing = MatchesCollection.find({});
 
 		console.log('size2: ' + sometghing.count());
