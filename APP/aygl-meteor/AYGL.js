@@ -99,7 +99,6 @@ TabularTables.MatchTable = new Tabular.Table({
     ]
 });
 
-
 /*
 ======================================================================================================
 Prototypes for Mongo Collections

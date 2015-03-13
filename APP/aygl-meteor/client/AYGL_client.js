@@ -89,50 +89,17 @@ myalerts = Meteor.subscribe('myalerts');
 Tracker.autorun(function() {
     if (myalerts.ready()) {
         var initme = true;
-        Alerts.find().observe({
+        myalerts_handle = Alerts.find().observe({
             added: function(document) {
                 if (!initme) {
                     //Handle NEW incoming alerts
+                    console.log(document);
                 } else {
-                    //Handle OLD, POSSIBLY unread alerts
+                    //Handle EXISTING, POSSIBLY unread alerts
+                    //NOT USED FOR NOW
                 }
             }
         });
         initme = false;
     }
 });
-
-//Notification Handler
-
-handling_alerts = false;
-
-function handleNextAlert() {
-    var alert = Alerts.findOne({
-        isHandled: false
-    });
-    //DO handling
-
-    //Update alert to be handled
-    Alerts.update({
-        _id: alert._id
-    }, {
-        $set: {
-            isHandled: true
-        }
-    });
-}
-
-
-Meteor.setInterval(function() {
-    //Check that alert handler is not already running
-    if (handling_alerts) {
-        return;
-    }
-    //Check if there are any alerts to be handled
-    if (Alerts.find({
-            isHandled: false
-        }).count() > 0) {
-        handleNextAlert();
-
-    }
-}, 2000);

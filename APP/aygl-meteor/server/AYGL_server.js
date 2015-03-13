@@ -1,5 +1,15 @@
 /*
 ======================================================================================================
+Error Definitions for Main Page
+Any Errors which will be thrown will be defined in this section
+======================================================================================================
+*/
+main_error_001_INVALID_ALERT = new Meteor.Error('main_err_001', 'Failed to handle alert. Invalid.');
+main_error_002_CLIENT_ALERT_CREATE_DENY = new Meteor.Error('main_err_002', 'Clients are not allowed to create alerts!');
+main_error_003_CLIENT_ALERT_HANDLE_DENY = new Meteor.Error('main_err_003', 'Clients are not allowed to handle alerts!');
+
+/*
+======================================================================================================
 Server Side Collection Publishes
 Collection Publication for the app will be defined here
 ======================================================================================================
@@ -29,6 +39,30 @@ Meteor.publish('myalerts', function() {
     return result;
 });
 
+/*
+======================================================================================================
+Server Main Methods
+======================================================================================================
+*/
+
+Meteor.methods({
+    respondToAlert: function (alertId, response) {
+        //This is a SERVER-ONLY method. Deny all calls from clients.
+        if(this.userId) {
+            throw main_error_003_CLIENT_ALERT_HANDLE_DENY;
+        }
+
+        //Carry on with responding to Alert
+    },
+    createAlert: function(category, recipient, sender) {
+        //This is a SERVER-ONLY method. Deny all calls from clients.
+        if(this.userId) {
+            throw main_error_002_CLIENT_ALERT_CREATE_DENY;
+        }
+
+        //Carry on with creating the Alert
+    }
+});
 
 /*
 ======================================================================================================

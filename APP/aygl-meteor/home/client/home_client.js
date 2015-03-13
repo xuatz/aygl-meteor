@@ -97,7 +97,7 @@ Template.homemaincontent.helpers({
 });
 
 Template.lobbylistitem.helpers({
-    info: function () {
+    info: function() {
         var result = {};
         /*
             Components:
@@ -108,18 +108,18 @@ Template.lobbylistitem.helpers({
         */
 
         var roomId = Template.currentData()._id;
-        if(Meteor.user().profile.state !== "pending accept"){
+        if (Meteor.user().profile.state !== "pending accept") {
             //CASE 1: Normal (not challenging any lobby)
             result.buttontext = "CHALLENGE!";
             result.buttonclass = "btn-success";
 
-        }else if (Meteor.user().profile.room !== roomId){
+        } else if (Meteor.user().profile.room !== roomId) {
             //CASE 2: Challenged another lobby
             result.buttontext = "CHALLENGE!";
             result.buttonclass = "btn-default"
             result.disabled = "disabled";
 
-        }else{
+        } else {
             //CASE 3: Challenged this lobby
             result.buttontext = "CHALLENGE ISSUED";
             result.buttonclass = "btn-warning";
@@ -132,9 +132,9 @@ Template.lobbylistitem.helpers({
 });
 
 Template.joinedmenu.helpers({
-    buttontext: function () {
+    buttontext: function() {
         var result = "";
-        switch(Meteor.user().profile.state){
+        switch (Meteor.user().profile.state) {
             case "hosting":
             case "waiting":
                 result = "Leave Lobby";
@@ -180,6 +180,10 @@ Template.homeLayout.events({
     'click #joinCapt': function(evt) {
         evt.preventDefault();
         $('#hostmodal').modal('show');
+    },
+    'click #joinPlayer': function(evt) {
+        evt.preventDefault();
+        //Set player State to Ready
     }
 });
 
@@ -225,35 +229,3 @@ Template.homeLayout.rendered = function() {
         $('#gametitle')[0].focus();
     });
 };
-
-shownotification = function(name) {
-    $.growl({
-        message: "You've been matched up! Click to meet your Team!",
-        title: '<strong>Yay, ' + name + '!</strong>',
-        icon: 'fa fa-users fa-lg'
-    }, {
-        animate: {
-            enter: "animated bounceInLeft",
-            exit: "animated bounceOutRight"
-        },
-        placement: {
-            from: "top",
-            align: "center"
-        },
-        type: 'success',
-        offset: {
-            y: 150
-        },
-        template: '\
-<div data-growl="container" class="alert col-xs-4" role="alert">\
-    <button type="button" class="close" data-growl="dismiss">\
-        <span aria-hidden="true">×</span>\
-        <span class="sr-only">Close</span>\
-    </button>\
-    <span data-growl="icon"></span> - \
-    <span data-growl="title"></span> : \
-    <span data-growl="message"></span>\
-    <a href="#" data-growl="url"></a>\
-</div>'
-    });
-}
