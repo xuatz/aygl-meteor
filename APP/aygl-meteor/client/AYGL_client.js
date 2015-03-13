@@ -1,10 +1,16 @@
-
-//Common Strings
+/*
+======================================================================================================
+Client Side Common Strings
+======================================================================================================
+*/
 
 DOTA_MATCH_ID_COLON = "Dota Match ID:"
 
-//============
-
+/*
+======================================================================================================
+Main Client Side Template Helpers
+======================================================================================================
+*/
 
 Template.mainregister.helpers({
     steamloginlink: function() {
@@ -20,6 +26,35 @@ Template.mainloggedin.helpers({
         }
     }
 });
+
+Template.registerHelper('skillbracket', function(percentile) {
+    var result = "Unclassified";
+
+    //Categorisation by elimination
+    if (percentile < 11) {
+        result = "Scum";
+    } else if (percentile < 21) {
+        result = "Novice";
+    } else if (percentile < 41) {
+        result = "Intermediate";
+    } else if (percentile < 61) {
+        result = "Skilled";
+    } else if (percentile < 81) {
+        result = "Expert";
+    } else if (percentile < 96) {
+        result = "Veteran";
+    } else {
+        result = "Legend";
+    }
+
+    return result;
+});
+
+/*
+======================================================================================================
+Main Client Side Template Event Listeners
+======================================================================================================
+*/
 
 Template.mainlogoutbutton.events({
     'click #logoutbtn': function(evt) {
@@ -43,25 +78,12 @@ Template.main.events({
     }
 });
 
-Template.registerHelper('skillbracket', function(percentile) {
-    var result="Unclassified";
+/*
+======================================================================================================
+Main Client Side Collection Subscriptions
+======================================================================================================
+*/
 
-    //Categorisation by elimination
-    if(percentile <11) {
-        result ="Scum";
-    } else if(percentile <21) {
-        result = "Novice";
-    } else if(percentile <41) {
-        result = "Intermediate";
-    } else if(percentile <61) {
-        result =  "Skilled";
-    } else if(percentile <81) {
-        result = "Expert";
-    } else if(percentile <96) {
-        result = "Veteran";
-    } else {
-        result = "Legend";
-    }
-
-    return result;
-});
+if (!Meteor.loggingIn() && Meteor.user()) {
+    Meteor.subscribe('myalerts');
+}

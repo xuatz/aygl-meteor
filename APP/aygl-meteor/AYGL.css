@@ -88,86 +88,78 @@ table.text-center thead tr th, table.text-center tbody tr td {
     border-radius: 50%;
     border: 3px solid #aaa;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    border-color:CornflowerBlue;
 }
 
-/* Drafting Page */
-.drafting-page-top
-{
-    height:180px;
-    overflow-y:auto;
-}
-.drafting-title
+/*Common subpage elements*/
+/************************************************/
+.subpage-title
 {
     text-align: center; 
-    font-size:30px;
+    font-size:40px;
     font-weight: bolder;
     color:#c4a77b;
 }
-.drafting-time
+.text-gold
 {
-    text-align: center;
-    font-size:60px;
-    font-weight: bolder;
-    color:#f2b613;
+    color:#c4a77b;
+
 }
-.drafting-turn
+.break
 {
-    text-align:center;
-    color:#13abf2;
-    font-size:20px;
+    height:50px;
 }
-.drafting-radiant-title
+.divider
+{
+    border:2px solid #c4a77b;
+    border-radius:5px;
+    margin:20px;
+}
+.radiant-title
 {
     text-align:left;
     color:#5AA043;
-    font-size:30px;
+    font-size:36px;
 }
-.drafting-dire-title
+.dire-title
 {
     text-align:right;
     color:#DB2020;
-    font-size:30px;    
+    font-size:36px;    
 }
-.drafting-team-wrapper
+.radiant img
 {
-    height: 130px;
-}
-
-.drafting-radiant .drafting-team-wrapper img
-{   
     float:left;
 }
-.drafting-dire .drafting-team-wrapper img
-{   
+.dire img
+{
     float:right;
 }
-.drafting-members-wrapper
+.radiant .teammate img
 {
-    width: calc(100% - 140px);
-    height: 130px;
-    display:inline-block;
-    float:right;
+    height:51px;
+    border-right:#5AA043 2px solid;
 }
-.drafting-radiant .drafting-teammate, .drafting-radiant .drafting-captain
+.dire .teammate img
 {
-    border:2px solid #5AA043
+    height:51px;
+    border-left:#DB2020 2px solid;
 }
-.drafting-dire .drafting-teammate, .drafting-dire .drafting-captain
-{
-    border:2px solid #DB2020;
-}
-.drafting-captain
-{
-    height: 130px;
-    margin: 0px 5px 0px 5px;
-}
-.drafting-teammate
+.teammate
 {
     height: 55px;
     width:100%;
-    margin:5px 0 5px 0;
+    margin:10px 0 10px 0;
     display:block;
     text-align: center;
+}
+.radiant .teammate
+{
+    border:#5AA043 2px solid;
+}
+.dire .teammate
+{
+    border:#DB2020 2px solid;
 }
 .member-name
 {
@@ -175,33 +167,49 @@ table.text-center thead tr th, table.text-center tbody tr td {
     height:51px;
     word-wrap:break-word;
     overflow-y:auto;
-    
-}
-.drafting-radiant .drafting-teammate
-{
-    float:left;
-}
-.drafting-dire .drafting-teammate
-{
-    float:right;
-}
-.drafting-radiant .drafting-teammate-pic
-{
-    height: 51px;
-    border-right:2px solid #5AA043;
-}
-.drafting-dire .drafting-teammate-pic
-{
-    height: 51px;
-    border-left:2px solid #DB2020;
 }
 
-.drafting-page-bottom h1
+
+
+
+
+/* Drafting Page */
+/************************************************/
+
+.drafting-time
+{
+    font-size:60px;
+    font-weight: bolder;
+}
+.drafting-turn
+{
+    text-align:center;
+    color:#13abf2;
+    font-size:20px;
+}
+
+.drafting-team-wrapper
+{
+    height: 130px;
+}
+
+.drafting-members-wrapper
+{
+    width: calc(100% - 140px);
+    height: 130px;
+    display:inline-block;
+    float:right;
+}
+.drafting-captain
+{
+    height:130px;
+    margin-top:5px;
+}
+.choose-player
 {
     display:inline;
-    color:#c4a77b;
 }
-.drafting-page-bottom-title
+.drafting-bottom-title
 {
     margin:10px;
     height:50px;
@@ -210,31 +218,109 @@ table.text-center thead tr th, table.text-center tbody tr td {
 {
     display:inline;
     float: right;
-    margin-top:16px;
-    vertical-align: bottom;
+    margin-top:12px;
 }
 
 .drafting-pool
 {
     display:block;
-    border:2px solid #000000;
+    border:2px solid #F39C12;
     border-radius:5px;
     overflow:auto;
     height:500px;
 }
-.drafting-divider
-{
-    border:2px solid #c4a77b;
-    border-radius:5px;
-    margin:20px;
-}
 
 /*
-Home Page - Lobby List Item
+    Home Page - Lobby List Item
 */
-
 .challenged {
     border-color: red;
+    background-color: #222222;
+}
+
+/*Landing Page*/
+/*************************************************/
+.landing p
+{
+    font-size: 18px;
+    color:#b2b2b2;
+}
+.whatisaygl.bottom
+{
+    background-image: url("../wave.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height:150px;
+}
+.rubicktext
+{
+    float:left;
+    display:inline-block;
+    width:70%;
+}
+.rubick
+{
+    display:inline-block;
+    float:right;
+    width:30%;
+    padding:10px;
+}
+.rubick img
+{
+    height:auto;
+    width:100%;
+}
+.whatisaygl.title
+{
+    display:inline-block;
+    padding: 15px 50px 0px 0px;
+    height:85px;
+    background-image: url("../waveLeft.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: auto 75px;
+}
+.prizes.title
+{
+    float:right;
+    display:inline-block;
+    padding: 10px 0px 0px 50px;
+    height:85px;
+    width: 200px;
+    background-image: url("../waveRight.png");
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-size: auto 85px;
+}
+.prizes .well
+{
+    border:5px solid #00BC8C;
+    background-color: #222222;
+}
+.prizes .info
+{
+    font-size:50px;
+    text-align: center;
+}
+.aygldifferent
+{
+    background-image: url("../wave2.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height:150px;
+}
+.footer
+{
+    width:100%;
+    height:auto;
+}
+.landing .title
+{
+    font-size:40px;
+    font-weight: bolder;
+    color:#c4a77b;
 }
 
 

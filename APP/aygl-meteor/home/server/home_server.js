@@ -86,9 +86,22 @@ Meteor.methods({
                 _id: this.userId
             });
         }
-
-        if (targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
+        
+        if (targetUser.doNotReset||targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
             //All is well, do nothing
+            /*
+                If a player is currently in a match, do not change his state in order to force him to report
+                the match results before continuing.
+
+                Take note that, once a match result has been officially decided, there shld be a method to
+                reset all players who are in that match to "idle"
+            */
+
+            /*
+                To facilitate the transition to Draft Page from "hosting", "waiting" or "pending accept", the
+                "doNotReset" flag will be checked during transition. if the flag is true, the player will not
+                be reset for the 
+            */
             return;
         } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting") {
             //User is a captain. We must remove the game and inform the involved players about the removal
@@ -98,6 +111,20 @@ Meteor.methods({
             });
 
             //TODO: Notification for other users
+
+            //Reset all involved players
+            Meteor.users.update({
+                "profile.room": targetUser.profile.room
+            }, {
+                $set: {
+                    "profile.state": "idle",
+                    "profile.room": null
+                }
+            }, {
+                multi: true
+            });
+
+
 
         } else if (targetUser.profile.state === "pending accept") {
             //User has challenged a captain. He/She should be removed from the Game list and reset to idle
@@ -128,12 +155,13 @@ Meteor.methods({
             });
         }
 
-        //Setting status to idle
+        //Setting status to idle and reset room value to null
         Meteor.users.update({
             _id: targetUser._id
         }, {
             $set: {
-                "profile.state": "idle"
+                "profile.state": "idle",
+                "profile.room": null
             }
         });
 
@@ -144,7 +172,7 @@ Meteor.methods({
         });
 
         //Ensure challenger does not simultaneously challenge multiple captains
-        if(challenger.profile.state === "pending accept") {
+        if (challenger.profile.state === "pending accept") {
             throw home_error_004_CANNOT_CHALLENGE_MULTIPLE_HOST;
         }
 
@@ -180,7 +208,7 @@ Meteor.methods({
             }, {
                 $set: {
                     "profile.state": "pending accept",
-                    "profile.room" : gameId
+                    "profile.room": gameId
                 }
             });
         }

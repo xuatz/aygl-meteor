@@ -5,42 +5,42 @@ Any Templates used for the Drafting Screen will be placed here
 
 <!--LAYOUT TEMPLATE -->
 <template name="draftingLayout">
-    <div class="drafting-page-top">
+    <div class="row">
         <div class="col-xs-5" >
-            <div class="drafting-radiant">
+            <div class="radiant">
                 {{>yield "radiant"}}
             </div>
         </div>
         <div class="col-xs-2" >
-            <div class="drafting-title">
+            <div class="subpage-title">
                 Drafting
             </div>
-            <div class="drafting-time">
+            <div class="drafting-time text-warning text-center">
             60
             </div>
-            <div class="drafting-turn">
-                Your Turn!
-            </div>
+            <h4 class="text-info text-center">
+            Your Turn!
+            </h4>
         </div>
         <div class="col-xs-5" >
-            <div class="drafting-dire">
+            <div class="dire">
                 {{>yield "dire"}}
             </div>
         </div>
     </div>
-    <div class="drafting-divider"></div>
-    <div class="drafting-page-bottom">
-        <div class="drafting-page-bottom-title">
-            <div class="col-xs-5">
-                <h1>Choose here!</h1>
-            </div>
-            <a class="btn btn-success centered col-xs-2">Choose Player</a>
-            <div class="col-xs-5">
-                <div class="drafting-note text-danger">
-                    Click on the player to select
-                </div>
+    <div class="divider"></div>
+    <div class="row drafting-bottom-title">
+        <div class="col-xs-5">
+            <h1 class="choose-player text-gold">Choose here!</h1>
+        </div>
+        <a class="btn btn-success centered col-xs-2">Choose Player</a>
+        <div class="col-xs-5">
+            <div class="drafting-note text-danger">
+                Click on the player to select
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <div class="drafting-pool">
             {{>yield "pool"}}
@@ -53,30 +53,30 @@ Any Templates used for the Drafting Screen will be placed here
 
 <!--RENDERED TEMPLATES -->
 <template name="draftingradiant">
-    <div class="drafting-radiant-title">
+    <div class="radiant-title">
                 every-mother-son
     </div>
     <div class="drafting-team-wrapper">
         <img src="../profileimg.jpg" class="drafting-captain">
         <div class="drafting-members-wrapper">
             <div class="col-xs-6">
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
                     <div class="member-name">hihi1</div>
                 </div>
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
-                    <div class="member-name"><td>hihi2</td></div>
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
+                    <div class="member-name">hihi2</div>
                 </div>
             </div>
             <div class="col-xs-6">
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
                     <div class="member-name">hihi1</div>
                 </div>
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
-                    <div class="member-name"><td>hihi2</td></div>
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
+                    <div class="member-name">hihi2</div>
                 </div>
             </div>
         </div>
@@ -84,30 +84,30 @@ Any Templates used for the Drafting Screen will be placed here
 </template>
 
 <template name="draftingdire">
-    <div class="drafting-dire-title">
+    <div class="dire-title">
                 itchyfishy
     </div>
     <div class="drafting-team-wrapper">
         <img src="../profileimg.jpg" class="drafting-captain">
         <div class="drafting-members-wrapper">
             <div class="col-xs-6">
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
                     <div class="member-name">hihi1</div>
                 </div>
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
-                    <div class="member-name"><td>hihi2</td></div>
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
+                    <div class="member-name">hihi2</div>
                 </div>
             </div>
             <div class="col-xs-6">
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
                     <div class="member-name">hihi1</div>
                 </div>
-                <div class ="drafting-teammate">
-                    <img src="../profileimg.jpg" class="drafting-teammate-pic">
-                    <div class="member-name"><td>hihi2</td></div>
+                <div class ="teammate">
+                    <img src="../profileimg.jpg">
+                    <div class="member-name">hihi2</div>
                 </div>
             </div>
         </div>
