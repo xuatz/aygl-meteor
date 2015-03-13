@@ -56,43 +56,43 @@ Meteor.methods({
 					"matchPlayerResultArr" : [
 						{
 						"username" : "player1",
-						"player_slot" : "1",
+						"player_slot" : "0",
 						},
 						{
 						"username" : "player2",
-						"player_slot" : "2",
+						"player_slot" : "1",
 						},
 						{
 						"username" : "player3",
-						"player_slot" : "3",
+						"player_slot" : "2",
 						},
 						{
 						"username" : "player4",
-						"player_slot" : "4",
+						"player_slot" : "3",
 						},
 						{
 						"username" : "player5",
-						"player_slot" : "5",
+						"player_slot" : "4",
 						},
 						{
 						"username" : "player6",
-						"player_slot" : "6",
+						"player_slot" : "5",
 						},
 						{
 						"username" : "player7",
-						"player_slot" : "7",
+						"player_slot" : "6",
 						},
 						{
 						"username" : "player8",
-						"player_slot" : "8",
+						"player_slot" : "7",
 						},
 						{
 						"username" : "player9",
-						"player_slot" : "9",
+						"player_slot" : "8",
 						},
 						{
 						"username" : "player10",
-						"player_slot" : "10",
+						"player_slot" : "9",
 						}
 					]
 				}

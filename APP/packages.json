@@ -1,3 +1,4 @@
 {
-	"object-hash" : "0.5.0"  
+	"object-hash": "0.5.0",
+	"restler": "3.2.2"
 }

@@ -2,6 +2,36 @@
   "dependencies": {
     "object-hash": {
       "version": "0.5.0"
+    },
+    "restler": {
+      "version": "3.2.2",
+      "dependencies": {
+        "qs": {
+          "version": "0.6.6"
+        },
+        "xml2js": {
+          "version": "0.4.0",
+          "dependencies": {
+            "sax": {
+              "version": "0.5.8"
+            },
+            "xmlbuilder": {
+              "version": "2.6.1",
+              "dependencies": {
+                "lodash": {
+                  "version": "3.3.1"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "version": "0.2.3"
+        },
+        "iconv-lite": {
+          "version": "0.2.11"
+        }
+      }
     }
   }
 }
