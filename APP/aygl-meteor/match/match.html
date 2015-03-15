@@ -67,15 +67,29 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="demo1">
     <div class="row">
         <div class="teammate">
-            <div class="col-xs-2">
+            <img src="../profileimg.jpg">
+            <div class="member-name">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
+            <div class="thumbs">
+                <i class="fa fa-thumbs-up" ></i>
+                <i class="fa fa-thumbs-down" ></i>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="demo2">
+    <div class="row">
+       
+        <div class="teammate">
+            <div class="col-xs-9">
                 <img src="../profileimg.jpg">
+                <div class="member-name">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
             </div>
-            <div class="col-xs-6">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
-            <div class="col-xs-2">
-                <img src="../up.png">
+            <div class="col-xs-3">
+            <div class="thumbs">
+                <i class="fa fa-thumbs-up" ></i>
+                <i class="fa fa-thumbs-down" ></i>
             </div>
-            <div class="col-xs-2">
-                <img src="../down.png">
             </div>
         </div>
     </div>
@@ -89,7 +103,7 @@ Any Templates used for the Drafting Screen will be placed here
             {{> demo1}}
         </div>
         <div>
-            {{> demo1}}
+            {{> demo2}}
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">dfdsfsdfsdfsdf
@@ -109,8 +123,8 @@ Any Templates used for the Drafting Screen will be placed here
     <div class="dire">
         <h2 class="dire-title">Dire</h2>
         
-        <div class ="teammate">
-            <img src="../profileimg.jpg">TeamLeader
+        <div>
+            {{> demo1}}
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww

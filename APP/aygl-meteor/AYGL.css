@@ -169,8 +169,40 @@ table.text-center thead tr th, table.text-center tbody tr td {
     overflow-y:auto;
 }
 
+/* Match Page */
+/************************************************/
+.thumbs
+{
+    display:inline-block;
+    height:51px;
+    font-size:35px;
+    padding:0px 10px 0px 10px;
+    
+}
+.match .member-name
+{
+    width:calc(100% - 150px);
+}
 
+.radiant .member-name
+{
+    float:left;
+}
 
+.dire .member-name
+{
+    float:right;
+}
+
+.radiant .thumbs
+{
+    float:right;
+}
+
+.dire .thumbs
+{
+    float:left;
+}
 
 
 /* Drafting Page */
