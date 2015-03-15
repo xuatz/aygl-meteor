@@ -163,20 +163,10 @@ table.text-center thead tr th, table.text-center tbody tr td {
 }
 .member-name
 {
-    /*width:calc(100% - 53px);
-    height:51px;*/
+    width:calc(100% - 53px);
+    height:51px;
     word-wrap:break-word;
     overflow-y:auto;
-}
-
-
-
-.teammate2
-{
-    height: 55px;
-    width:100%;
-    display:block;
-    text-align: center;
 }
 
 /* Match Page */

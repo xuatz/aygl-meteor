@@ -4,7 +4,7 @@ Any Templates used for the Drafting Screen will be placed here
 -->
 
 <!--LAYOUT TEMPLATE -->
-<template name="matchLayout">
+<template name="matchlayout">
     <div class="match">
         
         <div class="row">
@@ -32,14 +32,14 @@ Any Templates used for the Drafting Screen will be placed here
             <div class="col-xs-4"></div>
         </div>
 
-        <div class="row" style="padding: 0px 80px">
+        <div class="row" style="padding: 0px 100px">
             <div class="col-xs-5">
-                {{>yield "radiant"}}
+                {{> matchradiant}}
             </div>
             <div class="col-xs-2">
             </div>
             <div class="col-xs-5">
-                {{>yield "dire"}}
+                {{> matchdire}}
             </div>
         </div>
         <div class="divider"></div>
@@ -77,86 +77,44 @@ Any Templates used for the Drafting Screen will be placed here
     </div>
 </template>
 
-<template name="demo2">
-    <div class="row">
-        <div class="teammate">
-            <div class="col-xs-1">
-                <img src="../profileimg.jpg">
-            </div>
-            <div class="col-xs-8 text-center">
-                <div class="member-name">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
-            </div>
-            <div class="col-xs-3">
-                <div class="thumbs">
-                    <i class="fa fa-thumbs-up" ></i>
-                    <i class="fa fa-thumbs-down" ></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<template name="demo3">
-    <div class="row">
-        <div class="teammate">
-            <div class="col-xs-2">
-                <img src="../profileimg.jpg">
-            </div>
-            <div class="col-xs-6">
-                {{demoPlayer.username}}
-            </div>
-            <div class="col-xs-2">
-                <img src="../up.png">
-            </div>
-            <div class="col-xs-2">
-                <img src="../down.png">
-            </div>
-        </div>
-    </div>
-</template>
-
 <template name="matchradiant">
-  
     <div class="radiant">
         <h2 class="radiant-title">Radiant</h2>
         <div>
             {{> demo1}}
         </div>
         <div>
-            {{> demo2}}
+            {{> demo1}}
         </div>
         <div>
-            {{> demo3}}
+            {{> demo1}}
         </div>
         <div>
-            {{> demo4}}
+            {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">dfdsfsdfsdfsdf
-        </div>    
+        <div>
+            {{> demo1}}
+        </div>
     </div>
-    
-  
 </template>
 
 <template name="matchdire">
     <div class="dire">
         <h2 class="dire-title">Dire</h2>
-        
         <div>
             {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww
+        <div>
+            {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">dfdsfsdfsdfsdf
+        <div>
+            {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww
+        <div>
+            {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">dfdsfsdfsdfsdf
+        <div>
+            {{> demo1}}
         </div>
     </div>
    
