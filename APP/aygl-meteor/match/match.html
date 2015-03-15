@@ -18,22 +18,29 @@ Any Templates used for the Drafting Screen will be placed here
             </div>
             <div class="col-xs-3"></div>
         </div>
+
+
         <div class="row">
-            <div class="col-xs-1"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4 text-center">
+                <div class="winlose" style="padding: 20px">
+                    <a href="#" class="btn btn-success col-xs-4">Radiant Win</a>
+                    <a href="#" class="btn btn-info col-xs-4">Void</a>
+                    <a href="#" class="btn btn-danger col-xs-4">Dire Win</a>
+                </div>
+            </div>
+            <div class="col-xs-4"></div>
+        </div>
+
+        <div class="row" style="padding: 50px">
+            <div class="col-xs-5">
                 {{>yield "radiant"}}
             </div>
             <div class="col-xs-2">
-                <div class="winlose">
-                <a href="#" class="btn btn-success">Radiant Win</a>
-                <a href="#" class="btn btn-danger">Dire Win</a>
-
             </div>
-            </div>
-            <div class="col-xs-4">
+            <div class="col-xs-5">
                 {{>yield "dire"}}
             </div>
-            <div class="col-xs-1"></div>
         </div>
         <div class="divider"></div>
         <div class="row">
@@ -56,13 +63,27 @@ Any Templates used for the Drafting Screen will be placed here
 
 
 <!--RENDERED TEMPLATES -->
+
+<template name="demo1">
+    <div class="row">
+        <div class="col-xs-6">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
+        <div class="col-xs-2">
+            <img src="../up.png">
+        </div>
+        <div class="col-xs-2">
+            <img src="../down.png">
+        </div>
+    </div>
+</template>
+
 <template name="matchradiant">
   
     <div class="radiant">
         <h2 class="radiant-title">Radiant</h2>
         
         <div class ="teammate">
-            <img src="../profileimg.jpg">TeamLeader
+            <img src="../profileimg.jpg">
+            {{> demo1}}
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww
