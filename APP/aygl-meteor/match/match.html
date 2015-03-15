@@ -66,12 +66,17 @@ Any Templates used for the Drafting Screen will be placed here
 
 <template name="demo1">
     <div class="row">
-        <div class="col-xs-6">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
-        <div class="col-xs-2">
-            <img src="../up.png">
-        </div>
-        <div class="col-xs-2">
-            <img src="../down.png">
+        <div class="teammate">
+            <div class="col-xs-2">
+                <img src="../profileimg.jpg">
+            </div>
+            <div class="col-xs-6">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
+            <div class="col-xs-2">
+                <img src="../up.png">
+            </div>
+            <div class="col-xs-2">
+                <img src="../down.png">
+            </div>
         </div>
     </div>
 </template>
@@ -80,13 +85,11 @@ Any Templates used for the Drafting Screen will be placed here
   
     <div class="radiant">
         <h2 class="radiant-title">Radiant</h2>
-        
-        <div class ="teammate">
-            <img src="../profileimg.jpg">
+        <div>
             {{> demo1}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww
+        <div>
+            {{> demo1}}
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">dfdsfsdfsdfsdf
