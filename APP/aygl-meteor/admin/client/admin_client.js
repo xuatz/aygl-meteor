@@ -56,6 +56,16 @@ Template.adminLayout.events({
         evt.preventDefault();
         console.log('clicked tab3');
         Session.set('adminTabSelection', 3);
+
+        Meteor.call("testMethod", function(err, res){
+            if(err){
+                
+            }
+            else {
+                console.log('success!');
+                console.log(res);
+            }
+        });
     },
     'click #tab4': function(evt) {
         evt.preventDefault();

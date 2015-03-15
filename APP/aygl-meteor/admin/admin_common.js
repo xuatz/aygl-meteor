@@ -1,5 +1,3 @@
-//git sucks ass
-
 MatchesCollection = new Mongo.Collection("Match");
 
 MatchesCollection.allow({
