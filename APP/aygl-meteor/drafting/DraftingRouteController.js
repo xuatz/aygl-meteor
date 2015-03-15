@@ -1,5 +1,5 @@
 DraftingController = RouteController.extend({
-    layoutTemplate: 'draftingLayout'
+    layoutTemplate: 'draftinglayout'
 });
 
 Router.route('/drafting', function() {
