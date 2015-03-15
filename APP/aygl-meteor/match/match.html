@@ -80,8 +80,10 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="demo2">
     <div class="row">
         <div class="teammate">
-            <div class="col-xs-9">
+            <div class="col-xs-1">
                 <img src="../profileimg.jpg">
+            </div>
+            <div class="col-xs-8 text-center">
                 <div class="member-name">wwwwwwwwwwwwwwwwwwwwwwwwww</div>
             </div>
             <div class="col-xs-3">
@@ -101,10 +103,7 @@ Any Templates used for the Drafting Screen will be placed here
                 <img src="../profileimg.jpg">
             </div>
             <div class="col-xs-6">
-                <!-- {{demoPlayer.username}}
-
-                {{this.username}} -->
-                {{username}}
+                {{demoPlayer.username}}
             </div>
             <div class="col-xs-2">
                 <img src="../up.png">
@@ -116,7 +115,6 @@ Any Templates used for the Drafting Screen will be placed here
     </div>
 </template>
 
-
 <template name="matchradiant">
   
     <div class="radiant">
@@ -127,11 +125,11 @@ Any Templates used for the Drafting Screen will be placed here
         <div>
             {{> demo2}}
         </div>
-        <div class ="teammate">
+        <div>
             {{> demo3}}
         </div>
-        <div class ="teammate">
-            <img src="../profileimg.jpg">wwwwwwwwwwwwwwwwwwwwwwwwww
+        <div>
+            {{> demo4}}
         </div>
         <div class ="teammate">
             <img src="../profileimg.jpg">dfdsfsdfsdfsdf
