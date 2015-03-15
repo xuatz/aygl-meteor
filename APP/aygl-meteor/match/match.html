@@ -4,7 +4,7 @@ Any Templates used for the Drafting Screen will be placed here
 -->
 
 <!--LAYOUT TEMPLATE -->
-<template name="matchLayout">
+<template name="matchlayout">
     <div class="match">
         
         <div class="row">
@@ -21,7 +21,7 @@ Any Templates used for the Drafting Screen will be placed here
         <div class="row">
             <div class="col-xs-1"></div>
             <div class="col-xs-4">
-                {{>yield "radiant"}}
+                {{> matchradiant}}
             </div>
             <div class="col-xs-2">
                 <div class="winlose">
@@ -31,7 +31,7 @@ Any Templates used for the Drafting Screen will be placed here
             </div>
             </div>
             <div class="col-xs-4">
-                {{>yield "dire"}}
+                {{> matchdire}}
             </div>
             <div class="col-xs-1"></div>
         </div>

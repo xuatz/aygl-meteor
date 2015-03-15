@@ -27,11 +27,6 @@ Meteor.methods({
                 reset all players who are in that match to "idle"
             */
 
-            /*
-                To facilitate the transition to Draft Page from "hosting", "waiting" or "pending accept", the
-                "doNotReset" flag will be checked during transition. if the flag is true, the player will not
-                be reset for the 
-            */
             return;
         } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting") {
             //User is a captain. We must remove the game and inform the involved players about the removal
@@ -95,6 +90,16 @@ Meteor.methods({
             }
         });
 
+    },
+    changeState: function(state) {
+        //DEBUGGING TOOL. REMOVE BEFORE PRODUCTION
+        Meteor.users.update({
+            _id: this.userId
+        }, {
+            $set: {
+                "profile.state": state
+            }
+        });
     }
 });
 
@@ -185,4 +190,3 @@ Meteor.users.find({
         Meteor.call('resetState', id);
     }
 });
-

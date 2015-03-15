@@ -41,7 +41,7 @@ Template.joinedmenu.helpers({
                 result = "Leave Drafting";
                 break;
             case "in-match":
-                result = "Leave Match";
+                result = "ABANDON MATCH";
                 break;
             case "pending accept":
                 result = "Stop Challenge";
@@ -103,6 +103,11 @@ Template.playLayout.events({
     'click #joinPlayer': function(evt) {
         evt.preventDefault();
         //Set player State to Ready
+    },
+    'click .magic': function(evt, template) {
+        evt.preventDefault();
+        var label = evt.target.innerHTML;
+        Meteor.call('changeState', label );
     }
 });
 

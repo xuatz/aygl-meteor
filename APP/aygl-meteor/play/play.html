@@ -12,7 +12,21 @@ Any Templates used for the Play Screen will be placed here
                 <span class="h3">{{string}}</span>
             {{else}}
                 <img src="/doge.jpeg" class="profilecircle tiny">
-            {{/with}}</h1>
+            {{/with}}
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Le Magic Button of States <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" class="magic">drafting</a>
+                    </li>
+                    <li><a href="#" class="magic">in-match</a>
+                    </li>
+                    <li><a href="#" class="magic">idle</a>
+                    </li>
+                </ul>
+            </div>
+            </h1>
         </div>
         <div class="col-xs-4">
             <div class="row">
@@ -28,55 +42,8 @@ Any Templates used for the Play Screen will be placed here
         </div>
     </div>
     <div class="row toppadding">
-        <div class="col-xs-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h1 class="panel-title">Profile</h1>
-                </div>
-                <div class="panel-body quad-unit">
-                    {{>yield "profile"}}
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h1 class="text-center panel-title">Games awaiting Challengers</h1>
-                </div>
-                <div class="panel-body quad-unit">
-                    {{>yield "maincontent"}}
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-4">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="text-center panel-title">
-                            Games awaiting eligible players
-                        </h1>
-                        </div>
-                        <div id="pewpew" class="panel-body quad-unit">
-                            {{>yield "notification"}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <h2 class="text-center">Top 10 Players</h2>
-            <div class="well well-sm quad-unit">
-                {{>yield "top10"}}
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <h2 class="text-center">Match History</h2>
-            <div class="well well-sm quad-unit">
-                {{>yield "xtra"}}
-            </div>
+        <div class="col-xs-12">
+            {{>yield "playmaincontent"}}
         </div>
     </div>
     <!-- MODAL TEMPLATES-->

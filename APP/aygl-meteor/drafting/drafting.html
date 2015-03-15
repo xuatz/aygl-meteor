@@ -4,11 +4,11 @@ Any Templates used for the Drafting Screen will be placed here
 -->
 
 <!--LAYOUT TEMPLATE -->
-<template name="draftingLayout">
+<template name="draftinglayout">
     <div class="row">
         <div class="col-xs-5" >
             <div class="radiant">
-                {{>yield "radiant"}}
+                {{> draftingradiant}}
             </div>
         </div>
         <div class="col-xs-2" >
@@ -24,7 +24,7 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <div class="col-xs-5" >
             <div class="dire">
-                {{>yield "dire"}}
+                {{> draftingdire}}
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@ Any Templates used for the Drafting Screen will be placed here
     <div class="row">
         <div class="col-xs-12">
             <div class="drafting-pool">
-            {{>yield "pool"}}
+            {{> draftingpool}}
             </div>
         </div>
     </div>

@@ -23,28 +23,25 @@ Router.route('/play', function() {
         });
     }
 
-    if (Meteor.user().profile.state === 'hosting') {
-        this.render('homecaptainslobby', {
-            to: "maincontent"
+    //Check which page to render
+    if (Meteor.user().profile.state === "drafting") {
+        //RENDER DRAFTING PAGE
+        this.render('draftinglayout', {
+            to: "playmaincontent"
         });
+    } else if (Meteor.user().profile.state === "in-match") {
+        //RENDER MATCH PAGE
+        this.render('matchlayout', {
+            to: "playmaincontent"
+        });
+
     } else {
-        this.render('homemaincontent', {
-            to: "maincontent"
+        //IDLE, READY, RESERVED, PENDING ACCEPT, HOSTING, WAITING
+        this.render('homelayout', {
+            to: "playmaincontent"
         });
     }
 
-    this.render('homeprofile', {
-        to: "profile"
-    });
-    this.render('homesidecontent', {
-        to: "notification"
-    });
-    this.render('hometop10', {
-        to: "top10"
-    });
-    this.render('homextra', {
-        to: "xtra"
-    });
     this.next()
 }, {
     name: 'home',

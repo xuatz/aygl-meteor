@@ -5,6 +5,21 @@
 ======================================================================================================
 */
 
+Template.homelayout.helpers({
+    mainpanelcontent: function () {
+        var result ="";
+        switch(Meteor.user().profile.state){
+            case "hosting":
+                result = "homecaptainslobby"
+                break;
+            default:
+                result = "homemaincontent"
+                break;
+        }
+        return result;
+    }
+});
+
 Template.homeprofile.helpers({
     myprofile: function() {
         return Meteor.user();

@@ -1,5 +1,5 @@
 MatchController = RouteController.extend({
-    layoutTemplate: 'matchLayout'
+    layoutTemplate: 'matchlayout'
 });
 
 Router.route('/match', function() {

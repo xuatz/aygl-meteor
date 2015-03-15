@@ -1,5 +1,60 @@
 <!--RENDERED TEMPLATES -->
 
+<template name="homelayout">
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Profile</h1>
+                </div>
+                <div class="panel-body quad-unit">
+                    {{> homeprofile}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="text-center panel-title">Games awaiting Challengers</h1>
+                </div>
+                <div class="panel-body quad-unit">
+                    {{> Template.dynamic template=mainpanelcontent }}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="text-center panel-title">
+                            Games awaiting eligible players
+                        </h1>
+                        </div>
+                        <div id="pewpew" class="panel-body quad-unit">
+                            {{> homesidecontent}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <h2 class="text-center">Top 10 Players</h2>
+            <div class="well well-sm quad-unit">
+                {{> hometop10}}
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <h2 class="text-center">Match History</h2>
+            <div class="well well-sm quad-unit">
+                {{> homextra}}
+            </div>
+        </div>
+    </div>
+</template>
+
 <template name="homeprofile">
     <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
     <figcaption class="text-center">{{myprofile.username}}</figcaption>
@@ -30,37 +85,37 @@
 
 <template name="challengerprofile">
     {{#with selectedChallenger}}
-        <div class="row">
-            <img class="center-block profile tiny" src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg">
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h4 class="text-center">Challenger Profile</h4>
-                <p class="well dark">
-                    <strong class="text-warning">
+    <div class="row">
+        <img class="center-block profile tiny" src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg">
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="text-center">Challenger Profile</h4>
+            <p class="well dark">
+                <strong class="text-warning">
                                 Username: 
                             </strong>
-                    <em class="text-muted">
+                <em class="text-muted">
                                 {{username}}
                             </em>
-                    <br><strong class="text-warning">
+                <br><strong class="text-warning">
                                 Steam Name:
                             </strong>
-                    <em class="text-muted">
+                <em class="text-muted">
                                 {{profile.personaname}}
                             </em>
 
-                    <br><strong class="text-warning">Rank:</strong> <em class="text-muted">{{profile.rank}}</em>
-                    <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">12192</em>
-                    <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31</em>
-                </p>
-            </div>
+                <br><strong class="text-warning">Rank:</strong> <em class="text-muted">{{profile.rank}}</em>
+                <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">12192</em>
+                <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31</em>
+            </p>
         </div>
-        {{else}}
-            <h1 class="text-center">
+    </div>
+    {{else}}
+    <h1 class="text-center">
         Hosting a Match
     </h1>
-            <h4 class="text-center">
+    <h4 class="text-center">
     Accept a challenge to begin drafting.
     <br><br><i class="center-block fa fa-arrow-right fa-2x"></i>
     </h4> {{/with}}
@@ -133,18 +188,16 @@
 <template name="homemaincontent">
     <div class="list-group col-xs-12">
         {{#if lobbyIsEmpty}}
-            <div class="well dark">
-                <p class="text-center">
-                    <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
-                </p>
-            </div>
-        {{else}}
-            {{#each list_lobby_hosted}}
-                <div class="row toppadding">
-                    {{#each this}} {{> lobbylistitem}} {{/each}}
-                </div>
-            {{/each}}
-        {{/if}}
+        <div class="well dark">
+            <p class="text-center">
+                <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
+            </p>
+        </div>
+        {{else}} {{#each list_lobby_hosted}}
+        <div class="row toppadding">
+            {{#each this}} {{> lobbylistitem}} {{/each}}
+        </div>
+        {{/each}} {{/if}}
     </div>
 </template>
 
@@ -175,7 +228,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <br>
-                    <button id="challengecpt" data-lobbyid="{{this._id}}" class="btn btn-sm {{info.buttonclass}} btn-block" {{info.disabled}} >{{info.buttontext}}</button>
+                    <button id="challengecpt" data-lobbyid="{{this._id}}" class="btn btn-sm {{info.buttonclass}} btn-block" {{info.disabled}}>{{info.buttontext}}</button>
                 </div>
             </div>
         </div>
