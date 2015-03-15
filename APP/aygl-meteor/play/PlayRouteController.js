@@ -27,8 +27,6 @@ Router.route('/play', function() {
         this.render('homecaptainslobby', {
             to: "maincontent"
         });
-    } else if (Meteor.user().profile.state === 'pending accept') {
-        //TODO RENDER PENDING ACCEPT HERE
     } else {
         this.render('homemaincontent', {
             to: "maincontent"
