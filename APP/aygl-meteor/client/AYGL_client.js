@@ -72,7 +72,7 @@ Template.main.events({
             if (error) {
                 alert(error);
             } else {
-                Router.go('/home');
+                Router.go('/play');
             }
         });
     }

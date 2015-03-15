@@ -175,7 +175,7 @@ Template.verifiedsignupform.events({
                 registeringNow.stop();
                 Meteor.call('registrationComplete', steamIdentity.sig);
                 Meteor.logoutOtherClients();
-                Router.go('/home');
+                Router.go('/play');
             }
         });
     }

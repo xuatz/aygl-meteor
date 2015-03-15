@@ -1,8 +1,8 @@
-HomeController = RouteController.extend({
-    layoutTemplate: 'homeLayout'
+PlayController = RouteController.extend({
+    layoutTemplate: 'playLayout'
 });
 
-Router.route('/home', function() {
+Router.route('/play', function() {
     /*
         Main Content Block Rendering Logic
     */
@@ -50,5 +50,5 @@ Router.route('/home', function() {
     this.next()
 }, {
     name: 'home',
-    controller: 'HomeController'
+    controller: 'PlayController'
 });
