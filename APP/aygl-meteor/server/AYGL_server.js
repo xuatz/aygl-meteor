@@ -7,6 +7,7 @@ Any Errors which will be thrown will be defined in this section
 main_error_001_INVALID_ALERT = new Meteor.Error('main_err_001', 'Failed to handle alert. Invalid.');
 main_error_002_CLIENT_ALERT_CREATE_DENY = new Meteor.Error('main_err_002', 'Clients are not allowed to create alerts!');
 main_error_003_CLIENT_ALERT_HANDLE_DENY = new Meteor.Error('main_err_003', 'Clients are not allowed to handle alerts!');
+main_error_004_CANNOT_MAKE_ALERT = new Meteor.Error('main_err_004', 'Error creating alert.');
 
 /*
 ======================================================================================================
@@ -46,21 +47,48 @@ Server Main Methods
 */
 
 Meteor.methods({
-    respondToAlert: function (alertId, response) {
+    respondToAlert: function(alertId, response) {
         //This is a SERVER-ONLY method. Deny all calls from clients.
-        if(this.userId) {
+        if (this.userId) {
             throw main_error_003_CLIENT_ALERT_HANDLE_DENY;
         }
 
         //Carry on with responding to Alert
     },
-    createAlert: function(category, recipient, sender) {
+    createAlert: function(category, recipient, sender, details) {
         //This is a SERVER-ONLY method. Deny all calls from clients.
-        if(this.userId) {
+        if (this.userId) {
             throw main_error_002_CLIENT_ALERT_CREATE_DENY;
         }
+        var result;
+        //If category is "custom" or "generic", then we take note of details. If not, details is ignored.
 
         //Carry on with creating the Alert
+        result.category = category;
+        result.recipient = recipient;
+
+        if (typeof sender === "undefined") {
+            result.sender = "system";
+        } else {
+            result.sender = sender;
+        }
+
+        if (category === "alert_challengeAccepted") {
+            if (result.sender === "system") {
+                throw main_error_004_CANNOT_MAKE_ALERT;
+            }
+
+            //User must respond to this alert
+            result.hasResponded = false;
+            result.type = "high";
+            result.message = {
+                message: " Your Challenge has been Accepted by " + sender,
+                icon: "fa fa-shield"
+            }
+        } else {
+            result.sender
+        }
+
     }
 });
 

@@ -28,8 +28,7 @@ Below are the Alerts which will be used by this app.
 shownotification = function(name) {
     le_notify = $.notify({
         message: "Your challenge has been accepted!",
-        title: '<strong>Yay, ' + name + '!</strong>',
-        icon: 'fa fa-users fa-3x'
+        icon: 'fa fa-shield fa-5x'
     }, {
         animate: {
             enter: "animated fadeInUp",
@@ -39,7 +38,7 @@ shownotification = function(name) {
             from: "top",
             align: "center"
         },
-        type: 'info',
+        type: 'warning',
         allow_dismiss: false,
         delay:0,
         offset: {
@@ -47,9 +46,11 @@ shownotification = function(name) {
         },
         template: '<div data-notify="container" class="col-xs-4 alert alert-{0}" role="alert">' +
             '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-            '<span data-notify="icon"></span> ' +
-            '<span data-notify="title">{1}</span> ' +
-            '<span data-notify="message">{2}</span>' +
+            '<div class="row">'+
+            '<div class="col-xs-2"><span data-notify="icon"></span></div> ' +
+            //'<div class="col-xs-2"><span data-notify="title">{1}</span></div> ' +
+            '<div class="col-xs-8"><span class="challengeAcceptedText" data-notify="message">{2}</span></div> ' +
+            '</div>'+
             '<div class="row toppadding">'+
             '<div class="col-xs-6">'+
             '<button class="btn btn-success btn-block">Accept</button>'+

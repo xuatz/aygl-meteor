@@ -5,7 +5,7 @@ Any Errors which will be thrown will be defined in this section
 ======================================================================================================
 */
 
-home_error_001_ALREADY_IN_GAME = new Meteor.Error('Home_Err_001', 'You are already part of a game.');
+home_error_001_PLAYER_IS_BUSY = new Meteor.Error('Home_Err_001', 'Player is not idle. Cannot create match.');
 home_error_002_TITLE_TOO_LONG = new Meteor.Error('Home_Err_002', 'The title cannot exceed 45 characters');
 home_error_003_CANNOT_CHALLENGE_HOST = new Meteor.Error('Home_Err_003', 'Error while challenging host.');
 home_error_004_CANNOT_CHALLENGE_MULTIPLE_HOST = new Meteor.Error('Home_Err_004', 'Cannot challenge more than one host at a time.');
@@ -26,13 +26,11 @@ Meteor.methods({
             _id: this.userId
         });
 
-        //Check if user is already part of a game
-        if (hostingplayer.profile.state === 'hosting' ||
-            hostingplayer.profile.state === 'drafting' ||
-            hostingplayer.profile.state === 'in-match' ||
-            hostingplayer.profile.state === 'waiting') {
-            throw home_error_001_ALREADY_IN_GAME;
+        //Check if player is allowed to create a game (must be IDLE)
+        if(hostingplayer.profile.state !== "idle") {
+            throw home_error_001_PLAYER_IS_BUSY;
         }
+
 
         //Check if the title is too long
         if (title.length > 45) {
