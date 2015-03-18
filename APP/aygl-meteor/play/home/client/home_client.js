@@ -6,14 +6,26 @@
 */
 
 Template.homelayout.helpers({
-    mainpanelcontent: function () {
-        var result ="";
-        switch(Meteor.user().profile.state){
+    mainpanelcontent: function() {
+        var result = "";
+        switch (Meteor.user().profile.state) {
             case "hosting":
                 result = "homecaptainslobby"
                 break;
             default:
                 result = "homemaincontent"
+                break;
+        }
+        return result;
+    },
+    mainpaneltitle: function() {
+        var result;
+        switch (Meteor.user().profile.state) {
+            case "hosting":
+                result = "Captain's Lobby"
+                break;
+            default:
+                result = "Games Awaiting Challengers"
                 break;
         }
         return result;
@@ -27,18 +39,42 @@ Template.homeprofile.helpers({
 });
 
 Template.homecaptainslobby.helpers({
-    info: function() {
+    lobbyinfo: function() {
         return Games.findOne({
-            lobby_id: Meteor.user().room
+            _id: Meteor.user().profile.room
         });
+    },
+    nochallengers: function(playercount) {
+        var result;
+        if (playercount > 0) {
+            result = false;
+        } else {
+            result = true;
+        }
+        return result;
     }
 });
 
 Template.challengerprofile.helpers({
     selectedChallenger: function() {
-        return Meteor.users.findOne({
-            username: Session.get('selectedChallenger')
+        var result;
+        var game = Games.findOne({
+            _id: Meteor.user().profile.room,
+            challengers: {
+                $elemMatch: {
+                    name: Session.get('selectedChallenger')
+                }
+            }
         });
+        if (typeof Session.get('selectedChallenger') !== "undefined") {
+            result = _.find(game.challengers, function(challenger) {
+                return (challenger.name === Session.get('selectedChallenger'));
+            });
+            console.log(result);
+            return result;
+        } else {
+            return;
+        }
     }
 });
 
@@ -135,7 +171,22 @@ Template.lobbylistitem.events({
     'click #challengecpt': function(evt, template) {
         evt.preventDefault();
         //Make data changes if successful
-        var lobbyid = evt.target.dataset.lobbyid
+        var lobbyid = evt.currentTarget.dataset.lobbyid
         Meteor.call('challengecpt', lobbyid);
+    }
+});
+
+Template.homecaptainslobby.events({
+    'click .clickable': function(evt, template) {
+        evt.preventDefault();
+        //element manipulation
+        if (_.contains(evt.currentTarget.classList, "active")) {
+            Session.set('selectedChallenger', undefined);
+            evt.currentTarget.classList.remove('active');
+        } else {
+            Session.set('selectedChallenger', evt.currentTarget.id);
+            template.$('.clickable').removeClass('active');
+            evt.currentTarget.classList.add('active');
+        }
     }
 });

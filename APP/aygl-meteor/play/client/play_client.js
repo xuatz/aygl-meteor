@@ -64,13 +64,9 @@ All Template handlers for templates defined within signup.html will be placed he
 Template.joinedmenu.events({
     'click #leavegame': function() {
         Meteor.call('resetState');
-    }
-});
-
-Template.homesidecontent.events({
-    'click #testnotification': function(evt) {
-        evt.preventDefault();
-        shownotification(Meteor.user().username);
+        if (typeof le_alert !== "undefined") {
+            le_alert.close();
+        }
     }
 });
 
@@ -106,8 +102,8 @@ Template.playLayout.events({
     },
     'click .magic': function(evt, template) {
         evt.preventDefault();
-        var label = evt.target.innerHTML;
-        Meteor.call('changeState', label );
+        var label = evt.currentTarget.innerHTML;
+        Meteor.call('changeState', label);
     }
 });
 
@@ -123,3 +119,63 @@ Template.playLayout.rendered = function() {
         $('#gametitle')[0].focus();
     });
 };
+
+/*
+======================================================================================================
+Meteor Methods for Client Side
+======================================================================================================
+*/
+Meteor.methods({
+    resetState: function () {
+        //Here we reset all Session variables which should be affected by resetState()
+        Session.set('selectedChallenger', undefined);
+    }
+});
+
+/*
+======================================================================================================
+Bootstrap Notify
+Below are the Alerts which will be used by this app.
+======================================================================================================
+*/
+
+challengeAlert = function(name) {
+    le_alert = $.notify({
+        message: "Your challenge has been accepted!",
+        icon: 'fa fa-shield fa-5x text-warning'
+    }, {
+        animate: {
+            enter: "animated fadeInDown",
+            exit: "animated zoomOut"
+        },
+        placement: {
+            from: "top",
+            align: "center"
+        },
+        type: 'info',
+        allow_dismiss: false,
+        delay: 0,
+        offset: {
+            y: 150
+        },
+        template: Blaze.toHTMLWithData(Template.challengeBox, {
+            field1: "test1",
+            field2: "test2"
+        }),
+        onShow: function() {
+            //Set up listener for the buttons.
+            //NOTE: This listener will be destroyed once the notification is closed.
+            $('#acceptChallenge').on('click', function(evt) {
+                evt.preventDefault();
+                console.log('ACCEPT DA CHALLENGE');
+                le_alert.close();
+            });
+            $('#rejectChallenge').on('click', function(evt) {
+                evt.preventDefault();
+                console.log('REJECT DA CHALLENGE');
+                Meteor.call('resetState');
+                le_alert.close();
+            });
+        }
+    });
+}

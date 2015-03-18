@@ -89,6 +89,7 @@ Meteor.methods({
 
         result.name = challenger.username;
         result.personaname = challenger.profile.personaname;
+        result.avatar = challenger.profile.avatar;
 
         if (!challenger.profile.ranking.percentile) {
             //GET FROM STATSDB (this might not be necesary. Continue to monitor behavior)
