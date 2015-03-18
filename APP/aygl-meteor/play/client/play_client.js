@@ -78,7 +78,8 @@ Template.hostmodal.events({
     'click #buttonhost': function(evt, template) {
         evt.preventDefault();
         $('#hostmodal').modal('hide');
-        Meteor.call('createNewGame', template.$('#gametitle')[0].value, function(err, res) {
+        var threshold = template.$('input[name="thresholdvalue"]:checked').val()
+        Meteor.call('createNewGame', template.$('#gametitle')[0].value, threshold, function(err, res) {
             if (err) {
                 alert(err);
             } else {

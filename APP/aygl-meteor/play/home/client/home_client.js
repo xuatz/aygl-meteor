@@ -70,7 +70,6 @@ Template.challengerprofile.helpers({
             result = _.find(game.challengers, function(challenger) {
                 return (challenger.name === Session.get('selectedChallenger'));
             });
-            console.log(result);
             return result;
         } else {
             return;

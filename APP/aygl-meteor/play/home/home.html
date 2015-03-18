@@ -90,34 +90,57 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <h4 class="text-center">Challenger Profile</h4>
+                <h4 class="text-center">{{name}}'s Summary</h4>
                 <p class="well dark">
-                    <strong class="text-warning">
-                                Username: 
-                            </strong>
-                    <em class="text-muted">
-                                {{name}}
-                            </em>
-                    <br><strong class="text-warning">
-                                Steam Name:
-                            </strong>
-                    <em class="text-muted">
-                                {{personaname}}
-                            </em>
-
-                    <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">{{percentile}}</em>
-                    <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31??</em>
+                    <table class="table table-condensed wraptext">
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-3 text-warning">
+                                    Username:
+                                </td>
+                                <td class="col-xs-9">
+                                    <em>{{name}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Steam Name:
+                                </td>
+                                <td>
+                                    <em>{{personaname}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Percentile:
+                                </td>
+                                <td>
+                                    <em>{{percentile}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Wins:
+                                </td>
+                                <td>
+                                    <em>45</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </p>
             </div>
         </div>
         {{else}}
             <h1 class="text-center">
-        Hosting a Match
-    </h1>
+            Hosting a Match
+        </h1>
             <h4 class="text-center">
-    Accept a challenge to begin drafting.
-    <br><br><i class="center-block fa fa-arrow-right fa-2x"></i>
-    </h4> {{/with}}
+            Accept a challenge to begin drafting.
+            <br><br>
+            <i class="center-block fa fa-arrow-right fa-2x"></i>
+        </h4>
+    {{/with}}
 </template>
 
 <template name="homecaptainslobby">
@@ -129,10 +152,13 @@
             <div class="col-xs-5">
                 <div class="row">
                     <div class="col-xs-12">
+                        <h4 class="text-info"><strong>Challenger Catalogue</strong></h4>
                         {{#if nochallengers lobbyinfo.challengers.length}}
-                            <div class="well dark double-unit text-center">
-                                <h3 class="list-group-item-heading"> No Challengers Yet </h3>
-                                <i class="fa-3x fa fa-users text-success"></i>
+                            <div class="list-group double-unit challenged text-center">
+                                <br>
+                                <h4 class="list-group-item-heading toppadding"> No Challengers Yet </h4>
+                                <br>
+                                <i class="fa-2x fa fa-users text-success"></i>
                             </div>
                         {{else}}
                             <div class="list-group double-unit challenged">
@@ -140,10 +166,10 @@
                                     <div class="list-group-item clickable" id="{{name}}">
                                         <div class="media">
                                             <div class="media-left media-middle">
-                                                <i class="fa fa-fw fa-chevron-circle-right"></i>
+                                                <i class="fa fa-lg fa-fw fa-chevron-circle-right"></i>
                                             </div>
                                             <div class="media-body">
-                                                <h5 class="wraptext"> {{name}} ({{percentile}}%)</h5>
+                                                <h4 class="wraptext media-heading"> {{name}} </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -163,12 +189,12 @@
                         <table class="table table-condensed table-striped table-bordered">
                             <tbody>
                                 <tr>
-                                    <td>Mode:</td>
-                                    <td>Fast & Dirty</td>
+                                    <td class="col-xs-5">Threshold:</td>
+                                    <td class="col-xs-7">{{lobbyinfo.matchmaking_threshold}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Player Pool:</td>
-                                    <td>12</td>
+                                    <td>Player Pool Size:</td>
+                                    <td>Coming Soon</td>
                                 </tr>
                             </tbody>
                         </table>
