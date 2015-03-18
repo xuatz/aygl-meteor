@@ -1,4 +1,6 @@
 
+
+
 var matches = [
 				{	
 					"status" : "PU", 
@@ -81,8 +83,11 @@ var matches = [
 			];
 
 Meteor.methods({
-	demoMatchDetailsMethod: function() {
-		return matches;
+	demoMatchDetailsMethod: function(err) {
+		var m = MatchesCollection.findOne();
+
+		console.log(m);
+
+		return m;
 	}
 });
-
