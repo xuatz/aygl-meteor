@@ -46,9 +46,9 @@ Any Templates used for the Drafting Screen will be placed here
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
                 <div class="form-group">
-                    <label class="control-label">Upload Result Screenshot</label>
+                    <label class="control-label">Result Screenshot URL</label>
                     <div class="input-group">
-                    <input type="text" class="form-control">
+                        <input type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">Upload</button>
                         </span>
@@ -63,13 +63,13 @@ Any Templates used for the Drafting Screen will be placed here
 
 <!--RENDERED TEMPLATES -->
 
-<template name="demo1">
+<template name="playerPanel">
     <div class="row">
         <div class="teammate">
             <img src="../profileimg.jpg">
             <div class="member-name">{{username}}</div>
             <div class="thumbs">
-                <i class="fa fa-thumbs-up" id="huatah" ></i>
+                <i class="fa fa-thumbs-up" id="thumbsUp" ></i>
                 <i class="fa fa-thumbs-down" id="thumbsDown"></i>
             </div>
         </div>
@@ -79,10 +79,8 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="matchradiant">
     <div class="radiant">
         <h2 class="radiant-title">Radiant</h2>
-
-
         {{#each getRadPlayers}}
-            {{> demo1}}
+            {{> playerPanel}}
         {{/each}}
     </div>
 </template>
@@ -90,21 +88,9 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="matchdire">
     <div class="dire">
         <h2 class="dire-title">Dire</h2>
-        <div>
-            {{> demo1 demo18}}
-        </div>
-        <div>
-            {{> demo1}}
-        </div>
-        <div>
-            {{> demo1}}
-        </div>
-        <div>
-            {{> demo1}}
-        </div>
-        <div>
-            {{> demo1}}
-        </div>
+        {{#each getDirePlayers}}
+            {{> playerPanel}}
+        {{/each}}
     </div>
    
 </template>
