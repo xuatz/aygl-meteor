@@ -19,70 +19,70 @@ if (Meteor.isServer) {
             "screenshotUrl" : "www.niceurl.com/huatah",
             "matchPlayerResults" : [
               {
-              "username" : "player1",
+              "username" : "moltencrap",
               "playerSlot" : "0",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player2",
+              "username" : "pikachu",
               "playerSlot" : "1",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player3",
+              "username" : "hamtaro",
               "playerSlot" : "2",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player4",
+              "username" : "kyubey",
               "playerSlot" : "3",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player5",
+              "username" : "Dendi",
               "playerSlot" : "4",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player6",
+              "username" : "itchyfishy",
               "playerSlot" : "5",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player7",
+              "username" : "wertyteddy",
               "playerSlot" : "6",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player8",
+              "username" : "banana",
               "playerSlot" : "7",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player9",
+              "username" : "tongkatali",
               "playerSlot" : "8",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
-              "username" : "player10",
+              "username" : "mongyethewha",
               "playerSlot" : "9",
               "minScore" : "1000",
               "maxScore" : "3000",
