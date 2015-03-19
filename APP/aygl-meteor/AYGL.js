@@ -4,85 +4,86 @@ Server Configurations
 ======================================================================================================
 */
 
-//le_web_address = 'localhost:3000';
-le_web_address = 'localhost:3050';
+le_web_address = 'localhost:3000';
+//le_web_address = 'localhost:3050';
 //le_web_address = '128.199.86.69:80';
 
 if (Meteor.isServer) {
     if (MatchesCollection.find().count() === 0) {
+        console.log('im inserting starting data');
         MatchesCollection.insert(
           { 
             "status" : "PU", 
             "result" : "D",
             "admin" : "moltencrap",
             "screenshotUrl" : "www.niceurl.com/huatah",
-            "matchPlayerResultArr" : [
+            "matchPlayerResults" : [
               {
               "username" : "player1",
-              "player_slot" : "0",
+              "playerSlot" : "0",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player2",
-              "player_slot" : "1",
+              "playerSlot" : "1",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player3",
-              "player_slot" : "2",
+              "playerSlot" : "2",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player4",
-              "player_slot" : "3",
+              "playerSlot" : "3",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player5",
-              "player_slot" : "4",
+              "playerSlot" : "4",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player6",
-              "player_slot" : "5",
+              "playerSlot" : "5",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player7",
-              "player_slot" : "6",
+              "playerSlot" : "6",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player8",
-              "player_slot" : "7",
+              "playerSlot" : "7",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player9",
-              "player_slot" : "8",
+              "playerSlot" : "8",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
               },
               {
               "username" : "player10",
-              "player_slot" : "9",
+              "playerSlot" : "9",
               "minScore" : "1000",
               "maxScore" : "3000",
               "score" : "2000"
@@ -197,7 +198,7 @@ MatchPlayerResult = new SimpleSchema({
     max: 25,
     label: "Username"
   },
-  player_slot: {
+  playerSlot: {
     type: String,
     max: 2,
     label: "Player Slot"
