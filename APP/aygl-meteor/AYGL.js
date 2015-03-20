@@ -177,11 +177,11 @@ TabularTables.MatchTable = new Tabular.Table({
     name: "MatchTable",
     collection: MatchesCollection,
     columns: [
-        {data: "aygl_match_id", title: "Match ID"},
+        {data: "ayglMatchId", title: "Match ID"},
         {data: "status",        title: "Match Status"},
-        {data: "created_dttm",  title: "Created Date/Time"},
-        {data: "updated_dttm",  title: "Updated Date/Time"},
-        {data: "admin_assigned_to",  title: "Assigned to"}
+        {data: "createdDttm",  title: "Created Date/Time"},
+        {data: "updatedDttm",  title: "Updated Date/Time"},
+        {data: "adminAssignedTo",  title: "Assigned to"}
     ]
 });
 
