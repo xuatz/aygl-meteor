@@ -20,3 +20,5 @@ meteorhacks:npm
 
 npm-container
 mizzao:bootboxjs
+peerlibrary:server-autorun
+mrt:moment
