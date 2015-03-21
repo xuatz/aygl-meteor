@@ -45,7 +45,62 @@ Template.matchdire.helpers({
     }
 });
 
+Template.matchlayout.events({
+    'click #matchRadWin' : function(event) {
+        event.preventDefault();
+        var something = $(event.target);
+        something.addClass('btn-success');
+        // TODO
+        // Game.scoreReports.insert({
+        //     'username': Meteor.username,
+        //     'playerSlot': playerslot,
+        //     'result': 'R'
+        // })
+            
+        var sibling1 = $(event.target).next('a');
+        sibling1.removeClass('btn-info');
 
+        var sibling2 = sibling1.next('a');
+        sibling2.removeClass('btn-danger');                
+    },
+    'click #matchVoid' : function(event) {
+        event.preventDefault();
+        var something = $(event.target);
+
+        something.addClass('btn-info');
+
+        //TODO setPlayerReportResult = 'V';
+        
+        var sibling1 = $(event.target).prev('a');
+        sibling1.removeClass('btn-success');
+
+        var sibling2 = $(event.target).next('a');
+        sibling2.removeClass('btn-danger');
+
+        // if (sibling1.hasClass("btn-success") ) {
+            
+        //     //TODO something
+        // }
+
+
+        // if (sibling2.hasClass("btn-danger") ) {
+            
+        //     //TODO something
+        // }
+    },
+    'click #matchDireWin' : function(event) {
+        event.preventDefault();
+        var something = $(event.target);
+        something.addClass('btn-danger');
+        //TODO setPlayerReportResult = 'R';
+            
+        var sibling1 = $(event.target).prev('a');
+        sibling1.removeClass('btn-info');
+
+        var sibling2 = sibling1.prev('a');
+        sibling2.removeClass('btn-success');
+    }
+});
 
 Template.playerPanel.events({
     'click #thumbsUp' : function(event) {
