@@ -181,7 +181,7 @@ TabularTables.MatchTable = new Tabular.Table({
         {data: "status",        title: "Match Status"},
         {data: "created_dttm",  title: "Created Date/Time"},
         {data: "updated_dttm",  title: "Updated Date/Time"},
-        {data: "admin_assigned_to",  title: "Assigned to"}
+        {data: "admin",  title: "Assigned to"}
     ]
 });
 
