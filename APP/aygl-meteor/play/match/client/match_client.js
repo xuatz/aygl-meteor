@@ -4,8 +4,8 @@ Template.matchradiant.helpers({
     getRadPlayers: function() {
         var data = MatchesCollection.findOne();
 
-        console.log('===================');
-        console.log(data);
+        // console.log('===================');
+        // console.log(data);
 
         var radPlayers = _.filter(data.matchPlayerResults, 
             function(item) { 
@@ -28,8 +28,8 @@ Template.matchdire.helpers({
     getDirePlayers: function() {
         var data = MatchesCollection.findOne();
 
-        console.log('===== getDirePlayers!! ==============');
-        console.log(data);
+        // console.log('===== getDirePlayers!! ==============');
+        // console.log(data);
 
         var players = _.filter(data.matchPlayerResults, 
             function(item) { 
@@ -107,7 +107,7 @@ Template.playerPanel.events({
         event.preventDefault();
         var something = $(event.target);
 
-        console.log(something);
+        // console.log(something);
 
         if (something.hasClass( "text-success" ) ) {
             something.removeClass('text-success');
@@ -141,8 +141,8 @@ Template.playerPanel.events({
         event.preventDefault();
         var something = $(event.target);
 
-        console.log(something);
-        console.log('=================');
+        // console.log(something);
+        // console.log('=================');
 
         if (something.hasClass( "text-danger" ) ) {
             something.removeClass('text-danger');
