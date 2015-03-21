@@ -50,26 +50,28 @@ Template.matchlayout.events({
         event.preventDefault();
         var something = $(event.target);
         something.addClass('btn-success');
-        // TODO
-        // Game.scoreReports.insert({
-        //     'username': Meteor.username,
-        //     'playerSlot': playerslot,
-        //     'result': 'R'
-        // })
-            
+
         var sibling1 = $(event.target).next('a');
         sibling1.removeClass('btn-info');
 
         var sibling2 = sibling1.next('a');
-        sibling2.removeClass('btn-danger');                
+        sibling2.removeClass('btn-danger');
+
+        //TODO the client should have a way to know what is the Game._id
+
+        //1) get Game item
+        //2) we need to upsert a the match report into game item for current player (client)
+        // game.scoreReport({
+        //     'username': Meteor.username,
+        //     'playerSlot': playerslot,
+        //     'result': 'R'
+        // })
+        //3) the tracker method at this point should be triggered in theory
     },
     'click #matchVoid' : function(event) {
         event.preventDefault();
         var something = $(event.target);
-
         something.addClass('btn-info');
-
-        //TODO setPlayerReportResult = 'V';
         
         var sibling1 = $(event.target).prev('a');
         sibling1.removeClass('btn-success');
@@ -77,13 +79,18 @@ Template.matchlayout.events({
         var sibling2 = $(event.target).next('a');
         sibling2.removeClass('btn-danger');
 
+        //TODO the client should have a way to know what is the Game._id
+
+        //1) get Game item
+        //2) we need to upsert a the match report into game item for current player (client)
+        // game.scoreReport({
+        //     'username': Meteor.username,
+        //     'playerSlot': playerslot,
+        //     'result': 'V'
+        // })
+        //3) the tracker method at this point should be triggered in theory
+
         // if (sibling1.hasClass("btn-success") ) {
-            
-        //     //TODO something
-        // }
-
-
-        // if (sibling2.hasClass("btn-danger") ) {
             
         //     //TODO something
         // }
@@ -92,13 +99,23 @@ Template.matchlayout.events({
         event.preventDefault();
         var something = $(event.target);
         something.addClass('btn-danger');
-        //TODO setPlayerReportResult = 'R';
             
         var sibling1 = $(event.target).prev('a');
         sibling1.removeClass('btn-info');
 
         var sibling2 = sibling1.prev('a');
         sibling2.removeClass('btn-success');
+
+        //TODO the client should have a way to know what is the Game._id
+
+        //1) get Game item
+        //2) we need to upsert a the match report into game item for current player (client)
+        // game.scoreReport({
+        //     'username': Meteor.username,
+        //     'playerSlot': playerslot,
+        //     'result': 'D'
+        // })
+        //3) the tracker method at this point should be triggered in theory
     }
 });
 
