@@ -30,7 +30,7 @@
   // Configure environment
   "env": {
     //"ROOT_URL": "http://localhost",
-    "ROOT_URL": "http://aygl.net/",
+    "ROOT_URL": "http://localhost",
     "PORT": 80
   },
 

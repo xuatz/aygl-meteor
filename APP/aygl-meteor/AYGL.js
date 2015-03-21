@@ -4,10 +4,10 @@ Server Configurations
 ======================================================================================================
 */
 
-//le_web_address = 'localhost:3000';
+//le_web_address = '128.199.86.69:80';
+le_web_address = 'localhost:3000';
 //le_web_address = 'localhost:3050';
-// le_web_address = '128.199.86.69:80';
-le_web_address = '128.199.86.69:3050';
+//le_web_address = '128.199.86.69:3050';
 
 if (Meteor.isServer) {
     if (MatchesCollection.find().count() === 0) {
@@ -204,97 +204,57 @@ MatchPlayerResult = new SimpleSchema({
     max: 2,
     label: "Player Slot"
   },
-  noOfKill: {
-    type: Number,
-    label: "Number of Kills",
-    optional: true
-    // ,custom: function () {
-    //     if (this.isUpdate) {
-    //         return "required";
-    //     }
-    // }
-  },
-  noOfDeath: {
-    type: Number,
-    label: "Number of Deaths",
-    optional: true
-    // ,custom: function () {
-    //     if (this.isUpdate) {
-    //         return "required";
-    //     }
-    // }
-  },
-  noOfAssist: {
-    type: Number,
-    label: "Number of Assists",
-    optional: true
-    // ,custom: function () {
-    //     if (this.isUpdate) {
-    //         return "required";
-    //     }
-    // }
-  }
-
-  /*
-    ,
-  hero_id: {
-    type: Number,
-    max: 3,
-    label: "Hero ID",
-    optional: true
-  },
   adjustment: {
     type: Number,
     label: "Score Adjustment",
     optional: true,
     defaultValue: "0"
   },
-  createdAt: {
-    type: Date,
-      autoValue: function() {
-        if (this.isInsert) {
-          return new Date;
-        } else if (this.isUpsert) {
-          return {$setOnInsert: new Date};
-        } else {
-          this.unset();
-        }
-      }
-  },
-  created_by: {
-    type: String,
-    label: "Created By",
-    autoValue: function() {
-        console.log('userId: ' + this.userId);
-        return this.userId;
-    }
-  },
-  // Force value to be current date (on server) upon update
-  // and don't allow it to be set upon insert.
-  updatedAt: {
-    type: Date,
-    autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
-    },
-    denyInsert: true,
-    optional: true
-  },
-  updated_by: {
-    type: String,
-    label: "Updated By"
-  }
-  */
+  // createdAt: {
+  //   type: Date,
+  //     autoValue: function() {
+  //       if (this.isInsert) {
+  //         return new Date;
+  //       } else if (this.isUpsert) {
+  //         return {$setOnInsert: new Date};
+  //       } else {
+  //         this.unset();
+  //       }
+  //     }
+  // },
+  // created_by: {
+  //   type: String,
+  //   label: "Created By",
+  //   autoValue: function() {
+  //       console.log('userId: ' + this.userId);
+  //       return this.userId;
+  //   }
+  // },
+  // // Force value to be current date (on server) upon update
+  // // and don't allow it to be set upon insert.
+  // updatedAt: {
+  //   type: Date,
+  //   autoValue: function() {
+  //     if (this.isUpdate) {
+  //       return new Date();
+  //     }
+  //   },
+  //   denyInsert: true,
+  //   optional: true
+  // },
+  // updated_by: {
+  //   type: String,
+  //   label: "Updated By"
+  // }
 });
 
 MatchesCollection.attachSchema(new SimpleSchema({
-  aygl_match_id: {
+  ayglMatchId: {
     type: Number,
     label: "aygl_match_id",
     optional: true
   },
-  dota_match_id: {
+  dotaMatchId: {
     type: Number,
     label: "dota_match_id",
     optional: true
@@ -320,20 +280,20 @@ MatchesCollection.attachSchema(new SimpleSchema({
       }
     }
   },
-  admin_assigned_to: {
+  admin: {
     type: String,
     max: 25,
     label: "Assigned To",
     optional: true
   },
-  screenshot_url: {
+  screenshotUrl: {
     type: String,
     label: "Screenshot URL",
     optional: true
   },
-  matchPlayerResultArr : {
+  matchPlayerResults : {
     type: [MatchPlayerResult],
-    label: "MatchPlayerResult Array"
+    label: "MatchPlayerResults"
   }
 }));
 
