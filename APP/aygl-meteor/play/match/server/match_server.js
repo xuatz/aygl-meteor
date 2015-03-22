@@ -253,9 +253,3 @@ Meteor.methods({
 	}
 });
 
-//XZ:21/3/15
-var handle = Tracker.autorun(function () {
-	var gameId;
-	Meteor.call('checkMatchResultReports', gameId);
-});
-
