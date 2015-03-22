@@ -66,6 +66,10 @@ Template.challengerprofile.helpers({
                 }
             }
         });
+        if (typeof game === "undefined") {
+            Session.set('selectedChallenger', undefined);
+        }
+
         if (typeof Session.get('selectedChallenger') !== "undefined") {
             result = _.find(game.challengers, function(challenger) {
                 return (challenger.name === Session.get('selectedChallenger'));
@@ -187,5 +191,8 @@ Template.homecaptainslobby.events({
             template.$('.clickable').removeClass('active');
             evt.currentTarget.classList.add('active');
         }
+    },
+    'click #acceptchallenge': function() {
+        //Let the games begin!
     }
 });
