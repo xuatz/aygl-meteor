@@ -57,16 +57,8 @@ Template.matchlayout.events({
         var sibling2 = sibling1.next('a');
         sibling2.removeClass('btn-danger');
 
-        //TODO the client should have a way to know what is the Game._id
-
-        //1) get Game item
-        //2) we need to upsert a the match report into game item for current player (client)
-        // game.scoreReport({
-        //     'username': Meteor.username,
-        //     'playerSlot': playerslot,
-        //     'result': 'R'
-        // })
-        //3) the tracker method at this point should be triggered in theory
+        Meteor.call('updatePlayerScoreReport', '12', 'username', '0', 'D');
+        Meteor.call('checkMatchResultReports', '12');
     },
     'click #matchVoid' : function(event) {
         event.preventDefault();
