@@ -1,84 +1,84 @@
 
-var matches = [
-				{	
-					"status" : "PU", 
-					"result" : "D",
-					"admin" : "moltencrap",
-					"screenshotUrl" : "www.niceurl.com/huatah",
-					"matchPlayerResultArr" : [
-						{
-						"username" : "player1",
-						"player_slot" : "0",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player2",
-						"player_slot" : "1",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player3",
-						"player_slot" : "2",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player4",
-						"player_slot" : "3",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player5",
-						"player_slot" : "4",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player6",
-						"player_slot" : "5",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player7",
-						"player_slot" : "6",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player8",
-						"player_slot" : "7",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player9",
-						"player_slot" : "8",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						},
-						{
-						"username" : "player10",
-						"player_slot" : "9",
-						"minScore" : "1000",
-						"maxScore" : "3000",
-						"score" : "2000"
-						}
-					]
-				}
-			];
+// var matches = [
+// 				{	
+// 					"status" : "PU", 
+// 					"result" : "D",
+// 					"admin" : "moltencrap",
+// 					"screenshotUrl" : "www.niceurl.com/huatah",
+// 					"matchPlayerResultArr" : [
+// 						{
+// 						"username" : "player1",
+// 						"player_slot" : "0",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player2",
+// 						"player_slot" : "1",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player3",
+// 						"player_slot" : "2",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player4",
+// 						"player_slot" : "3",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player5",
+// 						"player_slot" : "4",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player6",
+// 						"player_slot" : "5",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player7",
+// 						"player_slot" : "6",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player8",
+// 						"player_slot" : "7",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player9",
+// 						"player_slot" : "8",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						},
+// 						{
+// 						"username" : "player10",
+// 						"player_slot" : "9",
+// 						"minScore" : "1000",
+// 						"maxScore" : "3000",
+// 						"score" : "2000"
+// 						}
+// 					]
+// 				}
+// 			];
 
 function checkIfCptReportedScore(g, side) {
 	switch (side) {
@@ -113,44 +113,73 @@ Meteor.methods({
 
 		return m;
 	},
+	updatePlayerScoreReport: function(gameId, username, playerSlot, result) {
+      	//TODO demo for dev purpose only
+        var g = Games.findOne({});
+
+        var gameId = g._id;
+
+        //2) we need to upsert a the match report into game item for current player (client)
+        var fieldString = 'scoreReports.' + playerSlot; 
+
+        var obj = {};
+        obj[fieldString] = 
+        {  
+            'username': username,
+            'playerSlot': playerSlot,
+            'result': result 
+        };
+
+        //functional code, but wait till i have the data den i enable it
+        Games.upsert(
+            { _id : gameId },
+            {
+                $set: obj
+            }
+        );
+	},
 	checkMatchResultReports: function(gameId) {
 		console.log('Start of checkMatchResultReports');
-		console.log('Oh my im triggered thx to reactivity.');
 
 		var g = Games.findOne({});
 
-		if (g) {
+		if (!g) {
+			console.log('game no found, perhaps its already processed?');
+		} else {
 			if (!g.scoreReports) {
 				g.scoreReports = [];
 			}
 			
-			g.scoreReports[0] = {
-				'username': 'moltencrap',
-				'playerSlot': '0',
-				'result': 'V'
-			};
+			// g.scoreReports[0] = {
+			// 	'username': 'moltencrap',
+			// 	'playerSlot': '0',
+			// 	'result': 'V'
+			// };
 
 			console.log(g);
 			console.log('==========');
+			
+			//=======================
 
-			g.scoreReports[9] = {
-				'username': 'jon',
-				'playerSlot': '9',
-				'result': 'D'
-			};
+			// var gameId = g._id;
+			// var obj = {};
+			// var index = 4;
+			// var field = 'scoreReports.' + index; 
+			// obj[field] = {  'username': 'kokoro',
+			// 				'playerSlot': '4',
+			// 				'result': 'TEST' };
+			// Games.upsert(
+			// 	{ _id : gameId },
+			// 	{
+			// 		$set: obj
+			// 	}
+			// );
 
-			Games.update(
-				{ _id : g._id },
-				{
-					$set: {
-						'scoreReports': g.scoreReports	
-					}
-				}
-			)
+			// //=======================
 
-			g = Games.findOne({});
-			console.log(g);
-			console.log('==========');
+			// g = Games.findOne({});
+			// console.log(g);
+			// console.log('==========');
 			
 			var count = 0;
 			_.each(g.scoreReports, function(item) {
@@ -172,79 +201,98 @@ Meteor.methods({
 						}
 					)
 
+					//TODO insert code to run this method again after 3 hours for section Z
+
 					g = Games.findOne({});
 					console.log('scoreReportedDttm: ' + g.matchScoreReportedDttm);
-				}				
-
-				//TODO - hardcoded for dev
-				var cptRadScoreReport = g.scoreReports[0];
-				var cptDireScoreReport = g.scoreReports[5];
-
-				console.log('cptRadReportedScore: ' + cptRadScoreReport);
-				console.log('cptDireReportedScore: ' + cptDireScoreReport);
-
-				if (cptRadScoreReport && cptDireScoreReport) {
-					if (cptRadScoreReport.result == cptDireScoreReport.result) {
-						switch (cptRadScoreReport.result) {
-							case 'V':
-								//TODO delete match
-								console.log('Match deleted(Void)');
-								break;
-							case 'R':
-							case 'D':
-								//TODO MatchDetails.result = cptRadScoreReport.result
-								//TODO send matchDetails to banana!!!
-								console.log('Match processing!');
-								break;
-						}
-					} else {
-						//TODO
-						//MatchDetails.result = 'I';
-						console.log('Match pending investigation!');
-					}
 				} else {
-					//The point is that, we will in general, use the cpt report as absolute
-					//hence we give a 3 hours grace peroid starting from first match report timing
+					//TODO check if MatchDetails have a result, if yes den do nothing liao
+					var hasResult = false;
 
-					console.log('scoreReportedDttm: ' + g.matchScoreReportedDttm);
+					if (hasResult) {
+						//pangpang lo
+					} else {
+						var cptRadScoreReport = 
 
-					//TOOD *WIP*
+						_.find(g.scoreReports, function(item){
+							if (item) {
+								return item.playerSlot == 0;
+							}
+						});
+						var cptDireScoreReport = _.find(g.scoreReports, function(item){
+													if (item) {
+														return item.playerSlot == 5;
+													}
+												});
 
-					var timeSince = moment(g.matchScoreReportedDttm).fromNow(true);
-					
-					var reportDttm = moment(g.matchScoreReportedDttm);
+						console.log('cptRadReportedScore: ' + cptRadScoreReport);
+						console.log('cptDireReportedScore: ' + cptDireScoreReport);
 
-					var duration = moment.duration(moment().diff(reportDttm));
+						if (cptRadScoreReport && cptDireScoreReport) {
+							if (cptRadScoreReport.result == cptDireScoreReport.result) {
+								switch (cptRadScoreReport.result) {
+									case 'V':
+										//TODO delete match
+										console.log('Match deleted(Void)');
+										break;
+									case 'R':
+									case 'D':
+										//TODO MatchDetails.result = cptRadScoreReport.result
+										//TODO send matchDetails to banana!!!
+										console.log('Match processing!');
+										break;
+								}
+							} else {
+								//TODO
+								//MatchDetails.result = 'I';
+								console.log('Match pending investigation!');
+							}
+						} else {
+							//The point is that, we will in general, use the cpt report as absolute
+							//hence we give a 3 hours grace peroid starting from first match report timing
 
-					console.log(duration);
-					console.log(duration.minutes());
-					console.log(duration.hours());
+							console.log('scoreReportedDttm: ' + g.matchScoreReportedDttm);
 
-				// 	if (afterThreeHours) {
-				// 		//after 3 hours, we will take the party member reports into consideration
+							//TOOD *WIP*
 
-				// 		if (game.scoreReports.size()>5) {
-				// 			//TODO get most popular decision count
+							var timeSince = moment(g.matchScoreReportedDttm).fromNow(true);
+							
+							var reportDttm = moment(g.matchScoreReportedDttm);
 
-				// 			if (mostPopularDecisionCount > game.scoreReports.size()/2) {
-				// 				if (void) {
-				// 					//TODO delete match
+							var duration = moment.duration(moment().diff(reportDttm));
 
-				// 					console.log('Match deleted(Void)');
-				// 				} else {
-				// 					//MatchDetails.result = R/D
-				// 					//TODO send matchDetails to banana!!!
+							//console.log(duration);
+							console.log(duration.minutes());
+							console.log(duration.hours());
 
-				// 					console.log('Match processing!');
-				// 				}
-				// 			} else {
-				// 				//TODO
-				// 				//MatchDetails.result = 'I';
+							//TODO section Z
+						// 	if (afterThreeHours) {
+						// 		//after 3 hours, we will take the party member reports into consideration
 
-				// 				console.log('Match pending investigation!');
-				// 			}
-				// 		}
-				// 	}
+						// 		if (game.scoreReports.size()>5) {
+						// 			//TODO get most popular decision count
+
+						// 			if (mostPopularDecisionCount > game.scoreReports.size()/2) {
+						// 				if (void) {
+						// 					//TODO delete match
+
+						// 					console.log('Match deleted(Void)');
+						// 				} else {
+						// 					//MatchDetails.result = R/D
+						// 					//TODO send matchDetails to banana!!!
+
+						// 					console.log('Match processing!');
+						// 				}
+						// 			} else {
+						// 				//TODO
+						// 				//MatchDetails.result = 'I';
+
+						// 				console.log('Match pending investigation!');
+						// 			}
+						// 		}
+						// 	}
+						}
+					}
 				}
 			}
 		}
