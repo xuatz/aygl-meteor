@@ -193,6 +193,6 @@ Template.homecaptainslobby.events({
         }
     },
     'click #acceptchallenge': function() {
-        //Let the games begin!
+        Meteor.call('createAlert', 'challengeAccepted',Session.get('selectedChallenger'));
     }
 });
