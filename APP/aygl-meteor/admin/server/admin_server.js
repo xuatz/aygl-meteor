@@ -28,39 +28,6 @@ var match;
 match = MatchesCollection.findOne();
 
 Meteor.methods({
-	testMethod: function() {
-		console.log('test start');
-            
-        //var password = JSON.stringify(match);
-        var password = '/match[object Object]';
-
-        console.log('json: ' + password);
-
-        var salt = "byvGX7KLa4";
-        var iterations = 2;
-        var keylen = 128;
-
-        var sooo;
-
-        var hash = crypto.pbkdf2Sync('/match[object Object]', salt, iterations, keylen).toString('base64');
-
-        HTTP.call("POST", "http://localhost:3000/match",
-            {
-                headers: {
-                    authorization: "aygldb " + hash
-                }
-                , params: {matchDetails: match}
-            }, function(err, res) {
-                if (res) {
-                    console.log('huatah');
-                    console.log('==================');
-                    console.log(res);
-
-                    return res;
-                }
-            }
-        );
-	},
 	getSelectedMatch: function(selectedMatchId) {
 		console.log('selectedMatchId: '+ Meteor.user().profile.selectedMatchId);
         //var m = MatchesCollection.findOne(Meteor.user().profile.selectedMatchId);
