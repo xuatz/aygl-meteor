@@ -83,23 +83,3 @@ Template.main.events({
 Main MISC Client Code
 ======================================================================================================
 */
-
-//Start the Alert Handler service here
-myalerts = Meteor.subscribe('myalerts');
-Tracker.autorun(function() {
-    if (myalerts.ready()) {
-        var initme = true;
-        myalerts_handle = Alerts.find().observe({
-            added: function(document) {
-                if (!initme) {
-                    //Handle NEW incoming alerts
-                    console.log(document);
-                } else {
-                    //Handle EXISTING, POSSIBLY unread alerts
-                    //NOT USED FOR NOW
-                }
-            }
-        });
-        initme = false;
-    }
-});

@@ -17,7 +17,7 @@ Meteor.methods({
             });
         }
 
-        if (targetUser.doNotReset || targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
+        if (targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
             //All is well, do nothing
             /*
                 If a player is currently in a match, do not change his state in order to force him to report
@@ -62,6 +62,19 @@ Meteor.methods({
                         name: targetUser.username
                     }
                 }
+            });
+
+            //Server will auto-reject all pending alerts, responding with a disconnect message
+            Alerts.update({
+                recipient: targetUser._id,
+                isHandled: false
+            }, {
+                $set: {
+                    isHandled: true,
+                    response: "disconnected"
+                }
+            }, {
+                multi: true
             });
 
         } else if (targetUser.profile.state === "ready" || targetUser.profile.state === "reserved") {
@@ -126,7 +139,7 @@ Meteor.publish('displayCurrentMatches', function() {
     var result;
     result = Games.find({
         state: {
-            $in: ['hosted', 'drafting', 'in-progress']
+            $in: ['hosted', 'drafting', 'waiting']
         }
     });
     return result;

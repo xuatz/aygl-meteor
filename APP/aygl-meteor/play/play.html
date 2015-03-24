@@ -6,34 +6,41 @@ Any Templates used for the Play Screen will be placed here
 <!--LAYOUT TEMPLATE -->
 <template name="playLayout">
     <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-6">
             <h1>AYGL - The Arena | 
             {{#with catchphrase}}
                 <span class="h3">{{string}}</span>
             {{else}}
                 <img src="/doge.jpeg" class="profilecircle tiny">
             {{/with}}
-            <div class="btn-group pull-right">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    Le Magic Button of States <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" class="magic">drafting</a>
-                    </li>
-                    <li><a href="#" class="magic">in-match</a>
-                    </li>
-                    <li><a href="#" class="magic">idle</a>
-                    </li>
-                </ul>
-            </div>
             </h1>
+        </div>
+        <div class="col-xs-2">
+            <div class="row toppadding">
+                <button class="btn btn-primary btn-xs btn-block" onclick="challengeAlert('test');">NOTIFY</button>
+            </div>
+            <div class="row toppadding">
+                <div class="btn-group col-xs-12">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Le Magic Button of States <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" class="magic">drafting</a>
+                        </li>
+                        <li><a href="#" class="magic">in-match</a>
+                        </li>
+                        <li><a href="#" class="magic">idle</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="col-xs-4">
             <div class="row">
                 <div class="col-xs-4">
                     <div class="col-xs-12">
                         <h4 class="text-center">
-                            Current Status: <br><span class="label label-info">{{state}}</span>
+                            Status: <br><span class="label label-info">{{state}}</span>
                         </h4>
                     </div>
                 </div>
@@ -97,29 +104,29 @@ Any Templates used for the Play Screen will be placed here
                             <div class="col-xs-5">
                                 <div class="radio">
                                     <label class="">
-                                        <input type="radio" name="optionsRadios" id="threshold_low" value="low" checked> Low (15%)
+                                        <input type="radio" name="thresholdvalue" id="threshold_low" value="15" checked> Low (15%)
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label class="">
-                                        <input type="radio" name="optionsRadios" id="threshold_med" value="med"> Medium (30%)
+                                        <input type="radio" name="thresholdvalue" id="threshold_med" value="30"> Medium (30%)
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label class="">
-                                        <input type="radio" name="optionsRadios" id="threshold_high" value="high"> High (50%)
+                                        <input type="radio" name="thresholdvalue" id="threshold_high" value="50"> High (50%)
                                     </label>
                                 </div>
                             </div>
                             <div class="col-xs-5">
                                 <div class="radio">
                                     <label class="">
-                                        <input type="radio" name="optionsRadios" id="threshold_veryhigh" value="high"> Very High (75%)
+                                        <input type="radio" name="thresholdvalue" id="threshold_veryhigh" value="75"> Very High (75%)
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label class="">
-                                        <input type="radio" name="optionsRadios" id="threshold_all" value="high"> All Players (100%)
+                                        <input type="radio" name="thresholdvalue" id="threshold_all" value="100"> All Players (100%)
                                     </label>
                                 </div>
                             </div>
@@ -147,3 +154,4 @@ Any Templates used for the Play Screen will be placed here
         </p>
     </div>
 </template>
+

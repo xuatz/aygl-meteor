@@ -64,13 +64,9 @@ All Template handlers for templates defined within signup.html will be placed he
 Template.joinedmenu.events({
     'click #leavegame': function() {
         Meteor.call('resetState');
-    }
-});
-
-Template.homesidecontent.events({
-    'click #testnotification': function(evt) {
-        evt.preventDefault();
-        shownotification(Meteor.user().username);
+        if (typeof le_alert !== "undefined") {
+            le_alert.close();
+        }
     }
 });
 
@@ -82,7 +78,8 @@ Template.hostmodal.events({
     'click #buttonhost': function(evt, template) {
         evt.preventDefault();
         $('#hostmodal').modal('hide');
-        Meteor.call('createNewGame', template.$('#gametitle')[0].value, function(err, res) {
+        var threshold = template.$('input[name="thresholdvalue"]:checked').val()
+        Meteor.call('createNewGame', template.$('#gametitle')[0].value, threshold, function(err, res) {
             if (err) {
                 alert(err);
             } else {
@@ -106,8 +103,8 @@ Template.playLayout.events({
     },
     'click .magic': function(evt, template) {
         evt.preventDefault();
-        var label = evt.target.innerHTML;
-        Meteor.call('changeState', label );
+        var label = evt.currentTarget.innerHTML;
+        Meteor.call('changeState', label);
     }
 });
 
@@ -123,3 +120,15 @@ Template.playLayout.rendered = function() {
         $('#gametitle')[0].focus();
     });
 };
+
+/*
+======================================================================================================
+Meteor Methods for Client Side
+======================================================================================================
+*/
+Meteor.methods({
+    resetState: function () {
+        //Here we reset all Session variables which should be affected by resetState()
+        Session.set('selectedChallenger', undefined);
+    }
+});

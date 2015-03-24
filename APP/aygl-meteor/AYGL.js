@@ -136,19 +136,23 @@ if (Meteor.isServer) {
             "challengers": [{
                 "name": "user10",
                 "personaname":"persona1",
-                "percentile": 55
+                "percentile": 55,
+                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
             }, {
                 "name": "user11",
                 "personaname":"persona2",
-                "percentile": 65
+                "percentile": 65,
+                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
             }, {
                 "name": "user12",
                 "personaname":"persona3",
-                "percentile": 75
+                "percentile": 75,
+                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
             }, {
                 "name": "user13",
                 "personaname":"persona4",
-                "percentile": 85
+                "percentile": 85,
+                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
             }],
             "avatar": "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg",
             "matchmaking_threshold": 30,

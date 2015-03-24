@@ -1,9 +1,6 @@
 /* Custom classes not related to Bootstrap */
 
 @import url(http://fonts.googleapis.com/css?family=Cuprum);
-.cuprum {
-    font-family: 'Cuprum', sans-serif;
-}
 img.huge {
     width: 650px;
     height:auto;
@@ -71,6 +68,7 @@ input.dark {
 
 .wraptext {
     word-wrap:break-word;
+    word-break: break-word;
 }
 
 p.counter {
@@ -80,8 +78,8 @@ table.text-center thead tr th, table.text-center tbody tr td {
     text-align: center;
 }
 .profilecircle {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     vertical-align:middle;
     -webkit-border-radius: 99em;
     -moz-border-radius: 99em;
@@ -270,8 +268,8 @@ table.text-center thead tr th, table.text-center tbody tr td {
     background-color: #222222;
 }
 
-.challengeAcceptedText {
-    font-size:2em;
+.clickable {
+    cursor:pointer;
 }
 
 /*Landing Page*/

@@ -15,7 +15,7 @@
         <div class="col-xs-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h1 class="text-center panel-title">Games awaiting Challengers</h1>
+                    <h1 class="text-center panel-title">{{mainpaneltitle}}</h1>
                 </div>
                 <div class="panel-body quad-unit">
                     {{> Template.dynamic template=mainpanelcontent }}
@@ -85,82 +85,102 @@
 
 <template name="challengerprofile">
     {{#with selectedChallenger}}
-    <div class="row">
-        <img class="center-block profile tiny" src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg">
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <h4 class="text-center">Challenger Profile</h4>
-            <p class="well dark">
-                <strong class="text-warning">
-                                Username: 
-                            </strong>
-                <em class="text-muted">
-                                {{username}}
-                            </em>
-                <br><strong class="text-warning">
-                                Steam Name:
-                            </strong>
-                <em class="text-muted">
-                                {{profile.personaname}}
-                            </em>
-
-                <br><strong class="text-warning">Rank:</strong> <em class="text-muted">{{profile.rank}}</em>
-                <br><strong class="text-warning">Percentile:</strong> <em class="text-muted">12192</em>
-                <br><strong class="text-warning">Wins:</strong> <em class="text-muted">31</em>
-            </p>
+        <div class="row">
+            <img class="center-block profile medium" src="{{avatar}}">
         </div>
-    </div>
-    {{else}}
-    <h1 class="text-center">
-        Hosting a Match
-    </h1>
-    <h4 class="text-center">
-    Accept a challenge to begin drafting.
-    <br><br><i class="center-block fa fa-arrow-right fa-2x"></i>
-    </h4> {{/with}}
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 class="text-center">{{name}}'s Summary</h4>
+                <p class="well dark">
+                    <table class="table table-condensed wraptext">
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-3 text-warning">
+                                    Username:
+                                </td>
+                                <td class="col-xs-9">
+                                    <em>{{name}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Steam Name:
+                                </td>
+                                <td>
+                                    <em>{{personaname}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Percentile:
+                                </td>
+                                <td>
+                                    <em>{{percentile}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-warning">
+                                    Wins:
+                                </td>
+                                <td>
+                                    <em>45</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+        </div>
+        {{else}}
+            <h1 class="text-center">
+            Hosting a Match
+        </h1>
+            <h4 class="text-center">
+            Accept a challenge to begin drafting.
+            <br><br>
+            <i class="center-block fa fa-arrow-right fa-2x"></i>
+        </h4>
+    {{/with}}
 </template>
 
 <template name="homecaptainslobby">
     <div class="col-xs-12">
         <div class="row">
-            <div class="col-xs-12">
-                <h4 class="text-center">Captain's Lobby</h4>
-                <br>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-7">
                 {{> challengerprofile}}
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-5">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="list-group double-unit">
-                            <a href="#" class="list-group-item active">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>itchyfishy</h4>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>minnasan</h4>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>wertyteddy</h4>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>moltencrap</h4>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>random_guy</h4>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading text-center cuprum"><i class="pull-left fa fa-user"></i>ohmysai</h4>
-                            </a>
-                        </div>
+                        <h4 class="text-info"><strong>Challenger Catalogue</strong></h4>
+                        {{#if nochallengers lobbyinfo.challengers.length}}
+                            <div class="list-group double-unit challenged text-center">
+                                <br>
+                                <h4 class="list-group-item-heading toppadding"> No Challengers Yet </h4>
+                                <br>
+                                <i class="fa-2x fa fa-users text-success"></i>
+                            </div>
+                        {{else}}
+                            <div class="list-group double-unit challenged">
+                                {{#each lobbyinfo.challengers}}
+                                    <div class="list-group-item clickable" id="{{name}}">
+                                        <div class="media">
+                                            <div class="media-left media-middle">
+                                                <i class="fa fa-lg fa-fw fa-chevron-circle-right"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="wraptext media-heading"> {{name}} </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-primary btn-block">Accept Challenge</button>
+                        <button id="acceptchallenge" class="btn btn-primary btn-block">Accept Challenge</button>
                     </div>
                 </div>
                 <br>
@@ -169,12 +189,12 @@
                         <table class="table table-condensed table-striped table-bordered">
                             <tbody>
                                 <tr>
-                                    <td>Mode:</td>
-                                    <td>Fast & Dirty</td>
+                                    <td class="col-xs-5">Threshold:</td>
+                                    <td class="col-xs-7">{{lobbyinfo.matchmaking_threshold}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Player Pool:</td>
-                                    <td>12</td>
+                                    <td>Player Pool Size:</td>
+                                    <td>Coming Soon</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -188,16 +208,18 @@
 <template name="homemaincontent">
     <div class="list-group col-xs-12">
         {{#if lobbyIsEmpty}}
-        <div class="well dark">
-            <p class="text-center">
-                <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
-            </p>
-        </div>
-        {{else}} {{#each list_lobby_hosted}}
-        <div class="row toppadding">
-            {{#each this}} {{> lobbylistitem}} {{/each}}
-        </div>
-        {{/each}} {{/if}}
+            <div class="well dark">
+                <p class="text-center">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
+                </p>
+            </div>
+        {{else}}
+            {{#each list_lobby_hosted}}
+                <div class="row toppadding">
+                    {{#each this}} {{> lobbylistitem}} {{/each}}
+                </div>
+            {{/each}}
+        {{/if}}
     </div>
 </template>
 
@@ -205,11 +227,10 @@
     <div class="col-xs-6">
         <div class="list-group-item {{info.listgroupitem}}">
             <div class="row">
-                <div class="col-xs-1"></div>
                 <div class="col-xs-4">
-                    <img class="profilecircle" src="{{avatar}}">
+                    <img class="profilecircle center-block" src="{{avatar}}">
                 </div>
-                <div class="col-xs-7">
+                <div class="col-xs-8">
                     <p class="list-group-item-text">
                         Host: {{host.name}}
                     </p>

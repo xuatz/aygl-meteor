@@ -1,0 +1,47 @@
+<!-- 
+    Alert Templates for Bootstrap Notify
+
+    Rules for Bootstrap Notify Templates:
+        - they are wrapped inside this div tag:
+            <div data-notify="container" class="col-xs-4 alert alert-{0}" role="alert"> </div>
+        
+        - the "close" button in the form of an "x" is defined as follows:
+            <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+
+        - the following are the contextual data from options
+            - {0} type (success/info/warning/danger)
+            - {1} title
+            - {2} message
+            - {3} url
+            - {4} target
+
+        - the "data-notify" attributes tell the HTML where to place the above data and is crucial for
+
+-->
+
+
+<template name="alertChallengeAccepted">
+    <div id="challengeAccepted_{{_id}}" data-notify="container" class="col-xs-4 alert alert-{0}" role="alert">
+        <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+        <div class="row">
+            <div class="col-xs-2">
+                <span data-notify="icon"></span>
+            </div>
+            <!--div class="col-xs-2"><span data-notify="title">{1}</span>
+            </div-->
+            <div class="col-xs-10">
+                <span class="text-danger h1">{{sender}} </span>
+                <span class="h2" data-notify="message">{2}</span>
+            </div>
+        </div>
+        <div class="row toppadding">
+            <div class="col-xs-6">
+                <button id="acceptChallenge_{{_id}}" class="btn btn-success btn-block">Accept</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="rejectChallenge_{{_id}}" class="btn btn-danger btn-block">Reject</button>
+            </div>
+        </div>
+        <a href="{3}" target="{4}" data-notify="url"></a>
+    </div>
+</template>
