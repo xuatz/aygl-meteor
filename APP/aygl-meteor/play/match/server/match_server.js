@@ -80,6 +80,8 @@
 // 				}
 // 			];
 
+var crypto = Npm.require('crypto');
+
 function checkIfCptReportedScore(g, side) {
 	switch (side) {
 		case 'R':
@@ -212,13 +214,11 @@ Meteor.methods({
 					if (hasResult) {
 						//pangpang lo
 					} else {
-						var cptRadScoreReport = 
-
-						_.find(g.scoreReports, function(item){
-							if (item) {
-								return item.playerSlot == 0;
-							}
-						});
+						var cptRadScoreReport = _.find(g.scoreReports, function(item){
+													if (item) {
+														return item.playerSlot == 0;
+													}
+												});
 						var cptDireScoreReport = _.find(g.scoreReports, function(item){
 													if (item) {
 														return item.playerSlot == 5;
@@ -296,8 +296,45 @@ Meteor.methods({
 				}
 			}
 		}
-
 		console.log('Still waiting for more score reports from players...');
+
+		sendMatchDetailsToBanana();
 	}
 });
+
+var sendMatchDetailsToBanana = function() {
+	console.log('demo send stuff to banana');
+	var match = MatchesCollection.findOne();
+	var matchString = JSON.stringify(match);
+
+	var password = '/match' + matchString;
+	console.log('password');
+	console.log(password);
+
+    var salt = "byvGX7KLa4";
+    var iterations = 2;
+    var keylen = 128;
+
+    var hash = crypto.pbkdf2Sync(password, salt, iterations, keylen).toString('base64');
+
+    console.log(hash);
+    console.log('==================');
+
+    HTTP.call("POST", "http://localhost:3000/match",
+        {
+            headers: {
+                authorization: "aygldb " + hash
+            }
+            , params: {matchDetails: matchString}
+        }, function(err, res) {
+            if (res) {
+                console.log('huatah');
+                console.log('==================');
+                console.log(res);
+
+                return res;
+            }
+        }
+    );
+}
 
