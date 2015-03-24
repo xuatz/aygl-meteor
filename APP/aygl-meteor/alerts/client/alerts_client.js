@@ -1,4 +1,10 @@
 /*
+    Subscriptions for Alerts module
+*/
+myalerts = Meteor.subscribe('myalerts');
+
+
+/*
 ======================================================================================================
 Bootstrap Notify
 Below are the Alerts which will be used by this app.
@@ -79,7 +85,6 @@ Keeps track of new alerts and handles them accordingly
 ======================================================================================================
 */
 //Start the Alert Handler service here
-myalerts = Meteor.subscribe('myalerts');
 Tracker.autorun(function() {
     if (myalerts.ready()) {
         var initme = true;

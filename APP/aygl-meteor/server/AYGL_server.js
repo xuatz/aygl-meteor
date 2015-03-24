@@ -27,17 +27,19 @@ Meteor.publish('registeringPlayers', function(sig) {
     Allows users to read and access alerts which belong to them
 */
 Meteor.publish('myalerts', function() {
-    var result = Alerts.find({
-        recipient: Meteor.users.findOne({
-            _id: this.userId
-        }).username
-    }, {
-        limit: 30,
-        sort: {
-            date: -1
-        }
-    });
-    return result;
+    if (this.userId) {
+        var result = Alerts.find({
+            recipient: Meteor.users.findOne({
+                _id: this.userId
+            }).username
+        }, {
+            limit: 30,
+            sort: {
+                date: -1
+            }
+        });
+        return result;
+    }
 });
 
 /*
