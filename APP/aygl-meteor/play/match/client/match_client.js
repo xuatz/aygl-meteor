@@ -57,8 +57,7 @@ var getPlayerSlotOfLoginUser = function() {
     if (player) {
         return player.playerSlot;    
     } else {
-        //hardcoded for no real reason
-        return 2;
+        throw Error("Username is not in the draft!!!");
     }    
 }
 
