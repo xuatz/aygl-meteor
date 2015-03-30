@@ -30,6 +30,10 @@ Template.mainloggedin.helpers({
 Template.registerHelper('skillbracket', function(percentile) {
     var result = "Unclassified";
 
+    if(percentile === "TBD") {
+        return result;
+    }
+
     //Categorisation by elimination
     if (percentile < 11) {
         result = "Scum";

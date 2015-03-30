@@ -13,7 +13,7 @@ home_error_004_CANNOT_CHALLENGE_MULTIPLE_HOST = new Meteor.Error('Home_Err_004',
 
 /*
 ======================================================================================================
-Server Methods
+Meteor Methods
 Methods used by during the Matchmaking/Drafting/Display process will be placed here
 ======================================================================================================
 */
@@ -52,7 +52,8 @@ Meteor.methods({
             state: 'hosted',
             host: {
                 name: hostingplayer.username,
-                percentile: 49
+                personaname: hostingplayer.profile.personaname,
+                percentile: hostingplayer.profile.ranking.percentile
             },
             challengers: [],
             avatar: hostingplayer.profile.avatar,
@@ -126,3 +127,33 @@ Meteor.methods({
 
     }
 });
+
+
+/*
+======================================================================================================
+Server side method definitions
+Method defined below can only be called from within server code
+======================================================================================================
+*/
+
+home_initializeLobby = function(alert) {
+    var gameObj = Games.findOne({
+        _id: alert.data
+    });
+    //Remove all other Challengers
+    Meteor.users.update({
+        "profile.room": alert.data,
+
+    }, {
+        $set: {
+            "profile.state": "idle",
+            "profile.room": null
+        }
+    }, {
+        multi: true
+    });
+    //Calculate average percentile
+    var avgPercentile = gameObj
+        //Count available players
+        //Take action accordingly
+}

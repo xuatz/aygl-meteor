@@ -56,12 +56,12 @@ renderAlert = function(alert) {
                     //NOTE: This listener will be destroyed once the notification is closed.
                     $('#acceptChallenge_' + alert._id).on('click', function(evt) {
                         evt.preventDefault();
-                        Meteor.call('respondToAlert', alert._id, "accept");
+                        Meteor.call('respondToAlert', alert._id, "accepted");
                         $('[data-notify], #challengeAccepted_' + alert._id).find('[data-notify="dismiss"]').trigger('click');
                     });
                     $('#rejectChallenge_' + alert._id).on('click', function(evt) {
                         evt.preventDefault();
-                        Meteor.call('respondToAlert', alert._id, "reject");
+                        Meteor.call('respondToAlert', alert._id, "rejected");
                         Meteor.call('resetState');
                         $('[data-notify], #challengeAccepted_' + alert._id).find('[data-notify="dismiss"]').trigger('click');
                     });
