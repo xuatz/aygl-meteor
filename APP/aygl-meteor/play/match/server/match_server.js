@@ -266,12 +266,13 @@ var takeActionOnMatchDetailsBasedOnResult = function(matchDetails, result, reaso
 
 var sendMatchDetailsToBanana = function() {
 	console.log('demo send stuff to banana');
+
 	var match = MatchesCollection.findOne();
 	var matchString = JSON.stringify(match);
 
 	var password = '/match' + matchString;
-	console.log('password');
-	console.log(password);
+	// console.log('password');
+	// console.log(password);
 
     var salt = "byvGX7KLa4";
     var iterations = 2;
@@ -279,8 +280,8 @@ var sendMatchDetailsToBanana = function() {
 
     var hash = crypto.pbkdf2Sync(password, salt, iterations, keylen).toString('base64');
 
-    console.log(hash);
-    console.log('==================');
+    // console.log(hash);
+    // console.log('==================');
 
     HTTP.call("POST", "http://localhost:3000/match",
         {
@@ -290,10 +291,9 @@ var sendMatchDetailsToBanana = function() {
             , params: {matchDetails: matchString}
         }, function(err, res) {
             if (res) {
-                console.log('huatah');
-                console.log('==================');
-                console.log(res);
-
+                // console.log('huatah');
+                // console.log('==================');
+                // console.log(res);
                 return res;
             }
         }
