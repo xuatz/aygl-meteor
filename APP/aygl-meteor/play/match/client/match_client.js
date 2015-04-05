@@ -7,14 +7,14 @@ Template.matchradiant.helpers({
         // console.log('===================');
         // console.log(data);
 
-        var radPlayers = _.filter(data.matchPlayerResults, 
-            function(item) { 
-                return item.playerSlot < 5; 
+        var radPlayers = _.filter(data.matchPlayerResults,
+            function(item) {
+                return item.playerSlot < 5;
             }
         );
 
-        var radPlayers = _.sortBy(radPlayers, function(item) { 
-            return item.playerSlot; 
+        var radPlayers = _.sortBy(radPlayers, function(item) {
+            return item.playerSlot;
         });
 
         // console.log('radPlayers: ' + radPlayers);
@@ -31,13 +31,13 @@ Template.matchdire.helpers({
         // console.log('===== getDirePlayers!! ==============');
         // console.log(data);
 
-        var players = _.filter(data.matchPlayerResults, 
-            function(item) { 
-                return item.playerSlot > 4; 
+        var players = _.filter(data.matchPlayerResults,
+            function(item) {
+                return item.playerSlot > 4;
             }
         );
 
-        var players = _.sortBy(players, function(item) { 
+        var players = _.sortBy(players, function(item) {
             return item.playerSlot;
         });
 
@@ -48,17 +48,17 @@ Template.matchdire.helpers({
 var getPlayerSlotOfLoginUser = function() {
     var matchDetails = MatchesCollection.findOne();
 
-    var player = _.find(matchDetails.matchPlayerResults, 
-        function(item) { 
-            return item.username === Meteor.user().username; 
+    var player = _.find(matchDetails.matchPlayerResults,
+        function(item) {
+            return item.username === Meteor.user().username;
         }
     );
 
     if (player) {
-        return player.playerSlot;    
+        return player.playerSlot;
     } else {
         throw Error("Username is not in the draft!!!");
-    }    
+    }
 }
 
 Template.matchlayout.events({
@@ -74,13 +74,13 @@ Template.matchlayout.events({
         sibling2.removeClass('btn-danger');
 
         Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
-        Meteor.call('checkMatchResultReports', '12');
+
     },
     'click #matchVoid' : function(event) {
         event.preventDefault();
         var something = $(event.target);
         something.addClass('btn-info');
-        
+
         var sibling1 = $(event.target).prev('a');
         sibling1.removeClass('btn-success');
 
@@ -88,13 +88,12 @@ Template.matchlayout.events({
         sibling2.removeClass('btn-danger');
 
         Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'V');
-        Meteor.call('checkMatchResultReports', '12');
     },
     'click #matchDireWin' : function(event) {
         event.preventDefault();
         var something = $(event.target);
         something.addClass('btn-danger');
-            
+
         var sibling1 = $(event.target).prev('a');
         sibling1.removeClass('btn-info');
 
@@ -102,7 +101,6 @@ Template.matchlayout.events({
         sibling2.removeClass('btn-success');
 
         Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'D');
-        Meteor.call('checkMatchResultReports', '12');
     }
 });
 
@@ -156,7 +154,7 @@ Template.playerPanel.events({
             something.addClass('text-danger');
             //TODO
             //user.report++;
-            
+
             var previousThumbsUp = $(event.target).prev('i');
             if (previousThumbsUp.hasClass("text-success") ) {
                 previousThumbsUp.removeClass('text-success');
