@@ -9,8 +9,6 @@ Router.onBeforeAction(function(){
         //do nothing? dun need this.next() ?
     } else {
         //TODO XZ 15/2/15 
-        //!Meteor.isAdmin
-        
         var isAdmin = true;
 
         if (!isAdmin) {
@@ -20,6 +18,11 @@ Router.onBeforeAction(function(){
         } else {
             // otherwise don't hold up the rest of hooks or our route/action function
             // from running
+
+            if (!Session.get('adminTabSelection')) {
+                Session.set('adminTabSelection', 1);
+            }
+
             this.next();
         }
     }
@@ -30,8 +33,6 @@ Router.onBeforeAction(function(){
 
 Router.route('/admin', function() {
     switch (Session.get('adminTabSelection')) {
-    default:
-        Session.set('adminTabSelection', '1');
     case 1:
         console.log('im gonna render some nice stuff');
         this.render('adminMatchPendingUpdateList', {
