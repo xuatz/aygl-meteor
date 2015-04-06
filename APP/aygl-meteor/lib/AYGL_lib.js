@@ -14,6 +14,13 @@ Below are the MongoDB Collections which will be used by this app.
 ======================================================================================================
 */
 
+Meteor.startup(function () {
+  //process.env.MAIL_URL = 'smtp://postmaster%40meteorize.mailgun.org:YOURPASSWORD@smtp.mailgun.org:587';
+  process.env.HASH_SALT = 'byvGX7KLa4';
+  process.env.HASH_ITERATIONS = 2;
+  process.env.HASH_KEYLEN = 128;
+});
+
 VerifyTab = new Mongo.Collection('vtab');
 Games = new Mongo.Collection('games');
 Alerts = new Mongo.Collection('alerts');
@@ -21,7 +28,7 @@ Alerts = new Mongo.Collection('alerts');
 MatchesCollection = new Mongo.Collection("Match");
 
 MatchesCollection.allow({
-    // insert:function(){return true;},
+    insert:function(){return true;},
     // remove:function(){return true;},
     update:function(){return true;},
 });
