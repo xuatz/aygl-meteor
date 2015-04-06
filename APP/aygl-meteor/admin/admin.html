@@ -8,16 +8,16 @@ Any Templates used for the Signup Process will be placed here
     <div class="row">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active">
-                <a id="tab1" href="#" data-toggle="tab">Match Listing</a>
+                <a id="tab1" href="#" data-toggle="tab">Outstanding Match Listing</a>
             </li>
             <li id="tab2">
                 <a href="#" data-toggle="tab">Pending Match to Review</a>
             </li>
             <li>
-                <a id="tab3" href="#" data-toggle="tab">Report Listing</a>
+                <a id="tab3" href="#" data-toggle="tab">Report Listing*Phase2*</a>
             </li>
             <li>
-                <a id="tab4" href="#" data-toggle="tab">Pending Report to Review</a>
+                <a id="tab4" href="#" data-toggle="tab">Pending Report to Review*Phase2*</a>
             </li>
         </ul>
     </div>
@@ -32,7 +32,13 @@ Any Templates used for the Signup Process will be placed here
 <!-- RENDERED TEMPLATES-->
 <template name="adminMatchPendingUpdateList">
     <div>
-        {{> tabular table=TabularTables.MatchTable class="table table-striped table-bordered table-condensed"}}
+        <a href="#" class="btn" id="PI">Add PI Match</a>
+        <a href="#" class="btn" id="PU">Add PU Match</a>
+        <a href="#" class="btn" id="normal">Add Updated Match</a>
+    </div>
+
+    <div>
+        {{> tabular table=TabularTables.MatchTable selector=selector class="table table-striped table-bordered table-condensed"}}
     </div>
 </template>
 
@@ -48,70 +54,29 @@ Any Templates used for the Signup Process will be placed here
         </div>
         <div class="row">
             <div class="col-xs-2">
-                status
-            </div>
-            <div class="col-xs-4">
-                {{selectedMatch.status}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-2">
                 Admin Assiged to
             </div>
             <div class="col-xs-4">
                 {{selectedMatch.admin_assigned_to}}
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-2">
-                screenshot url
-            </div>
-            <div class="col-xs-4">
-                {{selectedMatch.screenshot_url}}
-            </div>
-        </div>
 
 
-        {{#autoForm id=matchAutoForm type="update" collection="MatchesCollection" doc=selectedMatch }}
+        {{#autoForm id="matchAutoForm" type="update" collection="MatchesCollection" doc=selectedMatch }}
             <div class="row">
+                {{> afQuickField name='status' template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10"}}
                 {{> afQuickField name='result' template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10"}}
+                {{> afQuickField name='screenshotUrl' template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10"}}
             </div>
-
-            {{> afQuickField name="matchPlayerResults" minCount=10 maxCount=10 }}
-
-            <!-- <table class="table table-bordered table-condensed">
-                <thead>
-                    <tr>
-                        <td>Username</td>
-                        <td>Player Slot</td>
-                        <td>No. of Kills</td>
-                        <td>No. of Deaths</td>
-                        <td>No. of Assists</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each selectedMatch.matchPlayerResultArr}}
-                        <tr>
-                            <td>{{this.username}}</td>
-                            <td>{{this.player_slot}}</td>
-                            <td>
-                                
-                            </td>
-                            <td>
-                                
-                            </td>
-                            <td>
-                                {{> afQuickField name='this.player_slot'}}
-                            </td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table> -->
 
             <div>
                 <button type="submit">Submit</button>
             </div>
         {{/autoForm}}
+
+        <div>
+            <a href="#" class="btn" id="processMatch">Process Match Again</a>    
+        </div>
 
         
     </div>
