@@ -7,6 +7,59 @@ Meteor.subscribe('MatchesCollection');
 ======================================================================================================
 */
 
+Template.adminMatchPendingUpdateList.helpers({
+  selector: function () {
+    return { status: {$in: ['PU', "PI"]}};
+  }
+});
+
+Template.adminMatchPendingUpdateList.events({
+    'click #PU' : function(event) {
+        event.preventDefault();
+
+        MatchesCollection.insert({status : 'PU', result: 'R'});
+    },
+    'click #PI' : function(event) {
+        event.preventDefault();
+
+        MatchesCollection.insert({status : 'PI', result: 'I'});
+    },
+    'click #normal' : function(event) {
+        event.preventDefault();
+
+        MatchesCollection.insert({status : 'U', result: 'D'});
+    }
+});
+
+Template.adminMatchPendingUpdateDetail.events({
+    'click #processMatch' : function(event) {
+        event.preventDefault();
+        // console.log('===== matchDetails._id: ======')
+        // console.log(Session.get('selectedAyglMatchId'));
+
+        Meteor.call('sendMatchDetailsToMainDB', Session.get('selectedAyglMatchId'), function(err, res) {
+            console.log('oh there is something here');
+
+            if (err) {
+                console.log(err);
+            } else {
+                if (res) {
+                    console.log(res);
+                    if (res === 201) {
+                        Session.set('adminTabSelection', 1);
+                    } else {
+                        console.log('there was some problem, match failed to process');
+                        //TODO extra friendly handling
+                    }
+                }
+            }
+        });
+
+        console.log('done, waiting for async');
+    }
+});
+
+
 Template.adminLayout.helpers({
     matchPendingUpdateList: function() {
         console.log('hi im in the matchPendingUpdateList helper');
