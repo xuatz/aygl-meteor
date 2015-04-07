@@ -16,60 +16,60 @@ TabularTables.MatchTable = new Tabular.Table({
 
 //FOR FUTURE USE
 
-// MatchPlayerResult = new SimpleSchema({
-//   username: {
-//     type: String,
-//     max: 25,
-//     label: "Username"
-//   },
-//   playerSlot: {
-//     type: String,
-//     max: 2,
-//     label: "Player Slot"
-//   },
-//   adjustment: {
-//     type: Number,
-//     label: "Score Adjustment",
-//     optional: true,
-//     defaultValue: "0"
-//   },
-//   // createdAt: {
-//   //   type: Date,
-//   //     autoValue: function() {
-//   //       if (this.isInsert) {
-//   //         return new Date;
-//   //       } else if (this.isUpsert) {
-//   //         return {$setOnInsert: new Date};
-//   //       } else {
-//   //         this.unset();
-//   //       }
-//   //     }
-//   // },
-//   // created_by: {
-//   //   type: String,
-//   //   label: "Created By",
-//   //   autoValue: function() {
-//   //       console.log('userId: ' + this.userId);
-//   //       return this.userId;
-//   //   }
-//   // },
-//   // // Force value to be current date (on server) upon update
-//   // // and don't allow it to be set upon insert.
-//   // updatedAt: {
-//   //   type: Date,
-//   //   autoValue: function() {
-//   //     if (this.isUpdate) {
-//   //       return new Date();
-//   //     }
-//   //   },
-//   //   denyInsert: true,
-//   //   optional: true
-//   // },
-//   // updated_by: {
-//   //   type: String,
-//   //   label: "Updated By"
-//   // }
-// });
+MatchPlayerResult = new SimpleSchema({
+  username: {
+    type: String,
+    max: 25,
+    label: "Username"
+  },
+  playerSlot: {
+    type: String,
+    max: 2,
+    label: "Player Slot"
+  },
+  adjustment: {
+    type: Number,
+    label: "Score Adjustment",
+    optional: true,
+    defaultValue: 0
+  },
+  // createdAt: {
+  //   type: Date,
+  //     autoValue: function() {
+  //       if (this.isInsert) {
+  //         return new Date;
+  //       } else if (this.isUpsert) {
+  //         return {$setOnInsert: new Date};
+  //       } else {
+  //         this.unset();
+  //       }
+  //     }
+  // },
+  // created_by: {
+  //   type: String,
+  //   label: "Created By",
+  //   autoValue: function() {
+  //       console.log('userId: ' + this.userId);
+  //       return this.userId;
+  //   }
+  // },
+  // // Force value to be current date (on server) upon update
+  // // and don't allow it to be set upon insert.
+  // updatedAt: {
+  //   type: Date,
+  //   autoValue: function() {
+  //     if (this.isUpdate) {
+  //       return new Date();
+  //     }
+  //   },
+  //   denyInsert: true,
+  //   optional: true
+  // },
+  // updated_by: {
+  //   type: String,
+  //   label: "Updated By"
+  // }
+});
 
 MatchesCollection.attachSchema(new SimpleSchema({
   ayglMatchId: {
@@ -123,8 +123,8 @@ MatchesCollection.attachSchema(new SimpleSchema({
     label: "Screenshot URL",
     optional: true
   },
-  // matchPlayerResults : {
-  //   type: [MatchPlayerResult],
-  //   label: "MatchPlayerResults"
-  // }
+  matchPlayerResults : {
+    type: [MatchPlayerResult],
+    label: "MatchPlayerResults"
+  }
 }));

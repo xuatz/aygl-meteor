@@ -1,4 +1,4 @@
-AdminController = RouteController.extend({
+AyglAdminController = RouteController.extend({
     layoutTemplate: 'adminLayout'
 });
 
@@ -8,7 +8,7 @@ Router.onBeforeAction(function(){
     if (!Meteor.user()) {
         //do nothing? dun need this.next() ?
     } else {
-        //TODO XZ 15/2/15 
+        //TODO XZ 15/2/15
         var isAdmin = true;
 
         if (!isAdmin) {
@@ -27,11 +27,11 @@ Router.onBeforeAction(function(){
         }
     }
 }, {
-    only: ['admin']
+    only: ['aygl_admin']
 
 });
 
-Router.route('/admin', function() {
+Router.route('/aygl_admin', function() {
     switch (Session.get('adminTabSelection')) {
     case 1:
         console.log('im gonna render some nice stuff');
@@ -57,6 +57,6 @@ Router.route('/admin', function() {
         break;
     }
 }, {
-    name: 'admin',
-    controller:'AdminController'
+    name: 'aygl_admin',
+    controller:'AyglAdminController'
 });
