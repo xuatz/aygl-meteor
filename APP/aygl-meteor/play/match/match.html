@@ -7,12 +7,12 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="matchlayout">
     <div class="match">
         <div class="row">
-            <div class="subpage-title"> insert nice match lobby title </div>
+            <div class="subpage-title"> {{theGame.title}} </div>
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
                 <div class="panel panel-warning">
                   <div class="panel-heading text-center">Password</div>
-                  <div class="panel-body text-center">hjSbnvsa3mf</div>
+                  <div class="panel-body text-center">{{theGame.password}}</div>
                 </div>
             </div>
             <div class="col-xs-3"></div>
@@ -27,7 +27,9 @@ Any Templates used for the Drafting Screen will be placed here
                     <a href="#" class="btn btn-danger col-xs-4" id="matchDireWin">Dire Win</a>
                 </div>
             </div>
-            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+                
+            </div>
         </div>
 
         <div class="row" style="padding: 0px 100px">
@@ -41,6 +43,11 @@ Any Templates used for the Drafting Screen will be placed here
             </div>
         </div>
         <br/>
+
+        {{#if hasReportedScore theGame.scoreReports}}
+            {{> leaveLobbyBtn}}
+        {{/if}}
+
         <br/>
         <br/>
         <br/>
@@ -66,9 +73,21 @@ Any Templates used for the Drafting Screen will be placed here
 
 <!--RENDERED TEMPLATES -->
 
+<template name="leaveLobbyBtn">
+    <div class="row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4 text-center">
+            <!-- TODO exit lobby logic -->
+            <a href="#" class="btn" id="leaveLobby">Leave Lobby</a>
+        </div>
+        <div class="col-xs-4"></div>
+    </div>
+</template>
+
 <template name="playerPanel">
     <div class="row">
         <div class="teammate">
+            <!-- TODO how are we gonna get profile picture for each user? -->
             <img src="../profileimg.jpg">
             <div class="member-name">{{username}}</div>
             <div class="thumbs">

@@ -61,6 +61,25 @@ var getPlayerSlotOfLoginUser = function() {
     }
 }
 
+//TODO DT: the client should know which game the player is currently in, persistantly
+// var theGame = findOne({
+//     _id: "currentGameId"
+// });
+
+//TODO DT: the game document should generate a password upon "Draft Completion"
+
+Template.matchlayout.helpers({
+    // should the client have access to the game they are currently playing?
+    // or should the control be handled by the server?
+    // im leaning towards first method
+    theGame: function() {
+        return Games.findOne();
+    },
+    hasReportedScore: function(scoreReports) {
+        return checkIfPlayerReportedScore(scoreReports, Meteor.user().username);
+    }
+});
+
 Template.matchlayout.events({
     'click #matchRadWin' : function(event) {
         event.preventDefault();
@@ -113,16 +132,16 @@ Template.playerPanel.events({
 
         if (something.hasClass( "text-success" ) ) {
             something.removeClass('text-success');
-            //TODO
+            //TODO DT
             //user.commend--;
         } else {
             something.addClass('text-success');
-            //TODO
+            //TODO DT
             //user.commend++;
             var siblingThumbsDown = $(event.target).next('i');
             if (siblingThumbsDown.hasClass("text-danger") ) {
                 siblingThumbsDown.removeClass('text-danger');
-                //TODO
+                //TODO DT
                 //user.report--;
             }
         }

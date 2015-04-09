@@ -190,6 +190,8 @@ var checkMatchResultReports = function(gameId) {
 					if (m.result) {
 						//since the matchDetails already have a result liao, dun need to do anything liao
 					} else {
+						
+						
 						var cptRadScoreReport = _.find(g.scoreReports, function(item){
 													if (item) {
 														return item.playerSlot == 0;
