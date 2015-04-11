@@ -2,7 +2,7 @@ var crypto = Npm.require('crypto')
 	,Future = Npm.require('fibers/future');
 
 Meteor.methods({
-	updatePlayerScoreReport: function(gameId, username, playerSlot, result) {
+	updatePlayerResultReport: function(gameId, username, playerSlot, result) {
 		console.log('check env var');
         console.log(process.env.HASH_SALT);
 
@@ -10,10 +10,10 @@ Meteor.methods({
         var g = Games.findOne({});
         var gameId = g._id;
 
-				//================
+		//================
 
         //we need to upsert a the match report into game item for current player (client)
-        var fieldString = 'scoreReports.' + playerSlot;
+        var fieldString = 'resultReports.' + playerSlot;
 
         var obj = {};
         obj[fieldString] =
@@ -119,8 +119,8 @@ var checkMatchResultReports = function(gameId) {
 	if (!g) {
 		console.log('game no found, perhaps its already processed?');
 	} else {
-		if (!g.scoreReports) {
-			g.scoreReports = [];
+		if (!g.resultReports) {
+			g.resultReports = [];
 		}
 
 		console.log(g);
@@ -131,7 +131,7 @@ var checkMatchResultReports = function(gameId) {
 		// var gameId = g._id;
 		// var obj = {};
 		// var index = 4;
-		// var field = 'scoreReports.' + index;
+		// var field = 'resultReports.' + index;
 		// obj[field] = {  'username': 'kokoro',
 		// 				'playerSlot': '4',
 		// 				'result': 'TEST' };
@@ -149,7 +149,7 @@ var checkMatchResultReports = function(gameId) {
 		// console.log('==========');
 
 		var count = 0;
-		_.each(g.scoreReports, function(item) {
+		_.each(g.resultReports, function(item) {
 			if(item !== null) {
 				count++;
 			}
@@ -158,12 +158,12 @@ var checkMatchResultReports = function(gameId) {
 		console.log('count: ' + count);
 
 		if (count > 0) {
-			if (!g.matchScoreReportedDttm) {
+			if (!g.matchResultReportedDttm) {
 				Games.update(
 					{ _id : g._id },
 					{
 						$set: {
-							'matchScoreReportedDttm': new Date
+							'matchResultReportedDttm': new Date
 						}
 					}
 				);
@@ -171,13 +171,13 @@ var checkMatchResultReports = function(gameId) {
 				//TODO insert code to run this method again after 3 hours for section Z
 
 				console.log('check if the local object is updated');
-				console.log('g.matchScoreReportedDttm: ' + g.matchScoreReportedDttm);
-				console.log(g.matchScoreReportedDttm);
+				console.log('g.matchResultReportedDttm: ' + g.matchResultReportedDttm);
+				console.log(g.matchResultReportedDttm);
 
 				console.log('im fetching the game again from db, compare the value with above!');
 				g = Games.findOne({});
 				//g = Games.findOne({'_id': gameId});
-				console.log('scoreReportedDttm: ' + g.matchScoreReportedDttm);
+				console.log('resultReportedDttm: ' + g.matchResultReportedDttm);
 
 			} else {
 				//TODO DT: note: upon draft completion, a matchDetails will be created liao, with the games._id as FK
@@ -192,22 +192,22 @@ var checkMatchResultReports = function(gameId) {
 					} else {
 						
 						
-						var cptRadScoreReport = _.find(g.scoreReports, function(item){
+						var cptRadResultReport = _.find(g.resultReports, function(item){
 													if (item) {
 														return item.playerSlot == 0;
 													}
 												});
-						var cptDireScoreReport = _.find(g.scoreReports, function(item){
+						var cptDireResultReport = _.find(g.resultReports, function(item){
 													if (item) {
 														return item.playerSlot == 5;
 													}
 												});
 
-						console.log('cptRadReportedScore: ' + cptRadScoreReport);
-						console.log('cptDireReportedScore: ' + cptDireScoreReport);
+						console.log('cptRadReportedResult: ' + cptRadResultReport);
+						console.log('cptDireReportedResult: ' + cptDireResultReport);
 
-						if (cptRadScoreReport && cptDireScoreReport) {
-							if (cptRadScoreReport.result == cptDireScoreReport.result) {
+						if (cptRadResultReport && cptDireResultReport) {
+							if (cptRadResultReport.result == cptDireResultReport.result) {
 
 								var reasonableTimeElapsedSinceMatchLobbyCreated = true;
 								var matchDetailsCreatedDttm = moment(matchDetails.createdDttm);
@@ -219,7 +219,7 @@ var checkMatchResultReports = function(gameId) {
 									reasonableTimeElapsedSinceMatchLobbyCreated = false;
 								}
 
-								m.result = cptRadScoreReport.result;
+								m.result = cptRadResultReport.result;
 								takeActionOnMatchDetailsBasedOnResult(m, reasonableTimeElapsedSinceMatchLobbyCreated);
 
 							} else {
@@ -229,9 +229,9 @@ var checkMatchResultReports = function(gameId) {
 							//The point is that, we will in general, use the cpt report as absolute
 							//hence we give a 3 hours grace peroid starting from first match report timing
 
-							console.log('scoreReportedDttm: ' + g.matchScoreReportedDttm);
+							console.log('resultReportedDttm: ' + g.matchResultReportedDttm);
 
-							var reportDttm = moment(g.matchScoreReportedDttm);
+							var reportDttm = moment(g.matchResultReportedDttm);
 							var duration = moment.duration(moment().diff(reportDttm));
 
 							//console.log(duration);
@@ -242,7 +242,7 @@ var checkMatchResultReports = function(gameId) {
 							if (duration.hours() >= 3) {
 								//after 3 hours, we will take the party member reports into consideration
 
-								if (g.scoreReports.size()>0) {
+								if (g.resultReports.size()>0) {
 									var topResult = getMostPopularResult(g);
 
 									if (topResult) {
@@ -266,7 +266,7 @@ var getMostPopularResult = function(game) {
 	var countR = 0;
 	var countD = 0;
 
-	_.each(game.scoreReports, function(item) {
+	_.each(game.resultReports, function(item) {
 		if(item !== null) {
 			switch (item.result) {
 				case 'V':

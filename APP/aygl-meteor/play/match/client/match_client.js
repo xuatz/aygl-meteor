@@ -75,51 +75,89 @@ Template.matchlayout.helpers({
     theGame: function() {
         return Games.findOne();
     },
-    hasReportedScore: function(scoreReports) {
-        return checkIfPlayerReportedScore(scoreReports, Meteor.user().username);
+    hasReportedResult: function(resultReports) {
+        return checkIfPlayerReportedResult(resultReports, Meteor.user().username);
     }
 });
 
 Template.matchlayout.events({
     'click #matchRadWin' : function(event) {
         event.preventDefault();
-        var something = $(event.target);
-        something.addClass('btn-success');
 
-        var sibling1 = $(event.target).next('a');
-        sibling1.removeClass('btn-info');
+        if (!Session.get('resultReported')) {
+            bootbox.confirm("Are you sure?", function(result) {
+                if (result) {
+                    var clickedBtn = $(event.target);
+                    clickedBtn.addClass('btn-success');
 
-        var sibling2 = sibling1.next('a');
-        sibling2.removeClass('btn-danger');
+                    var sibling1 = $(event.target).next('a');
+                    sibling1.removeClass('btn-info');
 
-        Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
+                    var sibling2 = sibling1.next('a');
+                    sibling2.removeClass('btn-danger');
 
+                    //TODO hardcoded for dev
+                    var gameId = '12';
+
+                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
+
+                    Session.set('resultReported', true);
+                }
+            });
+        }
     },
     'click #matchVoid' : function(event) {
         event.preventDefault();
-        var something = $(event.target);
-        something.addClass('btn-info');
 
-        var sibling1 = $(event.target).prev('a');
-        sibling1.removeClass('btn-success');
+        if (!Session.get('resultReported')) {
+            bootbox.confirm("Are you sure?", function(result) {
+                if (result) {
+                    var clickedBtn = $(event.target);
+                    clickedBtn.addClass('btn-info');
 
-        var sibling2 = $(event.target).next('a');
-        sibling2.removeClass('btn-danger');
+                    var sibling1 = $(event.target).prev('a');
+                    sibling1.removeClass('btn-success');
 
-        Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'V');
+                    var sibling2 = $(event.target).next('a');
+                    sibling2.removeClass('btn-danger');
+
+                    //TODO hardcoded for dev
+                    var gameId = '12';
+
+                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
+
+                    Session.set('resultReported', true);
+                }
+            });
+        }
     },
     'click #matchDireWin' : function(event) {
         event.preventDefault();
-        var something = $(event.target);
-        something.addClass('btn-danger');
 
-        var sibling1 = $(event.target).prev('a');
-        sibling1.removeClass('btn-info');
+        if (!Session.get('resultReported')) {
+            bootbox.confirm("Are you sure?", function(result) {
+                if (result) {
+                    var clickedBtn = $(event.target);
+                    clickedBtn.addClass('btn-danger');
 
-        var sibling2 = sibling1.prev('a');
-        sibling2.removeClass('btn-success');
+                    var sibling1 = $(event.target).prev('a');
+                    sibling1.removeClass('btn-info');
 
-        Meteor.call('updatePlayerScoreReport', '12', Meteor.user().username, getPlayerSlotOfLoginUser(), 'D');
+                    var sibling2 = sibling1.prev('a');
+                    sibling2.removeClass('btn-success');
+                    
+                    //TODO hardcoded for dev
+                    var gameId = '12';
+                    // is it Meteor.user().profile.room????
+                    // den room == match._id
+                    // so use some helper to get the game._id
+
+                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
+
+                    Session.set('resultReported', true);
+                }
+            });
+        }
     }
 });
 

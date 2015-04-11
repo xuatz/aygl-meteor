@@ -12,7 +12,7 @@ Any Templates used for the Drafting Screen will be placed here
             <div class="col-xs-6">
                 <div class="panel panel-warning">
                   <div class="panel-heading text-center">Password</div>
-                  <div class="panel-body text-center">{{theGame.password}}</div>
+                  <div class="panel-body text-center">{{theGame.password}} placeholderFSD$#%JFD</div>
                 </div>
             </div>
             <div class="col-xs-3"></div>
@@ -44,7 +44,7 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <br/>
 
-        {{#if hasReportedScore theGame.scoreReports}}
+        {{#if hasReportedResult theGame.resultReports}}
             {{> leaveLobbyBtn}}
         {{/if}}
 
