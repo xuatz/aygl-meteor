@@ -1,44 +1,9 @@
 var crypto = Npm.require('crypto')
 	,Future = Npm.require('fibers/future');
 
-var updateUserThumbsUpCount = function(username, newCount) {
-	console.log('updateUserThumbsUpCount start');
-	console.log('username: ' +  username);
-	console.log('newCount: ' +  newCount);
-
-	Meteor.users.update(
-		{
-			username: username
-		},
-		{
-			$set: {
-				thumbsUpCount: newCount
-			}
-		}
-	);
-}
-
-var updateUserThumbsDownCount = function(username, newCount) {
-	console.log('updateUserThumbsDownCount start');
-	console.log('username: ' +  username);
-	console.log('newCount: ' +  newCount);
-
-	Meteor.users.update(
-		{
-			username: username
-		},
-		{
-			$set: {
-				thumbsDownCount: newCount
-			}
-		}
-	);
-}
-
 Meteor.methods({
 	increaseUserThumbsUpCount: function(username, increase) {
-		// console.log('hi !!!');
-
+		// console.log('increaseUserThumbsUpCount() start');
 		// console.log(username);
 		// console.log(increase);
 
@@ -46,9 +11,9 @@ Meteor.methods({
 			username: username
 		});
 
-		//console.log(user);
-
-		if (user) {
+		if (!user) {
+			console.log('user not found for: ' + username);
+		} else {
 			if (!user.thumbsUpCount) {
 				user.thumbsUpCount = 0;
 			}
@@ -67,7 +32,9 @@ Meteor.methods({
 
 		//console.log(user);
 
-		if (user) {
+		if (!user) {
+			console.log('user not found for: ' + username);
+		} else {
 			if (!user.thumbsDownCount) {
 				user.thumbsDownCount = 0;
 			}
@@ -80,9 +47,6 @@ Meteor.methods({
 		}
 	},
 	updatePlayerResultReport: function(gameId, username, playerSlot, result) {
-		console.log('check env var');
-        console.log(process.env.HASH_SALT);
-
 		//TODO demo for dev purpose only
         var g = Games.findOne({});
         var gameId = g._id;
@@ -109,17 +73,19 @@ Meteor.methods({
 
 		checkMatchResultReports(gameId);
 	},
-	sendMatchDetailsToMainDB: function(matchDetailsId) {
+	sendMatchDetailsToMainDB: function(matchId) {
 		console.log('sendMatchDetailsToMainDB');
 
+		var matchDetails = MatchesCollection.findOne({
+			_id : matchDetailsId
+		});
+
 		//hardcoded for dev
-		var matchDetails = MatchesCollection.findOne();
-		// var matchDetails = MatchesCollection.findOne({
-		// 	_id : matchDetailsId
-		// });
+		if (!matchDetails) {
+			matchDetails = MatchesCollection.findOne();
+		}
 
 		var matchString = JSON.stringify(matchDetails);
-		//var matchString = JSON.stringify(matchDetails);
 
 		var password = '/match' + matchString;
 		// console.log('==================');
@@ -187,11 +153,45 @@ Meteor.methods({
 
 //======================================
 
+var updateUserThumbsUpCount = function(username, newCount) {
+	// console.log('updateUserThumbsUpCount start');
+	// console.log('username: ' +  username);
+	// console.log('newCount: ' +  newCount);
+
+	Meteor.users.update(
+		{
+			username: username
+		},
+		{
+			$set: {
+				thumbsUpCount: newCount
+			}
+		}
+	);
+}
+
+var updateUserThumbsDownCount = function(username, newCount) {
+	// console.log('updateUserThumbsDownCount start');
+	// console.log('username: ' +  username);
+	// console.log('newCount: ' +  newCount);
+
+	Meteor.users.update(
+		{
+			username: username
+		},
+		{
+			$set: {
+				thumbsDownCount: newCount
+			}
+		}
+	);
+}
+
 var checkMatchResultReports = function(gameId) {
 	console.log('Start of checkMatchResultReports');
 
+	//var g = Games.findOne({_id: gameId});
 	var g = Games.findOne({});
-	//var g = Games.findOne({'_id': gameId});
 
 	if (!g) {
 		console.log('game no found, perhaps its already processed?');
@@ -200,28 +200,6 @@ var checkMatchResultReports = function(gameId) {
 			g.resultReports = [];
 		}
 
-		console.log(g);
-		console.log('==========');
-
-		//=======================
-
-		// var gameId = g._id;
-		// var obj = {};
-		// var index = 4;
-		// var field = 'resultReports.' + index;
-		// obj[field] = {  'username': 'kokoro',
-		// 				'playerSlot': '4',
-		// 				'result': 'TEST' };
-		// Games.upsert(
-		// 	{ _id : gameId },
-		// 	{
-		// 		$set: obj
-		// 	}
-		// );
-
-		// //=======================
-
-		// g = Games.findOne({});
 		// console.log(g);
 		// console.log('==========');
 
@@ -232,7 +210,7 @@ var checkMatchResultReports = function(gameId) {
 			}
 		});
 
-		console.log('count: ' + count);
+		// console.log('count: ' + count);
 
 		if (count > 0) {
 			if (!g.matchResultReportedDttm) {
@@ -267,8 +245,6 @@ var checkMatchResultReports = function(gameId) {
 					if (m.result) {
 						//since the matchDetails already have a result liao, dun need to do anything liao
 					} else {
-						
-						
 						var cptRadResultReport = _.find(g.resultReports, function(item){
 													if (item) {
 														return item.playerSlot == 0;

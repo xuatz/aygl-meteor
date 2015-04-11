@@ -38,19 +38,11 @@ MatchesCollection.allow({
 //=================================
 
 var beforeInsertOptions = function(username, doc) {
-  //console.log('hi!! im in before insert!');
   doc.createdDttm = Date.now();
   doc.createdBy = username;
 };
 
 var beforeUpdateOptions = function(username, doc, fieldNames, modifier, options){
-  // console.log('doc');
-  // console.log(doc);
-  // console.log('fieldNames');
-  // console.log(fieldNames);
-  // console.log('modifier');
-  // console.log(modifier);
-
   modifier.$set = modifier.$set || {};
   modifier.$set.updatedDttm = Date.now();
   modifier.$set.updatedBy = username;
