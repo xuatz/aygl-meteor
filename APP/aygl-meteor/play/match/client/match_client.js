@@ -1,13 +1,84 @@
 Meteor.subscribe('MatchesCollection');
 
+//TODO DT: the game document should generate a password upon "Draft Completion"
+
+var getPlayerSlotOfLoginUser = function() {
+    console.log('start of getPlayerSlotOfLoginUser()');
+
+    var matchDetails = MatchesCollection.findOne();
+
+    var player = _.find(matchDetails.matchPlayerResults,
+        function(item) {
+            return item.username === Meteor.user().username;
+        }
+    );
+
+    if (player) {
+        return player.playerSlot;
+    } else {
+        throw Error("Username is not in the draft!!!");
+    }
+}
+
+
+
+var getSelectedMatch = function() {
+    console.log('start of getSelectedMatch()');
+    console.log('Player state: ' + Meteor.user().profile.state);
+
+    var matchId = Meteor.user().profile.room;
+    console.log(matchId);
+
+    var m = MatchesCollection.findOne({
+        _id : matchId
+    })
+
+    //hardcoded for dev purposes
+    if (!m) {
+        m = MatchesCollection.findOne();
+    }
+
+    console.log(m);
+
+    return m;
+}
+
+var getSelectedGame = function() {
+    console.log('start of getSelectedGame()');
+    var m = getSelectedMatch();
+
+    if (!m) {
+        return null;
+    } else {
+        var gameId = m.gameId;
+
+        if (!gameId) {
+            return null;
+        } else {
+            var g = Games.findOne({
+                _id: gameId
+            })
+
+            //hardcoded for dev purposes
+            if (!g) {
+                g = Games.findOne();
+            }
+
+            console.log(g);
+
+            return g;
+        }
+    }
+}
+
 Template.matchradiant.helpers({
     getRadPlayers: function() {
-        var data = MatchesCollection.findOne();
+        var m = getSelectedMatch();
 
         // console.log('===================');
-        // console.log(data);
+        // console.log(m);
 
-        var radPlayers = _.filter(data.matchPlayerResults,
+        var radPlayers = _.filter(m.matchPlayerResults,
             function(item) {
                 return item.playerSlot < 5;
             }
@@ -26,12 +97,12 @@ Template.matchradiant.helpers({
 
 Template.matchdire.helpers({
     getDirePlayers: function() {
-        var data = MatchesCollection.findOne();
+        var m = getSelectedMatch();
 
         // console.log('===== getDirePlayers!! ==============');
-        // console.log(data);
+        // console.log(m);
 
-        var players = _.filter(data.matchPlayerResults,
+        var players = _.filter(m.matchPlayerResults,
             function(item) {
                 return item.playerSlot > 4;
             }
@@ -45,38 +116,23 @@ Template.matchdire.helpers({
     }
 });
 
-var getPlayerSlotOfLoginUser = function() {
-    var matchDetails = MatchesCollection.findOne();
-
-    var player = _.find(matchDetails.matchPlayerResults,
-        function(item) {
-            return item.username === Meteor.user().username;
-        }
-    );
-
-    if (player) {
-        return player.playerSlot;
-    } else {
-        throw Error("Username is not in the draft!!!");
-    }
-}
-
-//TODO DT: the client should know which game the player is currently in, persistantly
-// var theGame = findOne({
-//     _id: "currentGameId"
-// });
-
-//TODO DT: the game document should generate a password upon "Draft Completion"
-
 Template.matchlayout.helpers({
-    // should the client have access to the game they are currently playing?
-    // or should the control be handled by the server?
-    // im leaning towards first method
-    theGame: function() {
-        return Games.findOne();
+    selectedMatch: function() {
+        return getSelectedMatch();
     },
-    hasReportedResult: function(resultReports) {
-        return checkIfPlayerReportedResult(resultReports, Meteor.user().username);
+    selectedGame: function() {
+        //actual implmentation return getSelectedGame();
+        return Games.findOne(); //hardcoded for dev
+    },
+    hasReportedResult: function() {
+        if (Session.get('resultReported')) {
+            return true;
+        } else {
+            return false;
+        }
+
+        //below is the more "accurate implementation, but above is a cheaper implementation"
+        //return checkIfPlayerReportedResult(resultReports, Meteor.user().username);
     }
 });
 
@@ -162,25 +218,29 @@ Template.matchlayout.events({
 });
 
 Template.playerPanel.events({
-    'click #thumbsUp' : function(event) {
+    'click #thumbsUp' : function(event, template) {
         event.preventDefault();
-        var something = $(event.target);
+        var item = $(event.target);
+        var item2 = $(event.currentTarget);
 
-        // console.log(something);
+        var username = template.data.username;
 
-        if (something.hasClass( "text-success" ) ) {
-            something.removeClass('text-success');
-            //TODO DT
-            //user.commend--;
+        // console.log(template.find('.member-name').innerHTML);
+        // console.log(template.data.username);
+
+        if (item.hasClass( "text-success" ) ) {
+            item.removeClass('text-success');
+
+            Meteor.call('increaseUserThumbsUpCount', username, false); 
         } else {
-            something.addClass('text-success');
-            //TODO DT
-            //user.commend++;
+            item.addClass('text-success');
+
+            Meteor.call('increaseUserThumbsUpCount', username, true);
             var siblingThumbsDown = $(event.target).next('i');
             if (siblingThumbsDown.hasClass("text-danger") ) {
                 siblingThumbsDown.removeClass('text-danger');
-                //TODO DT
-                //user.report--;
+                
+                Meteor.call('increaseUserThumbsDownCount', username, false);
             }
         }
 
@@ -196,27 +256,24 @@ Template.playerPanel.events({
         //     }
         // });
     },
-    'click #thumbsDown' : function(event) {
+    'click #thumbsDown' : function(event, template) {
         event.preventDefault();
-        var something = $(event.target);
+        var item = $(event.target);
+        var username = template.data.username;
 
-        // console.log(something);
-        // console.log('=================');
-
-        if (something.hasClass( "text-danger" ) ) {
-            something.removeClass('text-danger');
-            //TODO
-            //user.report--;
+        if (item.hasClass( "text-danger" ) ) {
+            item.removeClass('text-danger');
+            
+            Meteor.call('increaseUserThumbsDownCount', username, false); //down--
         } else {
-            something.addClass('text-danger');
-            //TODO
-            //user.report++;
+            item.addClass('text-danger');
+            Meteor.call('increaseUserThumbsDownCount', username, true); //down++
 
             var previousThumbsUp = $(event.target).prev('i');
             if (previousThumbsUp.hasClass("text-success") ) {
                 previousThumbsUp.removeClass('text-success');
-                //TODO
-                //user.commend--;
+
+                Meteor.call('increaseUserThumbsUpCount', username, false); //up--
             }
         }
 

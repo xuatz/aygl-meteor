@@ -7,12 +7,12 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="matchlayout">
     <div class="match">
         <div class="row">
-            <div class="subpage-title"> {{theGame.title}} </div>
+            <div class="subpage-title"> {{selectedGame.title}} </div>
             <div class="col-xs-3"></div>
             <div class="col-xs-6">
                 <div class="panel panel-warning">
                   <div class="panel-heading text-center">Password</div>
-                  <div class="panel-body text-center">{{theGame.password}} placeholderFSD$#%JFD</div>
+                  <div class="panel-body text-center">{{selectedGame.password}} placeholderFSD$#%JFD</div>
                 </div>
             </div>
             <div class="col-xs-3"></div>
@@ -44,7 +44,7 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <br/>
 
-        {{#if hasReportedResult theGame.resultReports}}
+        {{#if hasReportedResult}}
             {{> leaveLobbyBtn}}
         {{/if}}
 

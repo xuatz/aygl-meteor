@@ -1,7 +1,84 @@
 var crypto = Npm.require('crypto')
 	,Future = Npm.require('fibers/future');
 
+var updateUserThumbsUpCount = function(username, newCount) {
+	console.log('updateUserThumbsUpCount start');
+	console.log('username: ' +  username);
+	console.log('newCount: ' +  newCount);
+
+	Meteor.users.update(
+		{
+			username: username
+		},
+		{
+			$set: {
+				thumbsUpCount: newCount
+			}
+		}
+	);
+}
+
+var updateUserThumbsDownCount = function(username, newCount) {
+	console.log('updateUserThumbsDownCount start');
+	console.log('username: ' +  username);
+	console.log('newCount: ' +  newCount);
+
+	Meteor.users.update(
+		{
+			username: username
+		},
+		{
+			$set: {
+				thumbsDownCount: newCount
+			}
+		}
+	);
+}
+
 Meteor.methods({
+	increaseUserThumbsUpCount: function(username, increase) {
+		// console.log('hi !!!');
+
+		// console.log(username);
+		// console.log(increase);
+
+		var user = Meteor.users.findOne({
+			username: username
+		});
+
+		//console.log(user);
+
+		if (user) {
+			if (!user.thumbsUpCount) {
+				user.thumbsUpCount = 0;
+			}
+
+			if (increase) {
+				updateUserThumbsUpCount(username, user.thumbsUpCount + 1);
+			} else {
+				updateUserThumbsUpCount(username, user.thumbsUpCount - 1);
+			}
+		}
+	},
+	increaseUserThumbsDownCount: function(username, increase) {
+		var user = Meteor.users.findOne({
+			username: username
+		});
+
+		//console.log(user);
+
+		if (user) {
+			if (!user.thumbsDownCount) {
+				user.thumbsDownCount = 0;
+			}
+
+			if (increase) {
+				updateUserThumbsDownCount(username, user.thumbsDownCount + 1);
+			} else {
+				updateUserThumbsDownCount(username, user.thumbsDownCount - 1);
+			}
+		}
+	},
 	updatePlayerResultReport: function(gameId, username, playerSlot, result) {
 		console.log('check env var');
         console.log(process.env.HASH_SALT);
