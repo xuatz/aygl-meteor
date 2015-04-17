@@ -30,56 +30,19 @@ MatchPlayerResult = new SimpleSchema({
   adjustment: {
     type: Number,
     label: "Score Adjustment",
-    optional: true,
-    defaultValue: 0
-  },
-  // createdAt: {
-  //   type: Date,
-  //     autoValue: function() {
-  //       if (this.isInsert) {
-  //         return new Date;
-  //       } else if (this.isUpsert) {
-  //         return {$setOnInsert: new Date};
-  //       } else {
-  //         this.unset();
-  //       }
-  //     }
-  // },
-  // created_by: {
-  //   type: String,
-  //   label: "Created By",
-  //   autoValue: function() {
-  //       console.log('userId: ' + this.userId);
-  //       return this.userId;
-  //   }
-  // },
-  // // Force value to be current date (on server) upon update
-  // // and don't allow it to be set upon insert.
-  // updatedAt: {
-  //   type: Date,
-  //   autoValue: function() {
-  //     if (this.isUpdate) {
-  //       return new Date();
-  //     }
-  //   },
-  //   denyInsert: true,
-  //   optional: true
-  // },
-  // updated_by: {
-  //   type: String,
-  //   label: "Updated By"
-  // }
+    optional: true
+  }
 });
 
 MatchesCollection.attachSchema(new SimpleSchema({
   ayglMatchId: {
     type: Number,
-    label: "aygl_match_id",
+    label: "AYGL Match ID",
     optional: true
   },
   dotaMatchId: {
     type: Number,
-    label: "dota_match_id",
+    label: "DOTA Match ID",
     optional: true
   },
   status: {

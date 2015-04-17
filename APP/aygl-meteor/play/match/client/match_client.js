@@ -137,6 +137,14 @@ Template.matchlayout.helpers({
 });
 
 Template.matchlayout.events({
+    'click leaveLobby': function(event) {
+        event.preventDefault();
+        //TODO leave lobby function
+
+        //update the player's state to ???
+        //update the player's room to ???
+        //Session.set('resultReported', false);
+    },
     'click #matchRadWin' : function(event) {
         event.preventDefault();
 
