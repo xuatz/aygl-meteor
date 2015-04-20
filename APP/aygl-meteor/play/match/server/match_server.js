@@ -77,7 +77,7 @@ Meteor.methods({
 		console.log('sendMatchDetailsToMainDB');
 
 		var matchDetails = MatchesCollection.findOne({
-			_id : matchDetailsId
+			_id : matchId
 		});
 
 		//hardcoded for dev
@@ -136,7 +136,10 @@ Meteor.methods({
 								_id : matchDetails._id
 							},
 							{
-								status : 'PU'
+								$set: {
+									status : 'PU'
+								}
+								
 							}
 						);
 	                	//TODO log error somewhere???
@@ -238,10 +241,16 @@ var checkMatchResultReports = function(gameId) {
 				//TODO DT: note: upon draft completion, a matchDetails will be created liao, with the games._id as FK
 				var m = MatchesCollection.findOne({'gameId': g._id});
 				//we fetch latest before taking action cos maybe some1 else's action already resolved this game
+				
+				//hardcoded for dev purpose
+				m = MatchesCollection.findOne();
+				
 
 				if (!m) {
 					console.log('There is a big problem, why is there no matchDetails?');
 				} else {
+					console.log(m.result);
+					m.result = null;
 					if (m.result) {
 						//since the matchDetails already have a result liao, dun need to do anything liao
 					} else {
@@ -260,6 +269,7 @@ var checkMatchResultReports = function(gameId) {
 						console.log('cptDireReportedResult: ' + cptDireResultReport);
 
 						if (cptRadResultReport && cptDireResultReport) {
+							console.log('both cpt reported result');
 							if (cptRadResultReport.result == cptDireResultReport.result) {
 
 								var reasonableTimeElapsedSinceMatchLobbyCreated = true;
@@ -279,6 +289,9 @@ var checkMatchResultReports = function(gameId) {
 								updateMatchDetailsResultAsInvestigation(m);
 							}
 						} else {
+							console.log('not both cpt reported result yet');
+
+
 							//The point is that, we will in general, use the cpt report as absolute
 							//hence we give a 3 hours grace peroid starting from first match report timing
 
@@ -291,16 +304,26 @@ var checkMatchResultReports = function(gameId) {
 							console.log(duration.minutes());
 							console.log(duration.hours());
 
+							var moreThan3Hours = duration.hours() >= 3;
 							//TODO section Z
-							if (duration.hours() >= 3) {
+							if (true) { //supposed to be moreThan3Hours
 								//after 3 hours, we will take the party member reports into consideration
 
-								if (g.resultReports.size()>0) {
+								console.log(g);
+								console.log('===============');								
+								console.log(g.resultReports);
+								console.log('===============');
+
+
+								console.log('_.size(g.resultReports)');
+								console.log(_.size(g.resultReports));
+
+								if (_.size(g.resultReports)>0) {
 									var topResult = getMostPopularResult(g);
 
 									if (topResult) {
-										matchDetails.result = topResult;
-										takeActionOnMatchDetailsBasedOnResult(matchDetails, true);
+										m.result = topResult;
+										takeActionOnMatchDetailsBasedOnResult(m, true);
 									} else {
 										updateMatchDetailsResultAsInvestigation(m);
 									}
@@ -349,11 +372,12 @@ var getMostPopularResult = function(game) {
 	});
 
 	console.log('hi im checking the content of getMostPopularResult()');
+	console.log(counts);
 
-	if (counts[1] == count[2]) {
+	if (counts[1] == counts[2]) {
 		return null;
 	} else {
-		return count[2].result;
+		return counts[2].result;
 	}
 }
 
@@ -365,14 +389,20 @@ var updateMatchDetailsResultAsInvestigation = function(matchDetails) {
 			_id : matchDetails._id
 		},
 		{
-			status : 'PI',
-			result : matchDetails.result
+			$set: {
+				status : 'PI',
+				result : matchDetails.result
+			}
 		}
 	);
 }
 
 var takeActionOnMatchDetailsBasedOnResult = function(matchDetails, reasonableTimeElapsedSinceMatchLobbyCreated) {
 	//TODO XZ: implement CommonConstants
+
+	console.log("matchDetails._id");
+	console.log(matchDetails._id);
+
 	switch (matchDetails.result) {
 		case 'V':
 			//TODO delete match and game
@@ -386,10 +416,13 @@ var takeActionOnMatchDetailsBasedOnResult = function(matchDetails, reasonableTim
 						_id : matchDetails._id
 					},
 					{
-						status : 'PU',
-						result : matchDetails.result
+						$set: {
+							status : 'PU',
+							result : matchDetails.result
+						}
 					}
 				);
+
 				Meteor.call('sendMatchDetailsToMainDB', matchDetails._id);
 			} else {
 				//potentially some1 is abusing the system
