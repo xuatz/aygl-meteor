@@ -44,6 +44,8 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <br/>
 
+        {{> timer}}
+
         {{#if hasReportedResult}}
             {{> leaveLobbyBtn}}
         {{/if}}
@@ -72,6 +74,10 @@ Any Templates used for the Drafting Screen will be placed here
 
 
 <!--RENDERED TEMPLATES -->
+
+<template name="timer">
+    <div class="timer">{{time}}</div>
+</template>
 
 <template name="leaveLobbyBtn">
     <div class="row">

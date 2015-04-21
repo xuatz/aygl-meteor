@@ -298,3 +298,74 @@ Template.playerPanel.events({
         // });
     }
 });
+
+var now = moment();
+
+//timer counts down every 1s
+var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get s
+timer.start();
+
+
+DRAFT_PICK_PLAYER_DURATION = 5;
+
+var count = 0;
+var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION;
+var draftCount = 0;
+Template.timer.helpers({
+    time: function () {
+        //get the timer ticking
+        timer.time.get();
+        draftTimeLeft--;
+
+        if (draftTimeLeft >= 30) {
+            return null;
+        } else {
+            if (draftTimeLeft === 0) {
+                var havenPickPlayer = false; //TODO insert logic
+
+                if (havenPickPlayer) {
+                    //TODO randomly pick 1 from top 40% of eligible player pool
+                    var eligiblePlayers = []; //TODO
+                    var index = Math.floor((Math.random() * eligiblePlayers.size() * 0.4));
+                    var player = eligiblePlayers.get(index);
+
+                    //TODO put the player somewhere
+                }
+
+                draftCount++;
+                console.log('draftCount: ' + draftCount);
+
+
+
+                timer.stop();
+                if (draftCount === 8) {
+                    console.log('End of drafting!');
+                    //TODO end of draft!!! send players to match lobby!
+                } else {
+                    switchDraftingSide();
+                }
+
+                return null;
+            } else {
+                return draftTimeLeft;
+            }
+        }
+    }   
+});
+
+var switchDraftingSide = function() {
+
+    count = 0;
+    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION;
+    //TODO switchDraftingSide
+}
+
+//server method
+var endOfCurrentDraftingTurn = function() {
+
+}
+
+
+
+
+

@@ -1,3 +1,5 @@
+
+
 checkIfPlayerReportedResult = function(resultReports, username) {
 	// console.log('huatah');
 	// console.log(resultReports);
