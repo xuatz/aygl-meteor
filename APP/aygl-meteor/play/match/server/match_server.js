@@ -152,6 +152,8 @@ Meteor.methods({
 
 	    return fut.wait();
 	},
+
+	//XZ: sample code for countdown : 21/4/15 - start
 	endOfCurrentDraftingTurn: function(matchId, username) {
 		console.log("matchId: " + matchId);
 		console.log("username: " + username);
@@ -161,12 +163,13 @@ Meteor.methods({
 
 		var side = "D"; //either Dire or Rad's turn to draft TODO logic
 
-		if (draftCount===8) {
+		if (draftCount===8) { // either by draftCount or use "noOfTeammates" in Games document
 			return null;
 		} else {
 			return side;
 		}
 	}
+	//XZ: sample code for countdown : 21/4/15 - end
 });
 
 //======================================

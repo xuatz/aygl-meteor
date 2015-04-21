@@ -299,6 +299,8 @@ Template.playerPanel.events({
     }
 });
 
+//XZ: sample code for countdown : 21/4/15 - start
+
 BONUS_PREP_TIME = 2;
 DRAFT_PICK_PLAYER_DURATION = 30; //demo purpose, set as 32 in production
 
@@ -360,7 +362,4 @@ var switchDraftingSide = function(side) {
     timer.start();
 }
 
-
-
-
-
+//XZ: sample code for countdown : 21/4/15 - end
