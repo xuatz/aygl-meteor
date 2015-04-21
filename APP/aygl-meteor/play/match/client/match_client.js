@@ -299,30 +299,30 @@ Template.playerPanel.events({
     }
 });
 
-var now = moment();
+BONUS_PREP_TIME = 2;
+DRAFT_PICK_PLAYER_DURATION = 30; //demo purpose, set as 32 in production
 
 //timer counts down every 1s
-var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get s
+var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seconds
 timer.start();
 
-
-DRAFT_PICK_PLAYER_DURATION = 5;
-
 var count = 0;
-var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION;
-var draftCount = 0;
+var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
 Template.timer.helpers({
     time: function () {
         //get the timer ticking
         timer.time.get();
         draftTimeLeft--;
 
-        if (draftTimeLeft >= 30) {
-            return null;
+        if (draftTimeLeft >= 30) { // this is so that the browser gt time to render shit before countdown begins
+            return 30;
         } else {
             if (draftTimeLeft === 0) {
-                var havenPickPlayer = false; //TODO insert logic
+                timer.stop();
 
+                //====================
+
+                var havenPickPlayer = false; //TODO insert logic
                 if (havenPickPlayer) {
                     //TODO randomly pick 1 from top 40% of eligible player pool
                     var eligiblePlayers = []; //TODO
@@ -332,18 +332,16 @@ Template.timer.helpers({
                     //TODO put the player somewhere
                 }
 
-                draftCount++;
-                console.log('draftCount: ' + draftCount);
+                //====================          
 
+                var gameId = "something"; //TODO
+                var username = "some name"; //TODO
 
-
-                timer.stop();
-                if (draftCount === 8) {
-                    console.log('End of drafting!');
-                    //TODO end of draft!!! send players to match lobby!
-                } else {
-                    switchDraftingSide();
-                }
+                Meteor.call('endOfCurrentDraftingTurn', gameId, username, function(err, res) {
+                    if (res) {
+                        switchDraftingSide(res);
+                    }
+                });
 
                 return null;
             } else {
@@ -353,16 +351,13 @@ Template.timer.helpers({
     }   
 });
 
-var switchDraftingSide = function() {
+var switchDraftingSide = function(side) {
+    console.log("Next round of drafting! " + side + "'s turn to pick!");
 
+    //TODO do something with side to disable enable input
     count = 0;
-    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION;
-    //TODO switchDraftingSide
-}
-
-//server method
-var endOfCurrentDraftingTurn = function() {
-
+    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
+    timer.start();
 }
 
 

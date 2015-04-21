@@ -151,6 +151,21 @@ Meteor.methods({
 	    );
 
 	    return fut.wait();
+	},
+	endOfCurrentDraftingTurn: function(matchId, username) {
+		console.log("matchId: " + matchId);
+		console.log("username: " + username);
+
+		var draftCount = 0;
+		draftCount++;
+
+		var side = "D"; //either Dire or Rad's turn to draft TODO logic
+
+		if (draftCount===8) {
+			return null;
+		} else {
+			return side;
+		}
 	}
 });
 
