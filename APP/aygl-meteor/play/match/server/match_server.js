@@ -1,7 +1,153 @@
 var crypto = Npm.require('crypto')
 	,Future = Npm.require('fibers/future');
 
+var serverDraftDurationInMs = (DRAFT_PICK_PLAYER_DURATION + 5) * 1000;
+
+var updateGameDraftingSide = function(gameId, side) {
+	Games.update(
+        { _id : gameId },
+        {
+            $set: {
+            	draftingSide: null
+            }
+        }
+    );
+
+	Games.update(
+        { _id : gameId },
+        {
+            $set: {
+            	draftingSide: side
+            },
+            $inc: { 
+            	draftCount: 1 
+            }
+        }
+    );
+
+    return Games.findOne({_id : gameId}).draftCount;
+}
+
+var isDraftingComplete = function(gameId) {
+	console.log("isDraftingComplete?");
+
+	
+
+	//TODO pending implementation
+	//if 8 players have been drafted
+
+	var g = Games.findOne({_id : gameId});
+
+	console.log("draft count: " + g.draftCount);
+
+	if (g.draftCount === 4) {
+		console.log("isDraftingComplete: yes");
+		return true;
+	} else {
+		console.log("isDraftingComplete: no");
+		return false
+	}
+}
+
+function checkIfCptDraftedPlayer(gameId, draftCount) {
+	console.log('start of checkIfCptDraftedPlayer');
+	var g = Games.findOne({_id : gameId});
+
+	if (g.draftCount > draftCount) {
+		//means the cpt drafted a player before timer is up
+		//hence do nothing
+	} else {
+		//cpt didn pick a player within timer duration
+
+		//TODO randomly pick 1 from top 40% of eligible player pool for the current drafting side
+        //     var eligiblePlayers = []; //TODO
+        //     var index = Math.floor((Math.random() * eligiblePlayers.size() * 0.4));
+        //     var player = eligiblePlayers.get(index);
+
+        //     //TODO put the player somewhere
+
+        var newSide = "D"; //TODO need to fill in the drafting order, something like draftOrder[draftCount]
+        newDraftingTurn(gameId, newSide);
+	}
+
+	console.log('end of checkIfCptDraftedPlayer');
+}
+
+var newDraftingTurn = function(gameId, side) {
+	console.log('start of newDraftingTurn');
+	if (isDraftingComplete(gameId)) { 
+		//goToMatchLobby();
+	} else {
+		var draftCount = updateGameDraftingSide(gameId, side);
+		console.log('im setting timeout 1');
+		console.log('serverDraftDurationInMs: ' + serverDraftDurationInMs);
+
+		Meteor.setTimeout(
+			function() {
+				console.log('huat ah');
+				checkIfCptDraftedPlayer(gameId, draftCount);
+			}
+		, serverDraftDurationInMs);
+	}
+	console.log('end of newDraftingTurn');
+}
+
+var startDrafting = function(gameId) {
+	console.log('start of startDrafting');
+	var g = Games.findOne({_id : gameId});
+
+	if (!g) {
+		console.log("Game not found");
+	} else {
+		//TODO 3) drafting side = host
+		//3.1) var host = ???
+		var hostSide = "D";
+
+		console.log('im setting timeout 2');
+		// 2) wait for 5s
+		Meteor.setTimeout(function() {
+			Games.update(
+		        { _id : gameId },
+		        {
+		            $set: {
+		            	draftCount: 0
+		            }
+		        }
+		    );
+
+			newDraftingTurn(gameId, hostSide); //this method will update the draftingSide
+
+			//clients will listen on the reactive value of "Game.draftingSide"
+			//if draftingSide != null, will start the timer
+			//if cptSide = draftingSide, panel is enabled, else disabled
+
+		}, 1000); //use 5000 in production
+	}
+	console.log('end of startDrafting');
+}
+
+
+
+
+
 Meteor.methods({
+	demo: function(gameId) {
+		startDrafting(gameId);
+	},
+	reset: function(gameId) {
+		Games.update(
+	        { _id : gameId },
+	        {
+	            $set: {
+	            	draftingSide: null
+	            }
+	        }
+	    );
+	},
+	draftPlayer: function(gameId, selectedUserId) {
+		console.log(this.userId);
+		Meteor.users.findOne({_id: this.userId})
+	},
 	increaseUserThumbsUpCount: function(username, increase) {
 		// console.log('increaseUserThumbsUpCount() start');
 		// console.log(username);
@@ -151,25 +297,7 @@ Meteor.methods({
 	    );
 
 	    return fut.wait();
-	},
-
-	//XZ: sample code for countdown : 21/4/15 - start
-	endOfCurrentDraftingTurn: function(matchId, username) {
-		console.log("matchId: " + matchId);
-		console.log("username: " + username);
-
-		var draftCount = 0;
-		draftCount++;
-
-		var side = "D"; //either Dire or Rad's turn to draft TODO logic
-
-		if (draftCount===8) { // either by draftCount or use "noOfTeammates" in Games document
-			return null;
-		} else {
-			return side;
-		}
 	}
-	//XZ: sample code for countdown : 21/4/15 - end
 });
 
 //======================================

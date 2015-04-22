@@ -299,20 +299,31 @@ Template.playerPanel.events({
     }
 });
 
-//XZ: sample code for countdown : 21/4/15 - start
-
-BONUS_PREP_TIME = 2;
-DRAFT_PICK_PLAYER_DURATION = 30; //demo purpose, set as 32 in production
-
-//timer counts down every 1s
-var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seconds
-timer.start();
+//XZ:23/4/15 - cowdown timer proof of concept
 
 var count = 0;
 var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
+
+//timer ticks every 1s
+var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seconds
+
+var resetDraftingTime = function() {
+    timer.stop();
+    count = 0;
+    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
+    timer.start();
+}
+
+Template.timer.onRendered(function() {
+    console.log('hi im being rendered!');
+    resetDraftingTime();
+});
+
 Template.timer.helpers({
     time: function () {
         //get the timer ticking
+        console.log('tick tock');
+
         timer.time.get();
         draftTimeLeft--;
 
@@ -324,26 +335,21 @@ Template.timer.helpers({
 
                 //====================
 
-                var havenPickPlayer = false; //TODO insert logic
-                if (havenPickPlayer) {
-                    //TODO randomly pick 1 from top 40% of eligible player pool
-                    var eligiblePlayers = []; //TODO
-                    var index = Math.floor((Math.random() * eligiblePlayers.size() * 0.4));
-                    var player = eligiblePlayers.get(index);
-
-                    //TODO put the player somewhere
-                }
+                // var havenPickPlayer = false; //TODO insert logic
+                // if (havenPickPlayer) {
+                //     
+                // }
 
                 //====================          
 
-                var gameId = "something"; //TODO
-                var username = "some name"; //TODO
+                // var gameId = "something"; //TODO
+                // var username = "some name"; //TODO
 
-                Meteor.call('endOfCurrentDraftingTurn', gameId, username, function(err, res) {
-                    if (res) {
-                        switchDraftingSide(res);
-                    }
-                });
+                // Meteor.call('endOfCurrentDraftingTurn', gameId, username, function(err, res) {
+                //     if (res) {
+                //         switchDraftingSide(res);
+                //     }
+                // });
 
                 return null;
             } else {
@@ -353,13 +359,9 @@ Template.timer.helpers({
     }   
 });
 
-var switchDraftingSide = function(side) {
-    console.log("Next round of drafting! " + side + "'s turn to pick!");
 
-    //TODO do something with side to disable enable input
-    count = 0;
-    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
-    timer.start();
-}
+
+
 
 //XZ: sample code for countdown : 21/4/15 - end
+
