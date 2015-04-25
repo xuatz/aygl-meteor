@@ -11,6 +11,17 @@ any code/variables which need to be declared and later used by client/server can
 BONUS_PREP_TIME = 2;
 DRAFT_PICK_PLAYER_DURATION = 30; //set as 32 in production
 
+DRAFTING_ORDER = [
+  "H",
+  "C",
+  "C",
+  "H",
+  "C",
+  "H",
+  "C",
+  "H"
+];
+
 /*
 ======================================================================================================
 MongoDB Collections

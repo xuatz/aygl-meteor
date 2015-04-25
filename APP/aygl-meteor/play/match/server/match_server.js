@@ -3,7 +3,13 @@ var crypto = Npm.require('crypto')
 
 var serverDraftDurationInMs = (DRAFT_PICK_PLAYER_DURATION + 5) * 1000;
 
-var updateGameDraftingSide = function(gameId, side) {
+var getGameHostSide = function(game) {
+	//TODO logic to determine which side the host is on
+
+	return "D"; //hardcoded for dev
+}
+
+var updateGameForNextDraft = function(gameId) {
 	Games.update(
         { _id : gameId },
         {
@@ -13,11 +19,31 @@ var updateGameDraftingSide = function(gameId, side) {
         }
     );
 
+	var g = Games.findOne({_id : gameId});
+
+	var hostSide = getGameHostSide(g);
+    var draftCount = g.draftCount;
+
+    var draftingSide = DRAFTING_ORDER[draftCount + 1];
+    var newSide;
+    switch(draftingSide) {
+    	case "H":
+    		newSide = hostSide;
+    		break;
+    	case "C":
+    		if (hostSide === "R") {
+    			newSide = "D";
+    		} else {
+    			newSide = "R";
+    		}
+    		break;
+    }
+
 	Games.update(
         { _id : gameId },
         {
             $set: {
-            	draftingSide: side
+            	draftingSide: newSide
             },
             $inc: { 
             	draftCount: 1 
@@ -25,22 +51,17 @@ var updateGameDraftingSide = function(gameId, side) {
         }
     );
 
-    return Games.findOne({_id : gameId}).draftCount;
+    return draftCount + 1;
 }
 
-var isDraftingComplete = function(gameId) {
+var isDraftingComplete = function(game) {
 	console.log("isDraftingComplete?");
-
-	
-
 	//TODO pending implementation
 	//if 8 players have been drafted
 
-	var g = Games.findOne({_id : gameId});
+	console.log("draft count: " + game.draftCount);
 
-	console.log("draft count: " + g.draftCount);
-
-	if (g.draftCount === 4) {
+	if (game.draftCount === 4) {
 		console.log("isDraftingComplete: yes");
 		return true;
 	} else {
@@ -54,6 +75,7 @@ function checkIfCptDraftedPlayer(gameId, draftCount) {
 	var g = Games.findOne({_id : gameId});
 
 	if (g.draftCount > draftCount) {
+		console.log("Cpt drafted before timer is up, hence do nothing.");
 		//means the cpt drafted a player before timer is up
 		//hence do nothing
 	} else {
@@ -66,29 +88,36 @@ function checkIfCptDraftedPlayer(gameId, draftCount) {
 
         //     //TODO put the player somewhere
 
-        var newSide = "D"; //TODO need to fill in the drafting order, something like draftOrder[draftCount]
-        newDraftingTurn(gameId, newSide);
+        newDraftingTurn(gameId);
 	}
 
 	console.log('end of checkIfCptDraftedPlayer');
 }
 
-var newDraftingTurn = function(gameId, side) {
+var newDraftingTurn = function(gameId) {
 	console.log('start of newDraftingTurn');
-	if (isDraftingComplete(gameId)) { 
-		//goToMatchLobby();
-	} else {
-		var draftCount = updateGameDraftingSide(gameId, side);
-		console.log('im setting timeout 1');
-		console.log('serverDraftDurationInMs: ' + serverDraftDurationInMs);
 
-		Meteor.setTimeout(
-			function() {
-				console.log('huat ah');
-				checkIfCptDraftedPlayer(gameId, draftCount);
-			}
-		, serverDraftDurationInMs);
+	console.log(gameId);
+
+	var g = Games.findOne({_id : gameId});
+
+	if (!g) {
+		console.log("Game not found!");
+	} else {
+		if (isDraftingComplete(g)) { 
+			//goToMatchLobby();
+		} else {
+			var draftCount = updateGameForNextDraft(gameId);
+
+			Meteor.setTimeout(
+				function() {
+					console.log('huat ah');
+					checkIfCptDraftedPlayer(gameId, draftCount);
+				}
+			, serverDraftDurationInMs);
+		}
 	}
+	
 	console.log('end of newDraftingTurn');
 }
 
@@ -99,12 +128,7 @@ var startDrafting = function(gameId) {
 	if (!g) {
 		console.log("Game not found");
 	} else {
-		//TODO 3) drafting side = host
-		//3.1) var host = ???
-		var hostSide = "D";
-
-		console.log('im setting timeout 2');
-		// 2) wait for 5s
+		// wait for 5s
 		Meteor.setTimeout(function() {
 			Games.update(
 		        { _id : gameId },
@@ -115,7 +139,7 @@ var startDrafting = function(gameId) {
 		        }
 		    );
 
-			newDraftingTurn(gameId, hostSide); //this method will update the draftingSide
+			newDraftingTurn(gameId); //this method will update the draftingSide
 
 			//clients will listen on the reactive value of "Game.draftingSide"
 			//if draftingSide != null, will start the timer
@@ -144,9 +168,14 @@ Meteor.methods({
 	        }
 	    );
 	},
-	draftPlayer: function(gameId, selectedUserId) {
+	playerDrafted: function(gameId, selectedUserId) {
 		console.log(this.userId);
 		Meteor.users.findOne({_id: this.userId})
+
+		//insert dt logic to check if player selected is valid
+		//update player and game draft pool accordingly
+
+		newDraftingTurn(gameId);
 	},
 	increaseUserThumbsUpCount: function(username, increase) {
 		// console.log('increaseUserThumbsUpCount() start');
