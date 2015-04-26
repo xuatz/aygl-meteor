@@ -2,23 +2,7 @@ Meteor.subscribe('MatchesCollection');
 
 //TODO DT: the game document should generate a password upon "Draft Completion"
 
-var getPlayerSlotOfLoginUser = function() {
-    console.log('start of getPlayerSlotOfLoginUser()');
 
-    var matchDetails = MatchesCollection.findOne();
-
-    var player = _.find(matchDetails.matchPlayerResults,
-        function(item) {
-            return item.username === Meteor.user().username;
-        }
-    );
-
-    if (player) {
-        return player.playerSlot;
-    } else {
-        throw Error("Username is not in the draft!!!");
-    }
-}
 
 
 
@@ -160,11 +144,7 @@ Template.matchlayout.events({
                     var sibling2 = sibling1.next('a');
                     sibling2.removeClass('btn-danger');
 
-                    //TODO hardcoded for dev
-                    var gameId = '12';
-
-                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
-
+                    Meteor.call('updatePlayerResultReport', 'R');
                     Session.set('resultReported', true);
                 }
             });
@@ -185,11 +165,7 @@ Template.matchlayout.events({
                     var sibling2 = $(event.target).next('a');
                     sibling2.removeClass('btn-danger');
 
-                    //TODO hardcoded for dev
-                    var gameId = '12';
-
-                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
-
+                    Meteor.call('updatePlayerResultReport', 'V');
                     Session.set('resultReported', true);
                 }
             });
@@ -209,15 +185,8 @@ Template.matchlayout.events({
 
                     var sibling2 = sibling1.prev('a');
                     sibling2.removeClass('btn-success');
-                    
-                    //TODO hardcoded for dev
-                    var gameId = '12';
-                    // is it Meteor.user().profile.room????
-                    // den room == match._id
-                    // so use some helper to get the game._id
 
-                    Meteor.call('updatePlayerResultReport', gameId, Meteor.user().username, getPlayerSlotOfLoginUser(), 'R');
-
+                    Meteor.call('updatePlayerResultReport', 'D');
                     Session.set('resultReported', true);
                 }
             });

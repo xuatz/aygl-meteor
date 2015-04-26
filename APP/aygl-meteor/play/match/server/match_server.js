@@ -221,10 +221,18 @@ Meteor.methods({
 			}
 		}
 	},
-	updatePlayerResultReport: function(gameId, username, playerSlot, result) {
-		//TODO demo for dev purpose only
-        var g = Games.findOne({});
-        var gameId = g._id;
+	updatePlayerResultReport: function(result) {
+		var user = getUserByUserId(Meteor.userId());
+
+		var matchId = user.profile.room;
+		var m = MatchesCollection.findOne({_id: matchId}) || MatchesCollection.findOne();
+
+		var username = user.username;
+		var playerSlot = getPlayerSlotOfUserFromMatchDetails(m, username);
+		
+		//TODO TBR (to be removed)
+        var g = Games.findOne({}); 	//demo for dev purpose only
+        var gameId = m.gameId || g._id;
 
 		//================
 
@@ -368,8 +376,7 @@ var updateUserThumbsDownCount = function(username, newCount) {
 var checkMatchResultReports = function(gameId) {
 	console.log('Start of checkMatchResultReports');
 
-	//var g = Games.findOne({_id: gameId});
-	var g = Games.findOne({});
+	var g = Games.findOne({_id: gameId}) || Games.findOne({});
 
 	if (!g) {
 		console.log('game no found, perhaps its already processed?');
@@ -414,12 +421,8 @@ var checkMatchResultReports = function(gameId) {
 
 			} else {
 				//TODO DT: note: upon draft completion, a matchDetails will be created liao, with the games._id as FK
-				var m = MatchesCollection.findOne({'gameId': g._id});
+				var m = MatchesCollection.findOne({'gameId': g._id}) || MatchesCollection.findOne();
 				//we fetch latest before taking action cos maybe some1 else's action already resolved this game
-				
-				//hardcoded for dev purpose
-				m = MatchesCollection.findOne();
-				
 
 				if (!m) {
 					console.log('There is a big problem, why is there no matchDetails?');
