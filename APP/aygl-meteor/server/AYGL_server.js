@@ -48,6 +48,19 @@ Server Main Methods
 ======================================================================================================
 */
 
+getUsernameByUserId = function(userId) {
+    var username = Meteor.users.findOne({_id: userId}).username;
+    if (!username) {
+        throw Error("No user found");
+    } else {
+        return username;
+    }
+}
+
+getUserByUserId = function(userId) {
+    return Meteor.users.findOne({_id: userId});
+}
+
 /*
 ======================================================================================================
 MISC Server Code
