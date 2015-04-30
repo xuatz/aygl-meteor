@@ -135,25 +135,178 @@ Server side method definitions
 Method defined below can only be called from within server code
 ======================================================================================================
 */
+home_challengeAccepted = function(alert) {
+    //Check eligibility
+    home_checkLobbyEligibility(alert, function(result, playerList) {
+        if (result) {
+            //Attempt Grab players
+            home_grabPlayers(playerList, function(grabResult, reservedPlayers) {
+                if (grabResult) {
+                    console.log('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
+                    home_initializeGrabResult(alert, 'drafting');
+                } else {
+                    console.log('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
+                    home_initializeGrabResult(alert, 'waiting');
+                }
+            });
+        } else {
+            //Go to Waiting
+            home_initializeGrabResult(alert, 'waiting');
+        }
+    });
 
-home_initializeLobby = function(alert) {
+};
+
+home_checkLobbyEligibility = Meteor.wrapAsync(function(alert, callback) {
     var gameObj = Games.findOne({
         _id: alert.data
     });
-    //Remove all other Challengers
-    Meteor.users.update({
-        "profile.room": alert.data,
+    //Calculate average percentile
+    var hostPercentile = gameObj.host.percentile;
+    var challengerPercentile = _.find(gameObj.challengers, function(challenger) {
+        return challenger.name === alert.recipient;
+    }).percentile;
+    var avgPercentile = (hostPercentile + challengerPercentile) / 2;
 
-    }, {
-        $set: {
-            "profile.state": "idle",
-            "profile.room": null
+    //Count available players
+    var eligiblePlayerCursor = home_eligiblePlayers(avgPercentile);
+    var eligiblePlayerList = eligiblePlayerCursor.fetch();
+    var eligibilePlayerCount = eligiblePlayerCursor.count();
+
+    console.log('ELIGIBLE PLAYER COUNT: ' + eligibilePlayerCount);
+
+    var result;
+    if (eligibilePlayerCount > 7) {
+        result = true;
+        callback(result, eligiblePlayerList);
+    } else {
+        result = false;
+        callback(result);
+    }
+});
+
+home_initializeGrabResult = function(alert, result) {
+    //Update states of Captains
+    Meteor.users.update({
+        username: {
+            $in: [alert.recipient, alert.sender]
+
         }
     }, {
-        multi: true
+        $set: {
+            "profile.state": result
+        }
     });
-    //Calculate average percentile
-    var avgPercentile = gameObj
-        //Count available players
-        //Take action accordingly
+
+    if (result === 'drafting') {
+        //Remove all other Challengers
+        Meteor.users.update({
+            "profile.room": alert.data,
+            "profile.state": "pending accept"
+        }, {
+            $set: {
+                "profile.state": "idle",
+                "profile.room": null
+            }
+        }, {
+            multi: true
+        });
+    }
+    //Update state of Lobby
+    Games.update({
+        _id: alert.data
+    }, {
+        $set: {
+            state: result
+        }
+    });
+
 }
+
+home_eligiblePlayers = function(avgPercentile) {
+    var result;
+    if (avgPercentile < 60) {
+        result = Meteor.users.find({
+            //"profile.state": "ready",
+            "profile.ranking.pLowerLimit": {
+                $lt: avgPercentile
+            },
+            "profile.ranking.pUpperLimit": {
+                $gt: avgPercentile
+            },
+            "profile.ranking.percentile": {
+                $lt: 60
+            }
+        }, {
+            fields: {
+                username: 1,
+                profile: 1
+            }
+        });
+
+    } else {
+        result = Meteor.users.find({
+            //"profile.state": "ready",
+            "profile.ranking.pLowerLimit": {
+                $lt: avgPercentile
+            },
+            "profile.ranking.pUpperLimit": {
+                $gt: avgPercentile
+            }
+        }, {
+            fields: {
+                username: 1,
+                profile: 1
+            }
+        });
+    }
+    return result;
+}
+
+home_grabPlayers = Meteor.wrapAsync(function(arrayOfPlayers, callback) {
+    var arrayOfPlayerNames = _.map(arrayOfPlayers, function(player) {
+        return player.username;
+    });
+    //Try to reserve 8 players for captain.
+    var reservedPlayers = Meteor.users.update({
+        $and: [{
+            username: {
+                $in: arrayOfPlayerNames
+            }
+        }, {
+            // "profile.state": 'ready'
+        }]
+    }, {
+        $set: {
+            "profile.state": 'reserved'
+        }
+    });
+    console.log(reservedPlayers + ' grabbed.');
+    if (reservedPlayers > 7) {
+        console.log('GRAB SUCCESSFUL');
+        callback(true, reservedPlayers);
+    } else {
+        console.log('GRAB FAILED. Cancelling players reservations.');
+        var unreservedPlayers = Meteor.users.update({
+            $and: [{
+                username: {
+                    $in: arrayOfPlayerNames
+                }
+            }, {
+                "profile.state": 'reserved'
+            }]
+        }, {
+            $set: {
+                "profile.state": 'ready'
+            }
+        });
+
+        if (unreservedPlayers === reservedPlayers) {
+            console.log('Cancellation succeeded.')
+        } else {
+            console.log('Cancellation failed.')
+        }
+
+        callback(false, reservedPlayers);
+    }
+});

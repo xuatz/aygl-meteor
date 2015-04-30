@@ -127,8 +127,32 @@ Meteor Methods for Client Side
 ======================================================================================================
 */
 Meteor.methods({
-    resetState: function () {
+    resetState: function() {
         //Here we reset all Session variables which should be affected by resetState()
         Session.set('selectedChallenger', undefined);
+    }
+});
+
+Tracker.autorun(function() {
+    if (Meteor.user() &&
+        _.contains(['waiting', 'drafting'], Meteor.user().profile.state)) {
+        var gameObj = Games.findOne({
+            _id: Meteor.user().profile.room
+        });
+
+        subscription_getEligiblePlayers = Meteor.subscribe('getEligiblePlayers', gameObj.lobbyPercentile);
+        if (Meteor.user().profile.state === 'waiting' &&
+            typeof eligiblePlayerMonitor === 'undefined' &&
+            Meteor.user().username === gameObj.host.name) {
+            //Start the eligible player monitoring method if host
+
+        } else if (Meteor.user().profile.state === 'drafting' &&
+            typeof eligiblePlayerMonitor !== 'undefined' &&
+            Meteor.user().username === gameObj.host.name) {
+            //Stop the eligible player monitoring method if host
+
+        }
+    } else if (typeof subscription_getEligiblePlayers !== 'undefined') {
+        subscription_getEligiblePlayers.stop();
     }
 });

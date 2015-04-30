@@ -1,18 +1,19 @@
 <!--RENDERED TEMPLATES -->
-
 <template name="homelayout">
     <div class="row">
-        <div class="col-xs-2">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h1 class="panel-title">Profile</h1>
+                    <h1 class="text-center panel-title">Profile</h1>
                 </div>
-                <div class="panel-body quad-unit">
+                <div class="panel-body">
                     {{> homeprofile}}
                 </div>
             </div>
         </div>
-        <div class="col-xs-6">
+    </div>
+    <div class="row">
+        <div class="col-xs-7">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h1 class="text-center panel-title">{{mainpaneltitle}}</h1>
@@ -22,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-5">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
@@ -39,7 +40,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- THIS SECTION COMMENTED OUT UNTIL LATER IMPLEMENTATION-->
+    <!-- <div class="row">
         <div class="col-xs-6">
             <h2 class="text-center">Top 10 Players</h2>
             <div class="well well-sm quad-unit">
@@ -52,97 +54,103 @@
                 {{> homextra}}
             </div>
         </div>
+    </div> -->
+</template>
+<template name="homeprofile">
+    <div class="col-xs-3">
+        <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
+        <figcaption class="text-center">{{myprofile.username}}</figcaption>
+    </div>
+    <!-- <br> -->
+    <div class="col-xs-3">
+        <table class="table table-condensed table-hover text-left">
+            <tbody>
+                <tr>
+                    <td>Total Games:</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Wins:</td>
+                    <td>200</td>
+                </tr>
+                <tr>
+                    <td>% Wins:</td>
+                    <td>66.7%</td>
+                </tr>
+                <tr>
+                    <td>Percentile:</td>
+                    <td>88%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-3">
+        <h3 class="text-center">Skill Level</h3>
+        <h4 class="text-center">Veteran</h4>
+    </div>
+    <div class="col-xs-3">
+        <h3 class="text-center">Reputation</h3>
+        <h4 class="text-center">Divine</h4>
     </div>
 </template>
-
-<template name="homeprofile">
-    <img src="{{myprofile.profile.avatar}}" class="avatar small center-block">
-    <figcaption class="text-center">{{myprofile.username}}</figcaption>
-    <br>
-    <table class="table table-condensed table-hover text-left">
-        <tbody>
-            <tr>
-                <td>Total Games</td>
-                <td>300</td>
-            </tr>
-            <tr>
-                <td>Wins</td>
-                <td>200</td>
-            </tr>
-            <tr>
-                <td>% Wins</td>
-                <td>66.7%</td>
-            </tr>
-            <tr>
-                <td>Percentile</td>
-                <td>88%</td>
-            </tr>
-        </tbody>
-    </table>
-    <h3 class="text-center">Tier:</h3>
-    <h4 class="text-center">Veteran</h4>
-</template>
-
 <template name="challengerprofile">
     {{#with selectedChallenger}}
-        <div class="row">
-            <img class="center-block profile medium" src="{{avatar}}">
+    <div class="row">
+        <img class="center-block profile medium" src="{{avatar}}">
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 class="text-center">{{name}}'s Summary</h4>
+            <p class="well dark">
+                <table class="table table-condensed wraptext">
+                    <tbody>
+                        <tr>
+                            <td class="col-xs-3 text-warning">
+                                Username:
+                            </td>
+                            <td class="col-xs-9">
+                                <em>{{name}}</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-warning">
+                                Steam Name:
+                            </td>
+                            <td>
+                                <em>{{personaname}}</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-warning">
+                                Percentile:
+                            </td>
+                            <td>
+                                <em>{{percentile}}</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-warning">
+                                Wins:
+                            </td>
+                            <td>
+                                <em>45</em>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h4 class="text-center">{{name}}'s Summary</h4>
-                <p class="well dark">
-                    <table class="table table-condensed wraptext">
-                        <tbody>
-                            <tr>
-                                <td class="col-xs-3 text-warning">
-                                    Username:
-                                </td>
-                                <td class="col-xs-9">
-                                    <em>{{name}}</em>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-warning">
-                                    Steam Name:
-                                </td>
-                                <td>
-                                    <em>{{personaname}}</em>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-warning">
-                                    Percentile:
-                                </td>
-                                <td>
-                                    <em>{{percentile}}</em>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-warning">
-                                    Wins:
-                                </td>
-                                <td>
-                                    <em>45</em>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </p>
-            </div>
-        </div>
-        {{else}}
-            <h1 class="text-center">
+    </div>
+    {{else}}
+    <h1 class="text-center">
             Hosting a Match
         </h1>
-            <h4 class="text-center">
+    <h4 class="text-center">
             Accept a challenge to begin drafting.
             <br><br>
             <i class="center-block fa fa-arrow-right fa-2x"></i>
-        </h4>
-    {{/with}}
+        </h4> {{/with}}
 </template>
-
 <template name="homecaptainslobby">
     <div class="col-xs-12">
         <div class="row">
@@ -152,29 +160,28 @@
             <div class="col-xs-5">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h4 class="text-info"><strong>Challenger Catalogue</strong></h4>
-                        {{#if nochallengers lobbyinfo.challengers.length}}
-                            <div class="list-group double-unit challenged text-center">
-                                <br>
-                                <h4 class="list-group-item-heading toppadding"> No Challengers Yet </h4>
-                                <br>
-                                <i class="fa-2x fa fa-users text-success"></i>
-                            </div>
+                        <h4 class="text-info"><strong>Challenger Catalogue</strong></h4> {{#if nochallengers lobbyinfo.challengers.length}}
+                        <div class="list-group double-unit challenged text-center">
+                            <br>
+                            <h4 class="list-group-item-heading toppadding"> No Challengers Yet </h4>
+                            <br>
+                            <i class="fa-2x fa fa-users text-success"></i>
+                        </div>
                         {{else}}
-                            <div class="list-group double-unit challenged">
-                                {{#each lobbyinfo.challengers}}
-                                    <div class="list-group-item clickable" id="{{name}}">
-                                        <div class="media">
-                                            <div class="media-left media-middle">
-                                                <i class="fa fa-lg fa-fw fa-chevron-circle-right"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="wraptext media-heading"> {{name}} </h4>
-                                            </div>
-                                        </div>
+                        <div class="list-group double-unit challenged">
+                            {{#each lobbyinfo.challengers}}
+                            <div class="list-group-item clickable" id="{{name}}">
+                                <div class="media">
+                                    <div class="media-left media-middle">
+                                        <i class="fa fa-lg fa-fw fa-chevron-circle-right"></i>
                                     </div>
-                                {{/each}}
+                                    <div class="media-body">
+                                        <h4 class="wraptext media-heading"> {{name}} </h4>
+                                    </div>
+                                </div>
                             </div>
+                            {{/each}}
+                        </div>
                         {{/if}}
                     </div>
                 </div>
@@ -204,25 +211,21 @@
         </div>
     </div>
 </template>
-
 <template name="homemaincontent">
     <div class="list-group col-xs-12">
         {{#if lobbyIsEmpty}}
-            <div class="well dark">
-                <p class="text-center">
-                    <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
-                </p>
-            </div>
-        {{else}}
-            {{#each list_lobby_hosted}}
-                <div class="row toppadding">
-                    {{#each this}} {{> lobbylistitem}} {{/each}}
-                </div>
-            {{/each}}
-        {{/if}}
+        <div class="well dark">
+            <p class="text-center">
+                <i class="glyphicon glyphicon-exclamation-sign"></i> There are no games at the moment! Why not host one? <i class="glyphicon glyphicon-exclamation-sign"></i>
+            </p>
+        </div>
+        {{else}} {{#each list_lobby_hosted}}
+        <div class="row toppadding">
+            {{#each this}} {{> lobbylistitem}} {{/each}}
+        </div>
+        {{/each}} {{/if}}
     </div>
 </template>
-
 <template name="lobbylistitem">
     <div class="col-xs-6">
         <div class="list-group-item {{info.listgroupitem}}">
@@ -255,7 +258,6 @@
         </div>
     </div>
 </template>
-
 <template name="homesidecontent">
     <div class="col-xs-12">
         <div class="list-group">
@@ -296,7 +298,6 @@
         </div>
     </div>
 </template>
-
 <template name="hometop10">
     <table class="table table-striped table-hover text-center">
         <thead>
@@ -371,7 +372,6 @@
         </tbody>
     </table>
 </template>
-
 <template name="homextra">
     <table class="table table-striped table-hover text-center quad-unit">
         <thead>

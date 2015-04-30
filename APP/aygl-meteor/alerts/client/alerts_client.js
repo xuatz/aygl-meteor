@@ -1,7 +1,31 @@
 /*
     Subscriptions for Alerts module
 */
-myalerts = Meteor.subscribe('myalerts');
+myalerts = Meteor.subscribe('myalerts', {
+    onReady: function() {
+        // The Alert handler is declared once the subscription is ready.
+        var initme = true;
+        myalerts_handle = Alerts.find().observe({
+            added: function(document) {
+                if (!initme) {
+                    //Handle NEW incoming alerts
+                    renderAlert(document);
+                } else {
+                    //Handle EXISTING, POSSIBLY unread alerts
+                    //NOT USED FOR NOW
+                }
+            },
+            changed: function(newDoc, oldDoc) {
+                if (oldDoc.needResponse !== newDoc.needResponse &&
+                    newDoc.response === "timeout") {
+                    Meteor.call('resetState');
+                    $('[data-notify], #' + newDoc.category + '_' + alert._id).find('[data-notify="dismiss"]').trigger('click');
+                }
+            }
+        });
+        initme = false;
+    }
+});
 
 
 /*
@@ -57,6 +81,7 @@ renderAlert = function(alert) {
                     $('#acceptChallenge_' + alert._id).on('click', function(evt) {
                         evt.preventDefault();
                         Meteor.call('respondToAlert', alert._id, "accepted");
+
                         $('[data-notify], #challengeAccepted_' + alert._id).find('[data-notify="dismiss"]').trigger('click');
                     });
                     $('#rejectChallenge_' + alert._id).on('click', function(evt) {
@@ -77,35 +102,3 @@ renderAlert = function(alert) {
     //Send the notification to user!
     $.notify(options, settings);
 }
-
-/*
-======================================================================================================
-Alert Handler
-Keeps track of new alerts and handles them accordingly
-======================================================================================================
-*/
-//Start the Alert Handler service here
-Tracker.autorun(function() {
-    if (myalerts.ready()) {
-        var initme = true;
-        myalerts_handle = Alerts.find().observe({
-            added: function(document) {
-                if (!initme) {
-                    //Handle NEW incoming alerts
-                    renderAlert(document);
-                } else {
-                    //Handle EXISTING, POSSIBLY unread alerts
-                    //NOT USED FOR NOW
-                }
-            },
-            changed: function(newDoc, oldDoc) {
-                if (oldDoc.needResponse !== newDoc.needResponse &&
-                    newDoc.response === "timeout") {
-                    Meteor.call('resetState');
-                    $('[data-notify], #' + newDoc.category + '_' + alert._id).find('[data-notify="dismiss"]').trigger('click');
-                }
-            }
-        });
-        initme = false;
-    }
-});

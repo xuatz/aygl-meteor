@@ -197,6 +197,13 @@ Meteor.publish('hostingMatch', function(challengerArray) {
 });
 
 /*
+    Allows captains to see players who are eligible for drafting
+*/
+Meteor.publish('getEligiblePlayers', function(avgPercentile) {
+    return home_eligiblePlayers(avgPercentile);
+});
+
+/*
 ======================================================================================================
 MISC Server Code for Home module
 ======================================================================================================

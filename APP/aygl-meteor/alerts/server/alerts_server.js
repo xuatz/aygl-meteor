@@ -43,7 +43,7 @@ Meteor.methods({
         switch (alertObj.category) {
             case "challengeAccepted":
                 if(response === "accepted") {
-                    home_initializeLobby(alert);
+                    home_initializeLobby(alertObj);
                 }
                 console.log('Doing Something about Challenge');
                 break;
