@@ -16,7 +16,9 @@ Any Templates used for the Drafting Screen will be placed here
                 Drafting
             </div>
             <div class="drafting-time text-warning text-center">
-            60
+                {{#if selectedGame.draftingSide}}
+                    {{> timer}}
+                {{/if}}
             </div>
             <h4 class="text-info text-center">
             Your Turn!
@@ -52,6 +54,11 @@ Any Templates used for the Drafting Screen will be placed here
 
 
 <!--RENDERED TEMPLATES -->
+
+<template name="timer">
+    <div class="timer">{{time}}</div>
+</template>
+
 <template name="draftingradiant">
     <div class="radiant-title">
                 every-mother-son

@@ -2,59 +2,6 @@ Meteor.subscribe('MatchesCollection');
 
 //TODO DT: the game document should generate a password upon "Draft Completion"
 
-
-
-
-
-var getSelectedMatch = function() {
-    console.log('start of getSelectedMatch()');
-    console.log('Player state: ' + Meteor.user().profile.state);
-
-    var matchId = Meteor.user().profile.room;
-    console.log(matchId);
-
-    var m = MatchesCollection.findOne({
-        _id : matchId
-    })
-
-    //hardcoded for dev purposes
-    if (!m) {
-        m = MatchesCollection.findOne();
-    }
-
-    console.log(m);
-
-    return m;
-}
-
-var getSelectedGame = function() {
-    console.log('start of getSelectedGame()');
-    var m = getSelectedMatch();
-
-    if (!m) {
-        return null;
-    } else {
-        var gameId = m.gameId;
-
-        if (!gameId) {
-            return null;
-        } else {
-            var g = Games.findOne({
-                _id: gameId
-            })
-
-            //hardcoded for dev purposes
-            if (!g) {
-                g = Games.findOne();
-            }
-
-            console.log(g);
-
-            return g;
-        }
-    }
-}
-
 Template.matchradiant.helpers({
     getRadPlayers: function() {
         var m = getSelectedMatch();
@@ -102,11 +49,10 @@ Template.matchdire.helpers({
 
 Template.matchlayout.helpers({
     selectedMatch: function() {
-        return getSelectedMatch();
+        return getUserRoomObject();
     },
     selectedGame: function() {
-        //actual implmentation return getSelectedGame();
-        return Games.findOne(); //hardcoded for dev
+        return getSelectedGame(getUserRoomObject().gameId);
     },
     hasReportedResult: function() {
         if (Session.get('resultReported')) {
@@ -267,70 +213,3 @@ Template.playerPanel.events({
         // });
     }
 });
-
-//XZ:23/4/15 - cowdown timer proof of concept
-
-var count = 0;
-var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
-
-//timer ticks every 1s
-var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seconds
-
-var resetDraftingTime = function() {
-    timer.stop();
-    count = 0;
-    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
-    timer.start();
-}
-
-Template.timer.onRendered(function() {
-    console.log('hi im being rendered!');
-    resetDraftingTime();
-});
-
-Template.timer.helpers({
-    time: function () {
-        //get the timer ticking
-        console.log('tick tock');
-
-        timer.time.get();
-        draftTimeLeft--;
-
-        if (draftTimeLeft >= 30) { // this is so that the browser gt time to render shit before countdown begins
-            return 30;
-        } else {
-            if (draftTimeLeft === 0) {
-                timer.stop();
-
-                //====================
-
-                // var havenPickPlayer = false; //TODO insert logic
-                // if (havenPickPlayer) {
-                //     
-                // }
-
-                //====================          
-
-                // var gameId = "something"; //TODO
-                // var username = "some name"; //TODO
-
-                // Meteor.call('endOfCurrentDraftingTurn', gameId, username, function(err, res) {
-                //     if (res) {
-                //         switchDraftingSide(res);
-                //     }
-                // });
-
-                return null;
-            } else {
-                return draftTimeLeft;
-            }
-        }
-    }   
-});
-
-
-
-
-
-//XZ: sample code for countdown : 21/4/15 - end
-

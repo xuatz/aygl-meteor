@@ -44,10 +44,6 @@ Any Templates used for the Drafting Screen will be placed here
         </div>
         <br/>
 
-        {{#if selectedGame.draftingSide}}
-		    {{> timer}}
-		{{/if}}
-
         {{#if hasReportedResult}}
             {{> leaveLobbyBtn}}
         {{/if}}
@@ -73,13 +69,7 @@ Any Templates used for the Drafting Screen will be placed here
     </div>
 </template>
 
-
-
 <!--RENDERED TEMPLATES -->
-
-<template name="timer">
-    <div class="timer">{{time}}</div>
-</template>
 
 <template name="leaveLobbyBtn">
     <div class="row">
