@@ -25,6 +25,9 @@ DRAFTING_ORDER = [
   "H"
 ];
 
+PLAYER_REVIEW_TYPE_UP = "UP";
+PLAYER_REVIEW_TYPE_DOWN = "DOWN";
+
 /*
 ======================================================================================================
 MongoDB Collections
@@ -53,6 +56,14 @@ MatchesCollection.allow({
     update:function(){return true;},
 });
 
+PlayerReview = new Mongo.Collection("PlayerReview");
+
+// PlayerReview.allow({
+//     insert:function(){return true;},
+//     // remove:function(){return true;},
+//     update:function(){return true;},
+// });
+
 //=================================
 
 var beforeInsertOptions = function(username, doc) {
@@ -73,7 +84,9 @@ var beforeUpdateOptions = function(username, doc, fieldNames, modifier, options)
 Games.before.insert(beforeInsertOptions);
 Alerts.before.insert(beforeInsertOptions);
 MatchesCollection.before.insert(beforeInsertOptions);
+PlayerReview.before.insert(beforeInsertOptions);
 
 Games.before.update(beforeUpdateOptions);
 Alerts.before.update(beforeUpdateOptions);
 MatchesCollection.before.update(beforeUpdateOptions);
+PlayerReview.before.update(beforeUpdateOptions);
