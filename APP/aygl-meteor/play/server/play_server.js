@@ -5,6 +5,17 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 ======================================================================================================
 */
 
+var crypto = Npm.require('crypto');
+
+generateMatchPassword = function() {
+    var now = new Date();
+    var hash = crypto.createHash('md5')
+                .update(now.toString())
+                .digest("hex");
+
+    return hash.substring(0,8)
+}
+
 Meteor.methods({
     resetState: function(user) {
         //If and only if, called by SERVER, take note of the userId supplied, else perform reset on the user who called the method

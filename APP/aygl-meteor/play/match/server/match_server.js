@@ -48,6 +48,9 @@ var increaseUserThumbsDownCount = function(username, increase) {
 }
 
 Meteor.methods({
+	demo2: function() {
+		generateMatchPassword();
+	},
 	insertPlayerReview: function(reviewee, type, comment) {
 		PlayerReview.insert({
             reviewer: Meteor.user().username,
