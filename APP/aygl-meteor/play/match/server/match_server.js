@@ -2,55 +2,79 @@ var crypto = Npm.require('crypto')
 	,Future = Npm.require('fibers/future');
 
 
+//debug purpose
+Meteor.publish("PlayerReview", function () {
+  	return PlayerReview.find();
+});
 
+var increaseUserThumbsUpCount = function (username, increase) {
+	var user = Meteor.users.findOne({
+		username: username
+	});
 
+	if (!user) {
+		console.log('user not found for: ' + username);
+	} else {
+		if (!user.thumbsUpCount) {
+			user.thumbsUpCount = 0;
+		}
 
+		if (increase) {
+			updateUserThumbsUpCount(username, user.thumbsUpCount + 1);
+		} else {
+			updateUserThumbsUpCount(username, user.thumbsUpCount - 1);
+		}
+	}
+}
 
+var increaseUserThumbsDownCount = function(username, increase) {
+	var user = Meteor.users.findOne({
+		username: username
+	});
+
+	if (!user) {
+		console.log('user not found for: ' + username);
+	} else {
+		if (!user.thumbsDownCount) {
+			user.thumbsDownCount = 0;
+		}
+
+		if (increase) {
+			updateUserThumbsDownCount(username, user.thumbsDownCount + 1);
+		} else {
+			updateUserThumbsDownCount(username, user.thumbsDownCount - 1);
+		}
+	}
+}
 
 Meteor.methods({
+	insertPlayerReview: function(reviewee, type, comment) {
+		PlayerReview.insert({
+            reviewer: Meteor.user().username,
+            reviewee: reviewee,
+            type: type,
+            comment: comment
+            // gameId: optional //not used for now
+            // matchId: optional //not used for now
+            // matchDuration: optional,
+        });
+
+        switch (type) {
+        case PLAYER_REVIEW_TYPE_UP:
+        	increaseUserThumbsUpCount(reviewee, true);
+        	break;
+        case PLAYER_REVIEW_TYPE_DOWN:
+        	increaseUserThumbsDownCount(reviewee, true);
+        	break;
+        }
+	},
 	increaseUserThumbsUpCount: function(username, increase) {
-		// console.log('increaseUserThumbsUpCount() start');
 		// console.log(username);
 		// console.log(increase);
-
-		var user = Meteor.users.findOne({
-			username: username
-		});
-
-		if (!user) {
-			console.log('user not found for: ' + username);
-		} else {
-			if (!user.thumbsUpCount) {
-				user.thumbsUpCount = 0;
-			}
-
-			if (increase) {
-				updateUserThumbsUpCount(username, user.thumbsUpCount + 1);
-			} else {
-				updateUserThumbsUpCount(username, user.thumbsUpCount - 1);
-			}
-		}
+		increaseUserThumbsUpCount(username, increase);
 	},
 	increaseUserThumbsDownCount: function(username, increase) {
-		var user = Meteor.users.findOne({
-			username: username
-		});
-
-		//console.log(user);
-
-		if (!user) {
-			console.log('user not found for: ' + username);
-		} else {
-			if (!user.thumbsDownCount) {
-				user.thumbsDownCount = 0;
-			}
-
-			if (increase) {
-				updateUserThumbsDownCount(username, user.thumbsDownCount + 1);
-			} else {
-				updateUserThumbsDownCount(username, user.thumbsDownCount - 1);
-			}
-		}
+		increaseUserThumbsDownCount(username, increase);
 	},
 	updatePlayerResultReport: function(result) {
 		var user = getUserByUserId(Meteor.userId());

@@ -1,4 +1,5 @@
 Meteor.subscribe('MatchesCollection');
+Meteor.subscribe('PlayerReview');
 
 //TODO DT: the game document should generate a password upon "Draft Completion"
 
@@ -140,76 +141,129 @@ Template.matchlayout.events({
     }
 });
 
+var checkIfReviewingYourself = function (username) {
+    if (Meteor.user().username === username) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 Template.playerPanel.events({
     'click #thumbsUp' : function(event, template) {
         event.preventDefault();
-        var item = $(event.target);
-        var item2 = $(event.currentTarget);
 
-        var username = template.data.username;
-
-        // console.log(template.find('.member-name').innerHTML);
-        // console.log(template.data.username);
-
-        if (item.hasClass( "text-success" ) ) {
-            item.removeClass('text-success');
-
-            Meteor.call('increaseUserThumbsUpCount', username, false); 
+        if (checkIfReviewingYourself(template.data.username)) {
+            console.log("You are reviewing urself!");
         } else {
-            item.addClass('text-success');
 
-            Meteor.call('increaseUserThumbsUpCount', username, true);
-            var siblingThumbsDown = $(event.target).next('i');
-            if (siblingThumbsDown.hasClass("text-danger") ) {
-                siblingThumbsDown.removeClass('text-danger');
-                
-                Meteor.call('increaseUserThumbsDownCount', username, false);
+            var pr = Session.get('playerReviews');
+
+            if (!pr) {
+                pr = new Array(10);
+            }
+
+            if (pr[template.data.playerSlot]) {
+                //already review this player
+            } else {
+                bootbox.prompt({
+                    title: this.username + " best player ever. Rated 10/10",
+                    callback: function(result) {
+                        if (result === null) {
+                            console.log('he left nothing');
+                        } else {
+                            // var item = $(event.target);
+                            // var item2 = $(event.currentTarget);
+
+                            // var username = template.data.username;
+
+                            // // console.log(template.find('.member-name').innerHTML);
+                            // // console.log(template.data.username);
+
+                            // if (item.hasClass( "text-success" ) ) {
+                            //     item.removeClass('text-success');
+
+                            //     Meteor.call('increaseUserThumbsUpCount', username, false); 
+                            // } else {
+                            //     item.addClass('text-success');
+
+                            //     Meteor.call('increaseUserThumbsUpCount', username, true);
+                            //     var siblingThumbsDown = $(event.target).next('i');
+                            //     if (siblingThumbsDown.hasClass("text-danger") ) {
+                            //         siblingThumbsDown.removeClass('text-danger');
+                                    
+                            //         Meteor.call('increaseUserThumbsDownCount', username, false);
+                            //     }
+                            // }
+
+                            Meteor.call('insertPlayerReview', 
+                                template.data.username, 
+                                PLAYER_REVIEW_TYPE_UP, 
+                                result);
+
+                            item.addClass('text-success');
+                            pr[template.data.playerSlot] = true;
+                            Session.set('playerReviews', pr);
+                        }
+                    }
+                });
             }
         }
 
-        // bootbox.prompt({
-        //     title: this.username + " best player ever. Rated 10/10",
-        //     callback: function(result) {
-        //         if (result === null) {
-        //             console.log('he left nothing');
-        //         } else {
-        //             console.log('are you sure?');
-        //             //TODO save comments to commend
-        //         }
-        //     }
-        // });
+        
+
+        
     },
     'click #thumbsDown' : function(event, template) {
         event.preventDefault();
-        var item = $(event.target);
-        var username = template.data.username;
 
-        if (item.hasClass( "text-danger" ) ) {
-            item.removeClass('text-danger');
-            
-            Meteor.call('increaseUserThumbsDownCount', username, false); //down--
+        if (checkIfReviewingYourself(template.data.username)) {
+            console.log("You are reviewing urself!");
         } else {
-            item.addClass('text-danger');
-            Meteor.call('increaseUserThumbsDownCount', username, true); //down++
+            var pr = Session.get('playerReviews');
 
-            var previousThumbsUp = $(event.target).prev('i');
-            if (previousThumbsUp.hasClass("text-success") ) {
-                previousThumbsUp.removeClass('text-success');
+            if (!pr) {
+                pr = new Array(10);
+            }
 
-                Meteor.call('increaseUserThumbsUpCount', username, false); //up--
+            if (!pr[template.data.playerSlot]) {
+                bootbox.prompt({
+                    title: "disband plz " + this.username,
+                    callback: function(result) {
+                        if (result === null) {
+                            console.log('he left nothing');
+                        } else {
+                            // var item = $(event.target);
+                            // var username = template.data.username;
+
+                            // if (item.hasClass( "text-danger" ) ) {
+                            //     item.removeClass('text-danger');
+                                
+                            //     Meteor.call('increaseUserThumbsDownCount', username, false); //down--
+                            // } else {
+                            //     item.addClass('text-danger');
+                            //     Meteor.call('increaseUserThumbsDownCount', username, true); //down++
+
+                            //     var previousThumbsUp = $(event.target).prev('i');
+                            //     if (previousThumbsUp.hasClass("text-success") ) {
+                            //         previousThumbsUp.removeClass('text-success');
+
+                            //         Meteor.call('increaseUserThumbsUpCount', username, false); //up--
+                            //     }
+                            // }
+
+                            Meteor.call('insertPlayerReview', 
+                                template.data.username, 
+                                PLAYER_REVIEW_TYPE_DOWN, 
+                                result);
+
+                            item.addClass('text-danger');
+                            pr[template.data.playerSlot] = true;
+                            Session.set('playerReviews', pr);
+                        }
+                    }
+                });
             }
         }
-
-        // bootbox.prompt({
-        //     title: "omg " + this.username +  ", S A D B O Y S",
-        //     callback: function(result) {
-        //         if (result === null) {
-        //             console.log('he left nothing');
-        //         } else {
-        //             console.log('are you sure?');
-        //             //TODO save comments to commend
-        //         }
-        //     }
-        // });
     }
 });
