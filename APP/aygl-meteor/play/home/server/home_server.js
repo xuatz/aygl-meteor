@@ -139,8 +139,10 @@ home_challengeAccepted = function(alert) {
     //Check eligibility
     home_checkLobbyEligibility(alert, function(result, playerList) {
         if (result) {
+            //Use only the first 8 results.
+            var chosenOnes = _.first(playerList, 8);
             //Attempt Grab players
-            home_grabPlayers(playerList, function(grabResult, reservedPlayers) {
+            home_grabPlayers(chosenOnes, function(grabResult, reservedPlayers) {
                 if (grabResult) {
                     console.log('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
                     home_initializeGrabResult(alert, 'drafting');
@@ -199,7 +201,7 @@ home_initializeGrabResult = function(alert, result) {
     });
 
     if (result === 'drafting') {
-        //Remove all other Challengers
+        //Remove all other Challengers from Game
         Meteor.users.update({
             "profile.room": alert.data,
             "profile.state": "pending accept"
@@ -227,7 +229,7 @@ home_eligiblePlayers = function(avgPercentile) {
     var result;
     if (avgPercentile < 60) {
         result = Meteor.users.find({
-            //"profile.state": "ready",
+            "profile.state": "ready",
             "profile.ranking.pLowerLimit": {
                 $lt: avgPercentile
             },
@@ -246,7 +248,7 @@ home_eligiblePlayers = function(avgPercentile) {
 
     } else {
         result = Meteor.users.find({
-            //"profile.state": "ready",
+            "profile.state": "ready",
             "profile.ranking.pLowerLimit": {
                 $lt: avgPercentile
             },

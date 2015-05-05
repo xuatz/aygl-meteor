@@ -12,6 +12,9 @@ Template.homelayout.helpers({
             case "hosting":
                 result = "homecaptainslobby"
                 break;
+            case "waiting":
+                result = "homewaitingpage"
+                break;
             default:
                 result = "homemaincontent"
                 break;
@@ -161,6 +164,42 @@ Template.lobbylistitem.helpers({
     }
 });
 
+Template.homewaitingpage.helpers({
+    gameInfo: function() {
+        var result;
+        result = Games.findOne({
+            _id: Meteor.user().profile.room
+        });
+        return result;
+    },
+    captains: function() {
+        var result = {};
+
+        var gameObj = Games.findOne({
+            _id: Meteor.user().profile.room
+        });
+        result.host = gameObj.host;
+        result.challenger = gameObj.challengers[0];
+
+        return result;
+    },
+    eligiblePlayerCount: function() {
+        var result;
+        result = Meteor.users.find({
+            "profile.state": "ready"
+        }).count() + 2;
+        return result;
+    },
+    sufficientPlayers: function() {
+        var result;
+        var count = Meteor.users.find({
+            "profile.state": "ready"
+        }).count() + 2;
+        result = (count > 9);
+        return result;
+    }
+});
+
 
 
 /*
@@ -193,6 +232,12 @@ Template.homecaptainslobby.events({
         }
     },
     'click #acceptchallenge': function() {
-        Meteor.call('createAlert', 'challengeAccepted',Session.get('selectedChallenger'));
+        Meteor.call('createAlert', 'challengeAccepted', Session.get('selectedChallenger'));
+    }
+});
+
+Template.homewaitingpage.events({
+    'click #initiateDraft': function (evt, template) {
+        //CALL A METEOR METHOD TO INITIATE GRAB PLAYERS AND TRY FOR DRAFT
     }
 });
