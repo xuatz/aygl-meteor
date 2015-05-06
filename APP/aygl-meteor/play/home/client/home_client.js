@@ -27,6 +27,9 @@ Template.homelayout.helpers({
             case "hosting":
                 result = "Captain's Lobby"
                 break;
+            case "waiting":
+                result = "Waiting for eligible players"
+                break;
             default:
                 result = "Games Awaiting Challengers"
                 break;
@@ -237,7 +240,12 @@ Template.homecaptainslobby.events({
 });
 
 Template.homewaitingpage.events({
-    'click #initiateDraft': function (evt, template) {
+    'click #initiateDraft': function(evt, template) {
+        evt.preventDefault();
         //CALL A METEOR METHOD TO INITIATE GRAB PLAYERS AND TRY FOR DRAFT
+        var eligiblePlayers = Meteor.users.find({
+            "profile.state": 'ready'
+        }).fetch();
+        Meteor.call('grabPlayersFromWaiting', eligiblePlayers);
     }
 });

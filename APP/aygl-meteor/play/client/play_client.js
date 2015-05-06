@@ -46,6 +46,9 @@ Template.joinedmenu.helpers({
             case "pending accept":
                 result = "Stop Challenge";
                 break;
+            case "ready":
+                result = "Leave Player Pool";
+                break;
             default:
                 result = "Stahp!";
                 break;
@@ -64,9 +67,6 @@ All Template handlers for templates defined within signup.html will be placed he
 Template.joinedmenu.events({
     'click #leavegame': function() {
         Meteor.call('resetState');
-        if (typeof le_alert !== "undefined") {
-            le_alert.close();
-        }
     }
 });
 
@@ -100,6 +100,7 @@ Template.playLayout.events({
     'click #joinPlayer': function(evt) {
         evt.preventDefault();
         //Set player State to Ready
+        Meteor.call('joinPool');
     },
     'click .magic': function(evt, template) {
         evt.preventDefault();

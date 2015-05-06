@@ -13,7 +13,8 @@ Router.route('/play', function() {
         Meteor.user().profile.state === 'drafting' ||
         Meteor.user().profile.state === 'in-match' ||
         Meteor.user().profile.state === 'waiting' ||
-        Meteor.user().profile.state === 'pending accept') {
+        Meteor.user().profile.state === 'pending accept' ||
+        Meteor.user().profile.state === 'ready') {
         this.render('joinedmenu', {
             to: "toprightcorner"
         });

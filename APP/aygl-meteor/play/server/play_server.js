@@ -39,7 +39,7 @@ Meteor.methods({
             */
 
             return;
-        } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting") {
+        } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting" || targetUser.profile.state === "waiting") {
             //User is a captain. We must remove the game and inform the involved players about the removal
             //Removing Game
             Games.remove({
@@ -49,8 +49,28 @@ Meteor.methods({
             //TODO: Notification for other users
 
             //Reset all involved players
+            
+            //'Reserved' and 'Selected' -> Ready
             Meteor.users.update({
-                "profile.room": targetUser.profile.room
+                "profile.room": targetUser.profile.room,
+                "profile.state": {
+                    $in: ['reserved', 'selected']
+                }
+            }, {
+                $set: {
+                    "profile.state": "ready",
+                    "profile.room": null
+                }
+            }, {
+                multi: true
+            });
+
+            //'pending accept', 'drafting' and 'waiting' -> Idle
+            Meteor.users.update({
+                "profile.room": targetUser.profile.room,
+                "profile.state": {
+                    $in: ['drafting', 'pending accept', 'waiting']
+                }
             }, {
                 $set: {
                     "profile.state": "idle",
