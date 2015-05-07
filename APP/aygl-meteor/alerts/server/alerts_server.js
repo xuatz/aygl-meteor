@@ -42,10 +42,9 @@ Meteor.methods({
         //Take action
         switch (alertObj.category) {
             case "challengeAccepted":
-                if(response === "accepted") {
+                if (response === "accepted") {
                     home_challengeAccepted(alertObj);
                 }
-                console.log('Doing Something about Challenge');
                 break;
             default:
                 console.log('error!');
@@ -77,10 +76,6 @@ Meteor.methods({
                 }
             }, 5000);
         }
-    },
-    meth1: function() {
-        console.log(this);
-        console.log(Meteor.user());
     }
 });
 
@@ -142,5 +137,3 @@ generateAlert = function(category, recipient, data) {
     }
     return result;
 }
-
-

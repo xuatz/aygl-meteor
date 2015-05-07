@@ -296,6 +296,9 @@ home_eligiblePlayers = function(avgPercentile) {
     var result;
     if (avgPercentile < 60) {
         result = Meteor.users.find({
+            "profile.state": {
+                $in: ['ready', 'reserved']
+            },
             "profile.ranking.pLowerLimit": {
                 $lt: avgPercentile
             },
@@ -314,6 +317,9 @@ home_eligiblePlayers = function(avgPercentile) {
 
     } else {
         result = Meteor.users.find({
+            "profile.state": {
+                $in: ['ready', 'reserved']
+            },
             "profile.ranking.pLowerLimit": {
                 $lt: avgPercentile
             },
