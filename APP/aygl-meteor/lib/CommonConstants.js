@@ -1,24 +1,17 @@
+GAME_STATE_HOSTED = "hosted";
+GAME_STATE_WAITING = "waiting";
 GAME_STATE_DRAFTING = "drafting";
+GAME_STATE_IN_MATCH = "in-match";
 
-PLAYER_STATE_DRAFTING = "drafting";
-PLAYER_STATE_MATCH = "DT-REPLACE-THIS"; //TODO DT
-
-
-
-//DRAFTING PAGE VARIABLES
-BONUS_PREP_TIME = 2;
-DRAFT_PICK_PLAYER_DURATION = 30; //set as 32 in production
-
-DRAFTING_ORDER = [
-  "H",
-  "C",
-  "C",
-  "H",
-  "C",
-  "H",
-  "C",
-  "H"
-];
+PLAYER_STATE_HOSTING 			= "hosting";
+PLAYER_STATE_PENDING_ACCEPT 	= "drafting";
+PLAYER_STATE_WAITING 			= "waiting";
+PLAYER_STATE_DRAFTING 			= "drafting";
+PLAYER_STATE_IN_MATCH 			= "in-match";
+PLAYER_STATE_IDLE 				= "idle";
+PLAYER_STATE_READY 				= "ready";
+PLAYER_STATE_RESERVED 			= "reserved";
+PLAYER_STATE_SELECTED 			= "selected";
 
 PLAYER_REVIEW_TYPE_UP = "UP";
 PLAYER_REVIEW_TYPE_DOWN = "DOWN";
