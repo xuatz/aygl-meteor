@@ -1,3 +1,5 @@
+
+
 getPlayerSlotOfUserFromMatchDetails = function(matchDetails, username) {
     console.log('start of getPlayerSlotOfUser()');
 
