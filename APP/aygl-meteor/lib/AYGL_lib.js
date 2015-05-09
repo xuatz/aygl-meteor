@@ -46,14 +46,14 @@ PlayerReview = new Mongo.Collection("PlayerReview");
 //=================================
 
 var beforeInsertOptions = function(username, doc) {
-  doc.createdDttm = Date.now();
-  doc.createdBy = username;
+  doc.createdDttm = moment().format();
+  doc.createdBy = username || "SYS";
 };
 
 var beforeUpdateOptions = function(username, doc, fieldNames, modifier, options){
   modifier.$set = modifier.$set || {};
-  modifier.$set.updatedDttm = Date.now();
-  modifier.$set.updatedBy = username;
+  modifier.$set.updatedDttm = moment().format();
+  modifier.$set.updatedBy = username || "SYS";
 };
 
 //=================================
