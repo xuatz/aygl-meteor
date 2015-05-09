@@ -23,9 +23,9 @@ getUserRoomObject = function() {
     } else {
         switch(state) {
             case PLAYER_STATE_DRAFTING:
-                return getSelectedMatch(Meteor.user().profile.room);
-            case PLAYER_STATE_MATCH:
                 return getSelectedGame(Meteor.user().profile.room);
+            case PLAYER_STATE_MATCH:
+                return getSelectedMatch(Meteor.user().profile.room);
         }    
     }
 }

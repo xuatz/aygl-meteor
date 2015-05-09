@@ -120,7 +120,7 @@ var newDraftingTurn = function(gameId) {
 
 var startDrafting = function(gameId) {
 	console.log('start of startDrafting');
-	var g = Games.findOne({_id : gameId});
+	var g = Games.findOne({_id : gameId}) || Games.findOne();
 
 	if (!g) {
 		console.log("Game not found");
@@ -150,7 +150,7 @@ var startDrafting = function(gameId) {
 //===============================================================
 
 Meteor.methods({
-	demo: function(gameId) {
+	startDrafting: function(gameId) {
 		startDrafting(gameId);
 	},
 	reset: function(gameId) {
