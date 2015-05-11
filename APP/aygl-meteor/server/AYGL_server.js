@@ -42,6 +42,12 @@ Meteor.publish('myalerts', function() {
     }
 });
 
+Meteor.methods({
+    asdklasdg: function() {
+        //do nothing
+    }
+});
+
 /*
 ======================================================================================================
 Server Main Methods

@@ -33,6 +33,17 @@ var increaseUserThumbsDownCount = function(username, increase) {
 	});
 
 	if (!user) {
+		console.log("hi guys");
+
+		MyLogger.insert({
+	      type: "info",
+	      message: "huatah"
+	    });
+
+	    var a = Logger.findOne();
+
+	    console.log(a);
+
 		console.log('user not found for: ' + username);
 	} else {
 		if (!user.thumbsDownCount) {
@@ -48,10 +59,25 @@ var increaseUserThumbsDownCount = function(username, increase) {
 }
 
 Meteor.methods({
+	demo11: function() {
+		console.log("hi guys");
+
+		MyLogger.insert({
+	      type: "info",
+	      message: "huatah"
+	    });
+
+	    var a = Logger.findOne();
+
+	    console.log(a);
+	},
 	demo2: function() {
 		generateMatchPassword();
 	},
 	insertPlayerReview: function(reviewee, type, comment) {
+		Meteor.log.info("test 1");
+		Meteor.log.debug("test 2");
+
 		PlayerReview.insert({
             reviewer: Meteor.user().username,
             reviewee: reviewee,

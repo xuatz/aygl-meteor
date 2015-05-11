@@ -175,6 +175,25 @@ Meteor.users.deny({
     }
 });
 
+logger = new function () {
+  this.info = function () {
+    //check must be a string
+
+    console.log("username");
+    console.log(this.username);
+    console.log(this.userId);
+
+    Logger.insert({
+      type: "info",
+      message: message
+    });
+
+    var a = Logger.findOne();
+
+    console.log(a);
+  }
+}
+
 /*
 ======================================================================================================
 Prototypes for Mongo Collections
