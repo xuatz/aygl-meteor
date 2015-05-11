@@ -125,6 +125,11 @@ Template.adminLayout.events({
         console.log('clicked tab4');
         Session.set('adminTabSelection', 4);
     },
+    'click #tab6': function(evt) {
+        evt.preventDefault();
+        console.log('clicked tab6');
+        Session.set('adminTabSelection', 6);
+    },
     'click tr': function (event) {
         event.preventDefault();
         console.log('tableOnClick');

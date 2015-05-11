@@ -176,22 +176,38 @@ Meteor.users.deny({
 });
 
 logger = new function () {
-  this.info = function () {
-    //check must be a string
+  var insertMessage = function(type, message) {
+    //TODO check if typesafe
+    console.log(message);
 
-    console.log("username");
-    console.log(this.username);
-    console.log(this.userId);
+    var username;
+    if (Meteor.user()) {
+      username = Meteor.user().username;
+    }
 
-    Logger.insert({
-      type: "info",
-      message: message
+    MyLogger.insert({
+      type: type,
+      message: message,
+      username: username
     });
+  };
 
-    var a = Logger.findOne();
 
-    console.log(a);
-  }
+  this.info = function (message) {
+    insertMessage("info", message);
+  };
+
+  this.debug = function (message) {
+    insertMessage("debug", message);
+  };
+
+  this.warning = function (message) {
+    insertMessage("warning", message);
+  };
+
+  this.error = function (message) {
+    insertMessage("error", message);
+  };
 }
 
 /*

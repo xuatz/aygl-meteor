@@ -55,6 +55,11 @@ Router.route('/aygl_admin', function() {
             to: "tabContent"
         });
         break;
+    case 6:
+        this.render('logTable', {
+            to: "tabContent"
+        });
+        break;
     }
 }, {
     name: 'aygl_admin',

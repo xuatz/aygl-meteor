@@ -33,16 +33,9 @@ var increaseUserThumbsDownCount = function(username, increase) {
 	});
 
 	if (!user) {
-		console.log("hi guys");
-
-		MyLogger.insert({
-	      type: "info",
-	      message: "huatah"
-	    });
-
-	    var a = Logger.findOne();
-
-	    console.log(a);
+		logger.info("myasda");
+		logger.error("ohaiyo");
+		logger.debug("tongkat");
 
 		console.log('user not found for: ' + username);
 	} else {
@@ -75,9 +68,6 @@ Meteor.methods({
 		generateMatchPassword();
 	},
 	insertPlayerReview: function(reviewee, type, comment) {
-		Meteor.log.info("test 1");
-		Meteor.log.debug("test 2");
-
 		PlayerReview.insert({
             reviewer: Meteor.user().username,
             reviewee: reviewee,
