@@ -290,6 +290,38 @@ home_initializeGrabResult = function(gameId, result) {
         }
     });
 
+    if (result === GAME_STATE_DRAFTING) {
+        Meteor.call('startDrafting', gameId);
+    }
+}
+
+topUpPlayers = function(amtOfTopUp, avgPercentile) {
+    if (avgPercentile >= 60) {
+        return null;
+    } else {
+        var result = Meteor.users.find({
+            "profile.state": {
+                $in: ['ready', 'reserved']
+            },
+            "profile.ranking.pLowerLimit": {
+                $gte: avgPercentile
+            },
+            "profile.ranking.percentile": {
+                $lt: 60
+            }
+        }, {
+            fields: {
+                username: 1,
+                profile: 1
+            },
+            sort: {
+                "profile.ranking.pLowerLimit": 1
+            },
+            limit: amtOfTopUp
+        });
+
+        return result;
+    }
 }
 
 home_eligiblePlayers = function(avgPercentile) {
@@ -314,7 +346,6 @@ home_eligiblePlayers = function(avgPercentile) {
                 profile: 1
             }
         });
-
     } else {
         result = Meteor.users.find({
             "profile.state": {
@@ -333,6 +364,7 @@ home_eligiblePlayers = function(avgPercentile) {
             }
         });
     }
+
     return result;
 }
 
