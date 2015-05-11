@@ -14,6 +14,17 @@ TabularTables.MatchTable = new Tabular.Table({
     ]
 });
 
+TabularTables.LogTable = new Tabular.Table({
+    name: "LogTable",
+    collection: MyLogger,
+    columns: [
+        {data: "type", title: "Log Level"},
+        {data: "message", title: "Message"},
+        {data: "username",        title: "Created By"},
+        {data: "createdDttm",  title: "Created Date/Time"},
+    ]
+});
+
 //FOR FUTURE USE
 
 MatchPlayerResult = new SimpleSchema({

@@ -33,6 +33,10 @@ var increaseUserThumbsDownCount = function(username, increase) {
 	});
 
 	if (!user) {
+		logger.info("myasda");
+		logger.error("ohaiyo");
+		logger.debug("tongkat");
+
 		console.log('user not found for: ' + username);
 	} else {
 		if (!user.thumbsDownCount) {
@@ -48,6 +52,18 @@ var increaseUserThumbsDownCount = function(username, increase) {
 }
 
 Meteor.methods({
+	demo11: function() {
+		console.log("hi guys");
+
+		MyLogger.insert({
+	      type: "info",
+	      message: "huatah"
+	    });
+
+	    var a = Logger.findOne();
+
+	    console.log(a);
+	},
 	demo2: function() {
 		generateMatchPassword();
 	},
