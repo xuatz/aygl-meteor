@@ -175,6 +175,9 @@ Meteor.users.deny({
     }
 });
 
+/**
+ * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+ */
 logger = new function () {
   var insertMessage = function(type, message) {
     //TODO check if typesafe
@@ -193,6 +196,9 @@ logger = new function () {
   };
 
 
+  /**
+   * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+   */
   this.info = function (message) {
     insertMessage("info", message);
   };
