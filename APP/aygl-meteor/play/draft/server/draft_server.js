@@ -120,6 +120,9 @@ var newDraftingTurn = function(gameId) {
 
 var startDrafting = function(gameId) {
 	console.log('start of startDrafting');
+
+	var delayBeforeStartOfDrafting = 1000; //use 5000? in production
+
 	var g = Games.findOne({_id : gameId}) || Games.findOne();
 
 	if (!g) {
@@ -142,7 +145,7 @@ var startDrafting = function(gameId) {
 			//if draftingSide != null, will start the timer
 			//if cptSide = draftingSide, panel is enabled, else disabled
 
-		}, 1000); //use 5000 in production
+		}, delayBeforeStartOfDrafting);
 	}
 	console.log('end of startDrafting');
 }
