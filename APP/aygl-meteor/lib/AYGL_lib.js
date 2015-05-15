@@ -37,6 +37,12 @@ MatchesCollection.allow({
 
 PlayerReview = new Mongo.Collection("PlayerReview");
 
+MyLogger = new Mongo.Collection('MyLogger');
+
+MyLogger.allow({
+    insert:function(){return true;}
+});
+
 // PlayerReview.allow({
 //     insert:function(){return true;},
 //     // remove:function(){return true;},
@@ -64,8 +70,10 @@ Games.before.insert(beforeInsertOptions);
 Alerts.before.insert(beforeInsertOptions);
 MatchesCollection.before.insert(beforeInsertOptions);
 PlayerReview.before.insert(beforeInsertOptions);
+MyLogger.before.insert(beforeInsertOptions);
 
 Games.before.update(beforeUpdateOptions);
 Alerts.before.update(beforeUpdateOptions);
 MatchesCollection.before.update(beforeUpdateOptions);
 PlayerReview.before.update(beforeUpdateOptions);
+MyLogger.before.update(beforeUpdateOptions);

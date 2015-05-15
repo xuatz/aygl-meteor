@@ -22,6 +22,9 @@ Any Templates used for the Signup Process will be placed here
             <li>
                 <a id="tab5" href="#" data-toggle="tab">Manage User Rights*Phase2*</a>
             </li>
+            <li>
+                <a id="tab6" href="#" data-toggle="tab">LOGS</a>
+            </li>
         </ul>
     </div>
 
@@ -44,6 +47,14 @@ Any Templates used for the Signup Process will be placed here
         {{> tabular table=TabularTables.MatchTable selector=selector class="table table-striped table-bordered table-condensed"}}
     </div>
 </template>
+
+
+<template name="logTable">
+    <div>
+        {{> tabular table=TabularTables.LogTable selector=selector class="table table-striped table-bordered table-condensed"}}
+    </div>
+</template>
+
 
 <template name="adminMatchPendingUpdateDetail">
     <div>
