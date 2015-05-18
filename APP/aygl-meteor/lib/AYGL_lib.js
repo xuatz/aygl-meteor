@@ -20,6 +20,9 @@ Meteor.startup(function () {
     process.env.HASH_SALT = 'byvGX7KLa4';
     process.env.HASH_ITERATIONS = 2;
     process.env.HASH_KEYLEN = 128;
+
+    //TODO replace with real IP
+    process.env.MAIN_DB_URL = 'localhost:3000';
   }
 });
 
