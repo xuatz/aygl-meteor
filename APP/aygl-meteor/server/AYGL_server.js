@@ -1,3 +1,5 @@
+var crypto = Npm.require('crypto');
+
 /*
 ======================================================================================================
 Error Definitions for Main Page
@@ -44,7 +46,25 @@ Meteor.publish('myalerts', function() {
 
 Meteor.methods({
     asdklasdg: function() {
-        //do nothing
+        Meteor.users.update(
+            {
+               username: 'moltencrap'
+            },
+            {
+                $set: {
+                    'profile.privateData.playerStats.minScore': 4000,
+                    'profile.privateData.playerStats.maxScore': 6000,
+                    'profile.privateData.playerStats.score': 5000
+                }
+            }
+        );
+    },
+    crazy2: function() {
+        var user =
+        Meteor.users.findOne();
+
+        console.log(user);
+        console.log(user.profile.privateData);
     }
 });
 
@@ -65,6 +85,16 @@ getUsernameByUserId = function(userId) {
 
 getUserByUserId = function(userId) {
     return Meteor.users.findOne({_id: userId});
+}
+
+ayglHash = function(header, payload) {
+    var password = header + payload;
+
+    var salt = process.env.HASH_SALT;
+    var iterations = parseInt(process.env.HASH_ITERATIONS);
+    var keylen = parseInt(process.env.HASH_KEYLEN);
+
+    return crypto.pbkdf2Sync(password, salt, iterations, keylen).toString('base64');
 }
 
 /*

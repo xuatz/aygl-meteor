@@ -144,16 +144,9 @@ Meteor.methods({
 
 		var matchString = JSON.stringify(matchDetails);
 
-		var password = '/match' + matchString;
-		// console.log('==================');
-		// console.log('password');
-		// console.log(password);
-
-		var salt = process.env.HASH_SALT;
-		var iterations = parseInt(process.env.HASH_ITERATIONS);
-		var keylen = parseInt(process.env.HASH_KEYLEN);
-
-	    var hash = crypto.pbkdf2Sync(password, salt, iterations, keylen).toString('base64');
+	    var header = '/match';
+	    var payload = matchString;
+	    var hash = ayglHash(header, payload);
 
 	    // console.log('==================');
 	    // console.log(hash);
