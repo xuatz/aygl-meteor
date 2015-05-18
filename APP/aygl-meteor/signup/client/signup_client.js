@@ -163,9 +163,9 @@ Template.verifiedsignupform.events({
                 },
                 privateData: {
                     playerStats: {
-                        minScore: '1000', //default value
+                        minScore: '2000', //default value
                         maxScore: '3000', //default value
-                        score: '2000' //default value
+                        score: '2500' //default value
                     }
                 },
                 updated: steamIdentity.updated,
