@@ -158,8 +158,15 @@ Template.verifiedsignupform.events({
                 },
                 ranking: {
                     rank: 'TBD',
-                    percentile: 'TBD',
-                    calibration: 5
+                    percentile: '0.4', //default value
+                    calibration: 5 //xz: not used
+                },
+                privateData: {
+                    playerStats: {
+                        minScore: '1000', //default value
+                        maxScore: '3000', //default value
+                        score: '2000' //default value
+                    }
                 },
                 updated: steamIdentity.updated,
                 state: 'idle',
@@ -173,16 +180,13 @@ Template.verifiedsignupform.events({
                 }
             } else {
                 registeringNow.stop();
-                Meteor.call('registrationComplete', steamIdentity.sig);
+                Meteor.call('registrationComplete', steamIdentity.sig, username);
                 Meteor.logoutOtherClients();
                 Router.go('/play');
             }
         });
     }
 });
-
-
-
 
 /*
 ======================================================================================================

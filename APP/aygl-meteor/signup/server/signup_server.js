@@ -17,6 +17,59 @@ Methods used by during the Signup process will be placed here
 ======================================================================================================
 */
 
+//xz:18/05/2015: upon success, create a new user on MainDB
+//and return the slightly more accurate initial playerStats
+
+//in the case this doesnt get called/failed, it doesnt break shit.
+//the user starting stats just wun be more 'accurate',
+//but who is to say our theory is 'accurate' in the first place lol
+var createNewUserOnMainDB = function(username) {
+    //TODO replace header with the real 1 on nodejs
+    var header = '/newuser';
+    var payload = username;
+    var hash = ayglHash(header, payload);
+
+    var url = "http://" + process.env.MAIN_DB_URL + header;
+
+    HTTP.call("POST", url,
+        {
+            headers: {
+                authorization: "aygldb " + hash
+            }
+            , params: {username: username}
+        }, function(err, res) {
+            if (err) {
+                logger.error('==================');
+                logger.error('there is an error');
+                logger.error(err);
+            }
+            if (res) {
+                logger.debug('==================');
+                logger.debug('there is an res');
+                logger.debug(res);
+                logger.debug('==================');
+                logger.debug(res.content);                   
+
+                if (res.statusCode === 201) {
+                    //TODO get the right value from res
+                    Meteor.users.update(
+                        {
+                           username: username 
+                        },
+                        {
+                            $set: {
+                                'profile.privateData.playerStats.minScore': res.minScore,
+                                'profile.privateData.playerStats.maxScore': res.maxScore,
+                                'profile.privateData.playerStats.score': res.score
+                            }
+                        }
+                    );
+                }
+            }
+        }
+    );
+}
+
 Meteor.methods({
     checkValidSignup: function(siggy) {
         if (VerifyTab.findOne({
@@ -29,7 +82,9 @@ Meteor.methods({
             });
         }
     },
-    registrationComplete: function(siggy) {
+    registrationComplete: function(siggy, username) {
+        createNewUserOnMainDB(username);
+
         VerifyTab.remove({
             sig: siggy
         });
