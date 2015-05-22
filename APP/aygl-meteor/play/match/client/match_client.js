@@ -172,7 +172,8 @@ Template.playerPanel.events({
                         if (result === null) {
                             console.log('he left nothing');
                         } else {
-                            // var item = $(event.target);
+                            var item = $(event.target);
+
                             // var item2 = $(event.currentTarget);
 
                             // var username = template.data.username;
@@ -233,7 +234,7 @@ Template.playerPanel.events({
                         if (result === null) {
                             console.log('he left nothing');
                         } else {
-                            // var item = $(event.target);
+                            var item = $(event.target);
                             // var username = template.data.username;
 
                             // if (item.hasClass( "text-danger" ) ) {
