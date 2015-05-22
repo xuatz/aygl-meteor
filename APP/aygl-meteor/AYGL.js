@@ -176,6 +176,149 @@ Meteor.users.deny({
     }
 });
 
+/*
+
+dota2assets = new function () {
+  this.heroes = 
+    {
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      alchemist : {
+        name: "Alchemist",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      },
+      loa : {
+        name: "Abaddon",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/abaddon_vert.jpg"
+      }
+
+
+
+
+      antimage : {
+        name: "Anti-Mage"
+      }
+    };
+}
+
+*/
+
 /**
  * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
  */
