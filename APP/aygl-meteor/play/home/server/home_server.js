@@ -45,10 +45,7 @@ Meteor.methods({
         //Create the game JSON to be inserted into the Collection
         var newGame;
         newGame = {
-            draft: {
-                radiant: null,
-                dire: null
-            },
+            draft: [],
             state: 'hosted',
             host: {
                 name: hostingplayer.username,
@@ -291,7 +288,45 @@ home_initializeGrabResult = function(gameId, result) {
     });
 
     if (result === GAME_STATE_DRAFTING) {
-        Meteor.call('startDrafting', gameId);
+        //1. Copy Host/Player details into Captains Field
+
+        var hostteam;
+        var challengerteam;
+        if (Math.random() > 0.5) {
+            hostteam = "R";
+            challengerteam = "D";
+        } else {
+            hostteam = "D";
+            challengerteam = "R";
+        }
+
+        var host = {
+            name: gameObj.host.name,
+            personaname: gameObj.host.personaname,
+            percentile: gameObj.host.percentile,
+            avatar: gameObj.avatar,
+            team: hostteam
+        };
+        var challenger = {
+            name: gameObj.challengers[0].name,
+            personaname: gameObj.challengers[0].personaname,
+            percentile: gameObj.challengers[0].percentile,
+            avatar: gameObj.challengers[0].avatar,
+            team: challengerteam
+        };
+        var resultForCaptainField = [host, challenger];
+
+        Games.update({
+            _id: gameId
+        }, {
+            $set: {
+                captains: resultForCaptainField
+            }
+        });
+
+        //2. Start the Drafting Phase
+
+        draft_startDrafting(gameId);
     }
 }
 
