@@ -26,8 +26,51 @@ Template.playLayout.helpers({
             }
         }
         return result;
+    },
+    heroesList: function() {
+        var arr = dota2assets.heroes;
+
+        //$("#hero3").select2("val", "axe");
+
+        return _.toArray(arr);
+    },
+    doc2: function() {
+        return Meteor.users.findOne();
     }
 });
+
+Template.registerHelper("optionsRole", function() {
+    return [
+        
+    ];
+});
+// <li><a href="#">Mid</a></li>
+            //             <li><a href="#">Tempo Mid</a></li>
+            //             <li><a href="#">Farming Mid</a></li>
+            //             <li><a href="#">Offlane</a></li>
+            //             <li><a href="#">Carry</a></li>
+            //             <li><a href="#">Greedy Carry</a></li>
+            //             <li><a href="#">Support</a></li>
+            //             <li><a href="#">Greedy Support</a></li>
+            //             <li><a href="#">Roaming Support</a></li>
+            //             <li><a href="#">Defensive Support</a></li>
+            //             <li><a href="#">Position 6 Support</a></li>
+Template.updateUserForm.helpers({
+    doc: function() {
+        return Meteor.users.findOne().profile.matchmaking;
+    },
+    options: function() {
+        return {
+            2013: "2013",
+            2014: "2014",
+            2015: "2015"
+        }
+    },
+    mySchema: function() {
+        return Schemas.ProfileMatchmaking;
+    }
+});
+
 
 Template.joinedmenu.helpers({
     buttontext: function() {
@@ -106,6 +149,16 @@ Template.playLayout.events({
         evt.preventDefault();
         var label = evt.currentTarget.innerHTML;
         Meteor.call('changeState', label);
+    },
+    'click #playerPreferences': function(evt) {
+        evt.preventDefault();
+
+        bootbox.dialog({
+            title: "Personal Preferences",
+            message: "<div id='dialogNode'></div>",
+            onEscape: function() {}
+        });
+        Blaze.render(Template.updateUserForm,$("#dialogNode")[0]);
     }
 });
 
@@ -120,6 +173,9 @@ Template.playLayout.rendered = function() {
     $('#hostmodal').on('shown.bs.modal', function(eve) {
         $('#gametitle')[0].focus();
     });
+    // $('#hero1').select2({
+    //     width: "180px"
+    // });
 };
 
 /*
@@ -131,6 +187,10 @@ Meteor.methods({
     resetState: function() {
         //Here we reset all Session variables which should be affected by resetState()
         Session.set('selectedChallenger', undefined);
+    },
+    editPreferences: function(doc) {
+        check(doc, Schemas.ProfileMatchmaking);
+        bootbox.hideAll();
     }
 });
 

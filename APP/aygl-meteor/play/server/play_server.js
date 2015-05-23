@@ -17,6 +17,18 @@ generateMatchPassword = function() {
 }
 
 Meteor.methods({
+    editPreferences: function(doc) {
+        check(doc, Schemas.ProfileMatchmaking);
+        //console.log(doc);
+        this.unblock();
+        // Update Meteor.users
+        Meteor.users.update(
+            {_id: this.userId},
+            { $set: {
+                "profile.matchmaking": doc
+            }}
+        );
+    },
     resetState: function(user) {
         //If and only if, called by SERVER, take note of the userId supplied, else perform reset on the user who called the method
         var targetUser;
