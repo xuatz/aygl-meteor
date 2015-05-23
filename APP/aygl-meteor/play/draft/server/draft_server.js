@@ -21,51 +21,6 @@ draft_getGameHostSide = function() {
     return "D";
 }
 
-draft_updateGameForNextDraft = function(gameId) {
-    Games.update({
-        _id: gameId
-    }, {
-        $set: {
-            draftingSide: null
-        }
-    });
-
-    var g = Games.findOne({
-        _id: gameId
-    });
-
-    var hostSide = draft_getGameHostSide();
-    var draftCount = g.draftCount;
-
-    var draftingSide = DRAFTING_ORDER[draftCount];
-    var newSide;
-    switch (draftingSide) {
-        case "H":
-            newSide = hostSide;
-            break;
-        case "C":
-            if (hostSide === "R") {
-                newSide = "D";
-            } else {
-                newSide = "R";
-            }
-            break;
-    }
-
-    Games.update({
-        _id: gameId
-    }, {
-        $set: {
-            draftingSide: newSide
-        },
-        $inc: {
-            draftCount: 1
-        }
-    });
-
-    return draftCount + 1;
-}
-
 draft_isDraftingComplete = function(game) {
     console.log("isDraftingComplete?");
 
@@ -117,7 +72,6 @@ function draft_checkIfCptDraftedPlayer(gameId, draftCount) {
 
 draft_newDraftingTurn = function(gameId) {
     console.log('start of newDraftingTurn');
-
     console.log(gameId);
 
     var g = Games.findOne({
@@ -134,7 +88,7 @@ draft_newDraftingTurn = function(gameId) {
 
 
         } else {
-            var draftCount = draft_updateGameForNextDraft(gameId);
+            var draftCount = Meteor.call("draft_updateGameForNextDraft", gameId);
 
             Meteor.setTimeout(
                 function() {
@@ -215,6 +169,50 @@ draft_draftPlayer = function(gameId, team, playerId) {
 //===============================================================
 
 Meteor.methods({
+    draft_updateGameForNextDraft: function(gameId) {
+        // Games.update({
+        //     _id: gameId
+        // }, {
+        //     $set: {
+        //         draftingSide: null
+        //     }
+        // });
+
+        var g = Games.findOne({
+            _id: gameId
+        });
+
+        var hostSide = draft_getGameHostSide();
+        var draftCount = g.draftCount;
+
+        var draftingSide = DRAFTING_ORDER[draftCount];
+        var newSide;
+        switch (draftingSide) {
+            case "H":
+                newSide = hostSide;
+                break;
+            case "C":
+                if (hostSide === "R") {
+                    newSide = "D";
+                } else {
+                    newSide = "R";
+                }
+                break;
+        }
+
+        Games.update({
+            _id: gameId
+        }, {
+            $set: {
+                draftingSide: newSide
+            },
+            $inc: {
+                draftCount: 1
+            }
+        });
+
+        return draftCount + 1;
+    },
     reset: function(gameId) {
         //THIS IS A DEBUGGING FUNCTION. REMOVE BEFORE PRODUCTION
         Games.update({

@@ -32,7 +32,6 @@ Template.draftinglayout.helpers({
 
 
 
-var count = 0;
 var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
 
 //timer ticks every 1s
@@ -40,13 +39,18 @@ var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seco
 
 var resetDraftingTime = function() {
     timer.stop();
-    count = 0;
     draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
     timer.start();
 }
 
-Template.timer.onRendered(function() {
-    console.log('hi im being rendered!');
+Meteor.methods({
+    draft_updateGameForNextDraft: function(gameId) {
+        resetDraftingTime();
+    }
+});
+
+Template.timer.onCreated(function() {
+    console.log('hi im being created!');
     resetDraftingTime();
 });
 
