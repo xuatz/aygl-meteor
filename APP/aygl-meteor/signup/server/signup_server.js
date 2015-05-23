@@ -41,14 +41,14 @@ var createNewUserOnMainDB = function(username) {
             if (err) {
                 logger.error('==================');
                 logger.error('there is an error');
-                logger.error(err);
+                console.log(err);
             }
             if (res) {
                 logger.debug('==================');
                 logger.debug('there is an res');
-                logger.debug(res);
+                //console.log(res);
                 logger.debug('==================');
-                logger.debug(res.content);                   
+                console.log(res.content);
 
                 if (res.statusCode === 201) {
                     //TODO get the right value from res
