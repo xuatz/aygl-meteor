@@ -149,8 +149,12 @@ Template.verifiedsignupform.events({
                 avatar: steamIdentity.avatar,
                 hash: steamIdentity.sig,
                 matchmaking: {
-                    preferred_role: null,
-                    top3: {
+                    preferred_role: {
+                        role1: null,
+                        role2: null,
+                        role3: null
+                    },
+                    preferred_hero: {
                         hero1: null,
                         hero2: null,
                         hero3: null
@@ -158,8 +162,8 @@ Template.verifiedsignupform.events({
                 },
                 ranking: {
                     rank: 'TBD',
-                    percentile: '0.4', //default value
-                    calibration: 5 //xz: not used
+                    percentile: '0.4' //default value
+                    //calibration: 5 //xz: not used
                 },
                 privateData: {
                     playerStats: {
