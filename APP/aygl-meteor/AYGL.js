@@ -176,6 +176,55 @@ Meteor.users.deny({
     }
 });
 
+/**
+ * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+ */
+logger = new function () {
+  var insertMessage = function(type, message, console) {
+    if (console) {
+      //TODO check if typesafe
+      console.log(message);  
+    }
+
+    var username;
+    if (Meteor.user()) {
+      username = Meteor.user().username;
+    }
+
+    MyLogger.insert({
+      type: type,
+      message: message,
+      username: username
+    });
+  };
+
+
+  /**
+   * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+   */
+  this.info = function (message) {
+    insertMessage("info", message, true);
+  };
+
+  this.debug = function (message) {
+    insertMessage("debug", message, true);
+  };
+
+  this.warning = function (message) {
+    insertMessage("warning", message, true);
+  };
+
+  this.error = function (message) {
+    insertMessage("error", message, true);
+  };
+}
+
+/*
+======================================================================================================
+Prototypes for Mongo Collections
+======================================================================================================
+*/
+
 dota2assets = new function () {
   this.heroes = 
     {
@@ -831,56 +880,7 @@ dota2assets = new function () {
   ;
 }
 
-/**
- * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
- */
-logger = new function () {
-  var insertMessage = function(type, message) {
-    //TODO check if typesafe
-    console.log(message);
-
-    var username;
-    if (Meteor.user()) {
-      username = Meteor.user().username;
-    }
-
-    MyLogger.insert({
-      type: type,
-      message: message,
-      username: username
-    });
-  };
-
-
-  /**
-   * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
-   */
-  this.info = function (message) {
-    insertMessage("info", message);
-  };
-
-  this.debug = function (message) {
-    insertMessage("debug", message);
-  };
-
-  this.warning = function (message) {
-    insertMessage("warning", message);
-  };
-
-  this.error = function (message) {
-    insertMessage("error", message);
-  };
-}
-
-/*
-======================================================================================================
-Prototypes for Mongo Collections
-======================================================================================================
-*/
-
-
-var
-roleList = {
+var roleList = {
   mid: "Mid",
   tempoMid: "Tempo Mid",
   farmingMid: "Farming Mid",

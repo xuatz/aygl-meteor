@@ -51,10 +51,19 @@ Any Templates used for the Signup Process will be placed here
 
 <template name="logTable">
     <div>
+        {{each logs}}
+            {{> logText}}
+        {{/each}}
+
         {{> tabular table=TabularTables.LogTable selector=selector class="table table-striped table-bordered table-condensed"}}
     </div>
 </template>
 
+<template name="logText">
+    <div>
+        console.log(this);
+    </div>
+</template>
 
 <template name="adminMatchPendingUpdateDetail">
     <div>

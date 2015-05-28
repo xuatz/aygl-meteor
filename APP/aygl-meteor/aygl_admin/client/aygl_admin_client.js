@@ -13,6 +13,12 @@ Template.adminMatchPendingUpdateList.helpers({
   }
 });
 
+Template.logTable.helpers({
+    logs: function() {
+        return MyLogger.find().fetch();
+    }
+});
+
 Template.adminMatchPendingUpdateList.events({
     'click #PU' : function(event) {
         event.preventDefault();
