@@ -17,11 +17,12 @@ getPlayerSlotOfUserFromMatchDetails = function(matchDetails, username) {
 }
 
 getUserRoomObject = function() {
-    console.log('Player state: ' + Meteor.user().profile.state);
     var state = Meteor.user().profile.state;
+    console.log('Player state: ' + state);
 
     if (!state) {
         // there is something wrong
+        console.log('there is something wrong, there is no state');
     } else {
         switch(state) {
             case PLAYER_STATE_DRAFTING:
