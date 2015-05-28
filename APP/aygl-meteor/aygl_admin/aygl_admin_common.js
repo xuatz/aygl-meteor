@@ -42,6 +42,21 @@ MatchPlayerResult = new SimpleSchema({
     type: Number,
     label: "Score Adjustment",
     optional: true
+  },
+  minScore: {
+    type: Number,
+    label: "minScore",
+    optional: true
+  },
+  maxScore: {
+    type: Number,
+    label: "maxScore",
+    optional: true
+  },
+  score: {
+    type: Number,
+    label: "score",
+    optional: true
   }
 });
 
