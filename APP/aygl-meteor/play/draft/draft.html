@@ -2,7 +2,6 @@
 TEMPLATE DEFINITIONS FOR DRAFT SCREEN
 Any Templates used for the Drafting Screen will be placed here
 -->
-
 <!--
     SUB-LAYOUT TEMPLATE
     The below layout is not used as an iron:router layout, but
@@ -10,122 +9,110 @@ Any Templates used for the Drafting Screen will be placed here
 -->
 <template name="draftinglayout">
     <div class="row">
-        <div class="col-xs-5" >
+        <div class="subpage-title">
+            Drafting
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
             <div class="radiant">
-                {{> draftingradiant}}
+                <div class="radiant-title">
+                    {{teams.R.[0].name}}
+                </div>
+                <div class="drafting-team-wrapper">
+                    <img src="{{teams.R.[0].avatar}}" class="drafting-captain">
+                    <div class="drafting-members-wrapper">
+                        <div class="col-xs-6">
+                            <div class="teammate">
+                                <img src="{{teams.R.[1].avatar}}">
+                                <div class="member-name">{{teams.R.[1].name}}</div>
+                            </div>
+                            <div class="teammate">
+                                <img src="{{teams.R.[2].avatar}}">
+                                <div class="member-name">{{teams.R.[2].name}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="teammate">
+                                <img src="{{teams.R.[3].avatar}}">
+                                <div class="member-name">{{teams.R.[3].name}}</div>
+                            </div>
+                            <div class="teammate">
+                                <img src="{{teams.R.[4].avatar}}">
+                                <div class="member-name">{{teams.R.[4].name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xs-2" >
-            <div class="subpage-title">
-                Drafting
-            </div>
+        <div class="col-xs-2">
             <div class="drafting-time text-warning text-center">
                 {{> timer}}
             </div>
             <h4 class="text-info text-center">
-            Your Turn!
+            {{drafter}}'s Turn!
             </h4>
         </div>
-        <div class="col-xs-5" >
+        <div class="col-xs-5">
             <div class="dire">
-                {{> draftingdire}}
+                <div class="dire-title">
+                    {{teams.D.[0].name}}
+                </div>
+                <div class="drafting-team-wrapper">
+                    <img src="{{teams.D.[0].avatar}}" class="drafting-captain">
+                    <div class="drafting-members-wrapper">
+                        <div class="col-xs-6">
+                            <div class="teammate">
+                                <img src="{{teams.D.[1].avatar}}">
+                                <div class="member-name">{{teams.D.[1].name}}</div>
+                            </div>
+                            <div class="teammate">
+                                <img src="{{teams.D.[2].avatar}}">
+                                <div class="member-name">{{teams.D.[2].name}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="teammate">
+                                <img src="{{teams.D.[3].avatar}}">
+                                <div class="member-name">{{teams.D.[3].name}}</div>
+                            </div>
+                            <div class="teammate">
+                                <img src="{{teams.D.[4].avatar}}">
+                                <div class="member-name">{{teams.D.[4].name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="divider"></div>
     <div class="row drafting-bottom-title">
         <div class="col-xs-5">
-            <h1 class="choose-player text-gold">Choose here!</h1>
+            <h1 class="choose-player text-gold">Draft Your Team!</h1>
         </div>
-        <a class="btn btn-success centered col-xs-2">Choose Player</a>
+        <a class="btn btn-success centered col-xs-2">MINE!</a>
         <div class="col-xs-5">
             <div class="drafting-note text-danger">
-                Click on the player to select
+                Hit "MINE!" to reserve a player!
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="drafting-pool">
-            {{> draftingpool}}
+                {{> draftingpool}}
             </div>
         </div>
     </div>
 </template>
-
-
-
 <!--RENDERED TEMPLATES -->
-
 <template name="timer">
     <div class="timer">{{time}}</div>
 </template>
-
-<template name="draftingradiant">
-    <div class="radiant-title">
-                every-mother-son
-    </div>
-    <div class="drafting-team-wrapper">
-        <img src="../profileimg.jpg" class="drafting-captain">
-        <div class="drafting-members-wrapper">
-            <div class="col-xs-6">
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi1</div>
-                </div>
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi2</div>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi1</div>
-                </div>
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi2</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<template name="draftingdire">
-    <div class="dire-title">
-                itchyfishy
-    </div>
-    <div class="drafting-team-wrapper">
-        <img src="../profileimg.jpg" class="drafting-captain">
-        <div class="drafting-members-wrapper">
-            <div class="col-xs-6">
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi1</div>
-                </div>
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi2</div>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi1</div>
-                </div>
-                <div class ="teammate">
-                    <img src="../profileimg.jpg">
-                    <div class="member-name">hihi2</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <template name="draftingpool">
     <table class="table table-striped table-hover text-center">
-        
         <thead>
             <tr>
                 <th class="col-xs-1">Rank</th>
@@ -137,10 +124,22 @@ Any Templates used for the Drafting Screen will be placed here
                 <th class="col-xs-1">Best Hero 2</th>
                 <th class="col-xs-1">Best Hero 3</th>
                 <th class="col-xs-1">% Wins</th>
-                
             </tr>
         </thead>
         <tbody>
+            {{#each eligiblePlayers}}
+            <tr>
+                <td>{{arrayPos}}</td>
+                <td>{{username}}</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+            </tr>
+            {{/each}}
             <tr>
                 <td>1</td>
                 <td>itchyfishy</td>
