@@ -882,7 +882,7 @@ dota2assets = new function () {
   ;
 }
 
-var roleList = {
+roleList = {
   mid: "Mid",
   tempoMid: "Tempo Mid",
   farmingMid: "Farming Mid",
