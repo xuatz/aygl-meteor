@@ -4,98 +4,100 @@ Server Configurations
 ======================================================================================================
 */
 
-//le_web_address = '52.74.37.252:3000';
-//le_web_address = '128.199.86.69:80';
-le_web_address = 'localhost:3000';
+le_web_address = 'localhost:3000'; //for local
 //le_web_address = 'localhost:3050';
-//le_web_address = '128.199.86.69:3050';
+//le_web_address = '52.74.37.252:3000'; //for SIT
+//le_web_address = '128.199.86.69:80'; //for PRD
 
 //=============================
 
 if (Meteor.isServer) {
+    MatchesCollection.remove({});
     if (MatchesCollection.find().count() === 0) {
         console.log('im inserting starting data');
         MatchesCollection.insert(
-          { 
-            "status" : "PU", 
+          {
+            "status" : "PU",
             "result" : "D",
             "admin" : "moltencrap",
             "screenshotUrl" : "www.niceurl.com/huatah",
             "matchPlayerResults" : [
               {
-              "username" : "moltencrap",
-              "playerSlot" : "0",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+                "minScore" : "1000",
+                "username" : "moltencrap",
+                "playerSlot" : 0,
+                "maxScore" : 3000,
+                "score" : 2000
               },
               {
               "username" : "pikachu",
-              "playerSlot" : "1",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 1,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "hamtaro",
-              "playerSlot" : "2",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 2,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "kyubey",
-              "playerSlot" : "3",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 3,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "Dendi",
-              "playerSlot" : "4",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 4,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "itchyfishy",
-              "playerSlot" : "5",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 5,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "wertyteddy",
-              "playerSlot" : "6",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 6,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
-              "username" : "banana",
-              "playerSlot" : "7",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "username" : "bananafritters",
+              "playerSlot" : 7,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "tongkatali",
-              "playerSlot" : "8",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 8,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               },
               {
               "username" : "mongyethewha",
-              "playerSlot" : "9",
-              "minScore" : "1000",
-              "maxScore" : "3000",
-              "score" : "2000"
+              "playerSlot" : 9,
+              "minScore" : 1000,
+              "maxScore" : 3000,
+              "score" : 2000
               }
             ]
           }
         );
     }
+    var m = MatchesCollection.findOne();
+    console.log(m);
 
     if (Games.find().count() === 0) {
         Games.insert({
@@ -183,7 +185,7 @@ logger = new function () {
   var insertMessage = function(type, message, console) {
     if (console) {
       //TODO check if typesafe
-      console.log(message);  
+      console.log(message);
     }
 
     var username;
@@ -243,7 +245,7 @@ Prototypes for Mongo Collections
 */
 
 dota2assets = new function () {
-  this.heroes = 
+  this.heroes =
     {
       ancient_apparition : {
         name: "Ancient Apparition",
@@ -997,92 +999,92 @@ Schemas.ProfileMatchmaking = new SimpleSchema({
   }
 });
 
-Schemas.UserProfile = new SimpleSchema({
-  steamID: {
-    type: String,
-    optional: true
-  },
-  personaname: {
-    type: String,
-    optional: true
-  },
-  avatar: {
-    type: String,
-    optional: true
-  },
-  hash: {
-    type: String,
-    optional: true
-  },
-  matchmaking: {
-      type: Schemas.ProfileMatchmaking,
-      optional: true
-  },
-  ranking: {
-    type: Object,
-    optional: true
-  },
-  // "ranking.$.rank": {
-  //   type: String,
-  //   optional: true
-  // },
-  // "ranking.$.percentile": {
-  //   type: Number,
-  //   optional: true
-  // },
-  privateData: {
-    type: Object,
-    optional: true
-  },
-  "privateData.$.playerStats": {
-    type: [Object],
-    optional: true
-  },
-  "privateData.$.playerStats.$.minScore": {
-    type: Number,
-    optional: true
-  },
-  "privateData.$.playerStats.$.maxScore": {
-    type: Number,
-    optional: true
-  },
-  updated: {
-    type: String,
-    optional: true
-  },
-  state: {
-    type: String,
-    optional: true
-  },
-  room: {
-    type: String,
-    optional: true
-  },
-});
-
-Schemas.User = new SimpleSchema({
-  username: {
-    type: String,
-    optional: true
-  },
-  password: {
-    type: Object,
-    optional: true,
-    blackbox: true
-  },
-  email: {
-    type: String,
-    optional: true
-  },
-  profile: {
-    type: Schemas.UserProfile,
-    optional: true
-  },
-  status: {
-    type: Object,
-    optional: true,
-    blackbox: true
-  }
-});
+// Schemas.UserProfile = new SimpleSchema({
+//   steamID: {
+//     type: String,
+//     optional: true
+//   },
+//   personaname: {
+//     type: String,
+//     optional: true
+//   },
+//   avatar: {
+//     type: String,
+//     optional: true
+//   },
+//   hash: {
+//     type: String,
+//     optional: true
+//   },
+//   matchmaking: {
+//       type: Schemas.ProfileMatchmaking,
+//       optional: true
+//   },
+//   ranking: {
+//     type: Object,
+//     optional: true
+//   },
+//   // "ranking.$.rank": {
+//   //   type: String,
+//   //   optional: true
+//   // },
+//   // "ranking.$.percentile": {
+//   //   type: Number,
+//   //   optional: true
+//   // },
+//   privateData: {
+//     type: Object,
+//     optional: true
+//   },
+//   "privateData.$.playerStats": {
+//     type: [Object],
+//     optional: true
+//   },
+//   "privateData.$.playerStats.$.minScore": {
+//     type: Number,
+//     optional: true
+//   },
+//   "privateData.$.playerStats.$.maxScore": {
+//     type: Number,
+//     optional: true
+//   },
+//   updated: {
+//     type: String,
+//     optional: true
+//   },
+//   state: {
+//     type: String,
+//     optional: true
+//   },
+//   room: {
+//     type: String,
+//     optional: true
+//   },
+// });
+//
+// Schemas.User = new SimpleSchema({
+//   username: {
+//     type: String,
+//     optional: true
+//   },
+//   password: {
+//     type: Object,
+//     optional: true,
+//     blackbox: true
+//   },
+//   email: {
+//     type: String,
+//     optional: true
+//   },
+//   profile: {
+//     type: Schemas.UserProfile,
+//     optional: true
+//   },
+//   status: {
+//     type: Object,
+//     optional: true,
+//     blackbox: true
+//   }
+// });
 
 //Meteor.users.attachSchema(Schemas.User);

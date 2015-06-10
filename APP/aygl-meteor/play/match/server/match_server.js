@@ -103,7 +103,7 @@ Meteor.methods({
 
 		var username = user.username;
 		var playerSlot = getPlayerSlotOfUserFromMatchDetails(m, username);
-		
+
 		//TODO TBR (to be removed)
         var g = Games.findOne({}); 	//demo for dev purpose only
         var gameId = m.gameId || g._id;
@@ -142,7 +142,11 @@ Meteor.methods({
 			matchDetails = MatchesCollection.findOne();
 		}
 
+		console.log(matchDetails);
+
 		var matchString = JSON.stringify(matchDetails);
+
+		console.log(matchString);
 
 	    var header = '/match';
 	    var payload = matchString;
@@ -150,7 +154,7 @@ Meteor.methods({
 
 	    // console.log('==================');
 	    // console.log(hash);
-	    
+
 	    var fut = new Future();
 
 	    HTTP.call("POST", "http://localhost:3000/match",
@@ -174,7 +178,7 @@ Meteor.methods({
 	        		console.log('there is an res');
 	        		console.log(res);
 	        		console.log('==================');
-	        		console.log(res.content);	        		
+	        		console.log(res.content);
 
 	        		if (res.statusCode === 201) {
 	        			//its a success!
@@ -189,7 +193,7 @@ Meteor.methods({
 								$set: {
 									status : 'PU'
 								}
-								
+
 							}
 						);
 	                	//TODO log error somewhere???
@@ -355,7 +359,7 @@ var checkMatchResultReports = function(gameId) {
 								//after 3 hours, we will take the party member reports into consideration
 
 								console.log(g);
-								console.log('===============');								
+								console.log('===============');
 								console.log(g.resultReports);
 								console.log('===============');
 

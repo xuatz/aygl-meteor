@@ -81,9 +81,9 @@ table.text-center thead tr th, table.text-center tbody tr td {
     width: 60px;
     height: 60px;
     vertical-align:middle;
-    -webkit-border-radius: 99em;
-    -moz-border-radius: 99em;
-    border-radius: 50%;
+    #-webkit-border-radius: 99em;
+    #-moz-border-radius: 99em;
+    border-radius: 40% 5%;
     border: 3px solid #aaa;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
     border-color:CornflowerBlue;
