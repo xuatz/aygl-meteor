@@ -181,9 +181,9 @@ Meteor.users.deny({
 /**
  * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
  */
-logger = new function () {
-  var insertMessage = function(type, message, console) {
-    if (console) {
+logger = new function() {
+  var insertMessage = function(type, message, printConsole) {
+    if (printConsole) {
       //TODO check if typesafe
       console.log(message);
     }
