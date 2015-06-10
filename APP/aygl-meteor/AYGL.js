@@ -209,32 +209,32 @@ logger = new function() {
     insertMessage("debug", message, true);
   };
 
-  this.debug = function (message, console) {
-    insertMessage("debug", message, console);
+  this.debug = function (message, printConsole) {
+    insertMessage("debug", message, printConsole);
   };
 
   this.info = function (message) {
     insertMessage("info", message, true);
   };
 
-  this.info = function (message, console) {
-    insertMessage("info", message, console);
+  this.info = function (message, printConsole) {
+    insertMessage("info", message, printConsole);
   };
 
   this.warning = function (message) {
     insertMessage("warning", message, true);
   };
 
-  this.warning = function (message, console) {
-    insertMessage("warning", message, console);
+  this.warning = function (message, printConsole) {
+    insertMessage("warning", message, printConsole);
   };
 
   this.error = function (message) {
     insertMessage("error", message, true);
   };
 
-  this.error = function (message, console) {
-    insertMessage("error", message, console);
+  this.error = function (message, printConsole) {
+    insertMessage("error", message, printConsole);
   };
 }
 
