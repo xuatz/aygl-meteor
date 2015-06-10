@@ -1,8 +1,59 @@
-
-
 Template.draftinglayout.helpers({
-	selectedGame: function() {
+    selectedGame: function() {
         return getUserRoomObject();
+    },
+    drafter: function() {
+        var game = getUserRoomObject();
+        var drafter = _.find(game.captains, function(player) {
+            return (player.team === game.draftingSide)
+        });
+        var result = drafter.name;
+        return result;
+    },
+    teams: function() {
+        var result = {
+            R: [],
+            D: []
+        };
+        var game = getUserRoomObject();
+        //Get the Captains
+        var RCaptain = _.find(game.captains, function(cpt) {
+            if (cpt.team === "R") {
+                return true;
+            }
+        });
+        result.R.push(RCaptain);
+        var DCaptain = _.find(game.captains, function(cpt) {
+            if (cpt.team === "D") {
+                return true;
+            }
+        });
+        result.D.push(DCaptain);
+        //Get the Players
+        var RTeammates = _.where(game.draft, {
+            team: "R"
+        });
+        result.R = _.union(result.R, RTeammates);
+        var DTeammates = _.where(game.draft, {
+            team: "D"
+        });
+        result.D = _.union(result.D, DTeammates);
+
+        return result;
+    }
+});
+
+Template.draftingpool.helpers({
+    eligiblePlayers: function() {
+        var result;
+        result = _.filter(Meteor.users.find({},{sort:{"profile.ranking.percentile":-1}}).map(function(player, index) {
+            player.arrayPos = index+1;
+            return player;
+        }), function(user) {
+            return (user.username !== Meteor.user().username);
+        });
+
+        return result;
     }
 });
 
@@ -30,66 +81,27 @@ Template.draftinglayout.helpers({
 
 
 
-
-
-var draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
-
-//timer ticks every 1s
-var timer = new Chronos.Timer(1000); //in ms, divide by 1000 to get time in seconds
-
-var resetDraftingTime = function() {
-    timer.stop();
-    draftTimeLeft = DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME;
-    timer.start();
-}
-
-Meteor.methods({
-    draft_updateGameForNextDraft: function(gameId) {
-        resetDraftingTime();
-    }
-});
-
-Template.timer.onCreated(function() {
-    console.log('hi im being created!');
-    resetDraftingTime();
-});
 
 Template.timer.helpers({
-    time: function () {
+    time: function() {
         //get the timer ticking
         console.log('tick tock');
+        var game = Games.findOne({
+            _id: Meteor.user().profile.room
+        });
 
-        timer.time.get();
-        draftTimeLeft--;
-
-        if (draftTimeLeft >= 30) { // this is so that the browser gt time to render shit before countdown begins
-            return 30;
-        } else {
-            if (draftTimeLeft === 0) {
-                timer.stop();
-
-                //====================
-
-                // var havenPickPlayer = false; //TODO insert logic
-                // if (havenPickPlayer) {
-                //     
-                // }
-
-                //====================          
-
-                // var gameId = "something"; //TODO
-                // var username = "some name"; //TODO
-
-                // Meteor.call('endOfCurrentDraftingTurn', gameId, username, function(err, res) {
-                //     if (res) {
-                //         switchDraftingSide(res);
-                //     }
-                // });
-
-                return null;
-            } else {
-                return draftTimeLeft;
-            }
+        if (game.draft.length >= 8) {
+            return 0;
         }
-    }   
+        var endTime = moment(game.updatedDttm).add(DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME, 'seconds');
+        var now = moment(TimeSync.serverTime());
+        var duration = moment.duration(endTime - now);
+        if (duration.asSeconds() > 30) {
+            return 30;
+        } else if (duration.asSeconds() < 0) {
+            return 0;
+        } else {
+            return Math.floor(duration.asSeconds());
+        }
+    }
 });

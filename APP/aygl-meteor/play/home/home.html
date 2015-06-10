@@ -267,41 +267,50 @@
 </template>
 <template name="homesidecontent">
     <div class="col-xs-12">
-        <div class="list-group">
-            <div class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h3 class="list-group-item-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3 class="list-group-item-heading">
                                 <strong>Just Another AYGL Game Lobby</strong>
                         </h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h4 class="list-group-item-text text-center">itchyfishy</h4>
-                    </div>
-                    <div class="col-xs-2">
-                        <h4 class="list-group-item-text text-danger text-center"><strong class="text-danger">VS</strong></h4>
-                    </div>
-                    <div class="col-xs-5">
-                        <h4 class="list-group-item-text text-center">moltencrap</h4>
-                    </div>
-                </div>
-                <div class="row toppadding">
-                    <div class="col-xs-4 text-center">
-                        <h4>77%</h4>
-                        <h6>Avg. Percentile</h6>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h4>10/10</h4>
-                        <h6>Players</h6>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h4>15%</h4>
-                        <h6>Skill Difference Threshold</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4 class="list-group-item-text text-center">itchyfishy</h4>
+                            </div>
+                            <div class="col-xs-2">
+                                <h4 class="list-group-item-text text-danger text-center"><strong class="text-danger">VS</strong></h4>
+                            </div>
+                            <div class="col-xs-5">
+                                <h4 class="list-group-item-text text-center">moltencrap</h4>
+                            </div>
+                        </div>
+                        <div class="row toppadding">
+                            <div class="col-xs-4 text-center">
+                                <h4>77%</h4>
+                                <h6>Avg. Percentile</h6>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <h4>10/10</h4>
+                                <h6>Players</h6>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <h4>15%</h4>
+                                <h6>Skill Difference Threshold</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- THIS IS DEBUG ZONE BELOW -->
+        <div class="row">
+            <button id="spawnDummies" class="btn btn-info col-xs-6">Spawn 50 Dummies</button>
+            <button id="despawnDummies" class="btn btn-danger col-xs-6">Remove ALL Dummies</button>
         </div>
     </div>
 </template>
@@ -555,4 +564,3 @@
         </tbody>
     </table>
 </template>
-

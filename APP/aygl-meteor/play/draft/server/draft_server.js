@@ -10,15 +10,9 @@ draft_error_001_ACTION_NOT_ALLOWED = new Meteor.Error('Draft_Err_001', 'This act
 //======================================================================================================
 serverDraftDurationInMs = (DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME) * 1000;
 
-draft_getGameHostSide = function() {
+draft_getGameHostSide = function(game) {
     //Random logic to determine which side the host is on
-
-    // if (Math.random() > 0.5) {
-    //     return "D";
-    // } else {
-    //     return "R";
-    // }
-    return "D";
+    return game.captains[0].team;
 }
 
 draft_isDraftingComplete = function(game) {
@@ -85,8 +79,6 @@ draft_newDraftingTurn = function(gameId) {
             //goToMatchLobby();
 
             //END POINT OF DRAFTING
-
-
         } else {
             var draftCount = Meteor.call("draft_updateGameForNextDraft", gameId);
 
@@ -182,7 +174,7 @@ Meteor.methods({
             _id: gameId
         });
 
-        var hostSide = draft_getGameHostSide();
+        var hostSide = draft_getGameHostSide(g);
         var draftCount = g.draftCount;
 
         var draftingSide = DRAFTING_ORDER[draftCount];
