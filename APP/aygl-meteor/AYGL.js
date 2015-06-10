@@ -202,20 +202,37 @@ logger = new function () {
   /**
    * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
    */
+
+  this.debug = function (message) {
+    insertMessage("debug", message, true);
+  };
+
+  this.debug = function (message, console) {
+    insertMessage("debug", message, console);
+  };
+
   this.info = function (message) {
     insertMessage("info", message, true);
   };
 
-  this.debug = function (message) {
-    insertMessage("debug", message, true);
+  this.info = function (message, console) {
+    insertMessage("info", message, console);
   };
 
   this.warning = function (message) {
     insertMessage("warning", message, true);
   };
 
+  this.warning = function (message, console) {
+    insertMessage("warning", message, console);
+  };
+
   this.error = function (message) {
     insertMessage("error", message, true);
+  };
+
+  this.error = function (message, console) {
+    insertMessage("error", message, console);
   };
 }
 
