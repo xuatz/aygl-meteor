@@ -52,16 +52,22 @@ Any Templates used for the Signup Process will be placed here
 <template name="logTable">
     <div>
         {{#each logs}}
-            {{> logText}}
+            <p>
+                <div class="col-xs-3">
+                    {{this.createdDttm}} - {{this.type}} - 
+                </div>
+                <div class="col-xs-8">
+                    {{this.message}} - 
+                </div>
+                <div class="col-xs-1">
+                    {{username}}
+                </div>
+            </p>
         {{/each}}
 
-        {{> tabular table=TabularTables.LogTable selector=selector class="table table-striped table-bordered table-condensed"}}
-    </div>
-</template>
+        <br/>
 
-<template name="logText">
-    <div>
-        console.log(this);
+        {{> tabular table=TabularTables.LogTable selector=selector class="table table-striped table-bordered table-condensed"}}
     </div>
 </template>
 

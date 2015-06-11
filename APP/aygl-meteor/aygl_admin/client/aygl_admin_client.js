@@ -16,6 +16,9 @@ Template.adminMatchPendingUpdateList.helpers({
 Template.logTable.helpers({
     logs: function() {
         return MyLogger.find().fetch();
+    },
+    convert: function(obj) {
+        return JSON.stringify(obj);
     }
 });
 
