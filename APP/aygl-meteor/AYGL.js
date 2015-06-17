@@ -184,7 +184,6 @@ Meteor.users.deny({
 logger = new function() {
   var insertMessage = function(type, message, printConsole) {
     if (printConsole) {
-      //TODO check if typesafe
       console.log(message);
     }
 
@@ -200,40 +199,22 @@ logger = new function() {
     });
   };
 
-
   /**
    * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
    */
-
-  this.debug = function (message) {
-    insertMessage("debug", message, true);
-  };
-
-  this.debug = function (message, printConsole) {
+  this.debug = function(message, printConsole) {
     insertMessage("debug", message, printConsole);
   };
 
-  this.info = function (message) {
-    insertMessage("info", message, true);
-  };
-
-  this.info = function (message, printConsole) {
+  this.info = function(message, printConsole) {
     insertMessage("info", message, printConsole);
   };
 
-  this.warning = function (message) {
-    insertMessage("warning", message, true);
-  };
-
-  this.warning = function (message, printConsole) {
+  this.warning = function(message, printConsole) {
     insertMessage("warning", message, printConsole);
   };
 
-  this.error = function (message) {
-    insertMessage("error", message, true);
-  };
-
-  this.error = function (message, printConsole) {
+  this.error = function(message, printConsole) {
     insertMessage("error", message, printConsole);
   };
 }
