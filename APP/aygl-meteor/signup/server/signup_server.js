@@ -24,50 +24,45 @@ Methods used by during the Signup process will be placed here
 //the user starting stats just wun be more 'accurate',
 //but who is to say our theory is 'accurate' in the first place lol
 var createNewUserOnMainDB = function(username) {
-    //TODO replace header with the real 1 on nodejs
-    var header = '/newuser';
-    var payload = username;
-    var hash = ayglHash(header, payload);
+  logger.debug('start of createNewUserOnMainDB');
+  logger.info('creating new user: ' + username);
 
-    var url = "http://" + process.env.MAIN_DB_URL + header;
+  var header = '/playerstat';
+  var payload = username;
+  var hash = ayglHash(header, payload);
 
-    HTTP.call("POST", url,
-        {
-            headers: {
-                authorization: "aygldb " + hash
-            }
-            , params: {username: username}
-        }, function(err, res) {
-            if (err) {
-                logger.error('==================');
-                logger.error('there is an error');
-                console.log(err);
-            }
-            if (res) {
-                logger.debug('==================');
-                logger.debug('there is an res');
-                //console.log(res);
-                logger.debug('==================');
-                console.log(res.content);
+  var url = "http://" + process.env.MAIN_DB_URL + header;
 
-                if (res.statusCode === 201) {
-                    //TODO get the right value from res
-                    Meteor.users.update(
-                        {
-                           username: username 
-                        },
-                        {
-                            $set: {
-                                'profile.privateData.playerStats.minScore': res.minScore,
-                                'profile.privateData.playerStats.maxScore': res.maxScore,
-                                'profile.privateData.playerStats.score': res.score
-                            }
-                        }
-                    );
-                }
-            }
-        }
-    );
+  HTTP.call("POST", url, {
+    headers: {
+      authorization: "aygldb " + hash
+    },
+    params: {
+      username: username
+    }
+  }, function(err, res) {
+    if (err) {
+      logger.error('==================');
+      logger.error('there is an error');
+      logger.error(err);
+    }
+    if (res) {
+      logger.debug('==================');
+      logger.debug('there is an res');
+      logger.debug(JSON.stringify(res));
+      if (res.statusCode === 201) {
+        Meteor.users.update({
+          username: username
+        }, {
+          $set: {
+            'profile.privateData.playerStats.minScore': res.data.minScore,
+            'profile.privateData.playerStats.maxScore': res.data.maxScore,
+            'profile.privateData.playerStats.score': res.data.score
+          }
+        });
+      }
+    }
+  });
 }
 
 Meteor.methods({
