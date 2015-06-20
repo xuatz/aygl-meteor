@@ -9,6 +9,8 @@ le_web_address = 'localhost:3000'; //for local
 //le_web_address = '52.74.37.252:3000'; //for SIT
 //le_web_address = '128.199.86.69:80'; //for PRD
 
+LOGGER_PRINT_CONSOLE = true;
+
 //=============================
 
 if (Meteor.isServer) {
@@ -183,6 +185,10 @@ Meteor.users.deny({
  */
 logger = new function() {
   var insertMessage = function(type, message, printConsole) {
+    if (LOGGER_PRINT_CONSOLE) {
+      printConsole = true;
+    }
+
     if (printConsole) {
       console.log(message);
     }

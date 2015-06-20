@@ -50,6 +50,7 @@ Meteor.methods({
                 reset all players who are in that match to "idle"
             */
 
+            //TODO if 'im-match gt problem'
             return;
         } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting" || targetUser.profile.state === "waiting") {
             //User is a captain. We must remove the game and inform the involved players about the removal
@@ -91,9 +92,6 @@ Meteor.methods({
             }, {
                 multi: true
             });
-
-
-
         } else if (targetUser.profile.state === "pending accept") {
             //User has challenged a captain. He/She should be removed from the Game list and reset to idle
             //Remove the player from the Challengers' List
