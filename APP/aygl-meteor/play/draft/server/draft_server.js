@@ -76,9 +76,8 @@ draft_newDraftingTurn = function(gameId) {
         console.log("Game not found!");
     } else {
         if (draft_isDraftingComplete(g)) {
-            //goToMatchLobby();
-
-            //END POINT OF DRAFTING
+            logger.info('End of drafting, going to match lobby');
+            draft_goToMatchLobby(g);
         } else {
             var draftCount = Meteor.call("draft_updateGameForNextDraft", gameId);
 
@@ -91,6 +90,132 @@ draft_newDraftingTurn = function(gameId) {
     }
 
     console.log('end of newDraftingTurn');
+}
+
+draft_goToMatchLobby = function(game) {
+    logger.debug('start of draft_goToMatchLobby()');
+    logger.debug('game._id: ' + game._id);
+
+    var matchPlayerResults = [];
+    var usernames = [];
+
+    if (!game.draft) {
+        logger.error('game.draft is empty!');
+    } else {
+        if (!game.captains) {
+
+        } else {
+            logger.debug('pushing cpts to matchPlayerResults first');
+
+            var cptRad;
+            var cptDire;
+
+            if (game.captains[0] === 'R') {
+                cptRad = game.captains[0];
+                cptDire = game.captains[1];
+            } else {
+                cptDire = game.captains[0];
+                cptRad = game.captains[1];
+            }
+
+            var user = Meteor.users.findOne({ username: cptRad.name });
+
+            var mpr = {
+                'username': cptRad.name,
+                'playerSlot': 0,
+                'minScore': user.privateData.playerStats.minScore,
+                'maxScore': user.privateData.playerStats.maxScore,
+                'score': user.privateData.playerStats.score
+            };
+
+            matchPlayerResults.push(mpr);
+            usernames.push(mpr.username);
+
+            user = Meteor.users.findOne({ username: cptDire.name });
+
+            mpr = {
+                'username': cptDire.name,
+                'playerSlot': 5,
+                'minScore': user.privateData.playerStats.minScore,
+                'maxScore': user.privateData.playerStats.maxScore,
+                'score': user.privateData.playerStats.score
+            };
+
+            matchPlayerResults.push(mpr);
+            usernames.push(mpr.username);
+        }
+
+        logger.debug('game.draft.size: ' + game.draft.length);
+
+        _.each(game.draft, function(player) {
+            if (!player.team) {
+
+            } else {
+                var playerSlot = player.teamSlot;
+
+                if (player.team === 'D') {
+                    playerSlot = player.teamSlot + 5;
+                }
+
+                var user = Meteor.users.findOne({ username: player.name });
+
+                //TODO pending playerSlot information, either 0-9 or rad/dire 0-4
+                var mpr = {
+                    'username': player.name,
+                    'playerSlot': playerSlot,
+                    'minScore': user.privateData.playerStats.minScore,
+                    'maxScore': user.privateData.playerStats.maxScore,
+                    'score': user.privateData.playerStats.score
+                };
+
+                matchPlayerResults.push(mpr);
+                usernames.push(mpr.username);
+            }
+        });
+
+        logger.debug('matchPlayerResults');
+        logger.debug(matchPlayerResults);
+        logger.debug('==============');
+
+        logger.debug('usernames');
+        logger.debug(usernames);
+        logger.debug('==============');
+
+        //==============
+
+        var password = CryptoJS.MD5(game._id).toString().substring(0, 8);
+
+        Games.update(
+            {_id: game._id},
+            {
+                $set: {
+                    password: password
+                }
+            }
+        );
+
+        //==============
+
+        var matchId = MatchesCollection.insert({
+            gameId: game._id,
+            matchPlayerResults : matchPlayerResults
+        });
+
+        //==============
+
+        Meteor.users.update({
+            'username': {
+                $in: usernames
+            }
+        }, {
+            $set: {
+                "profile.state": PLAYER_STATE_IN_MATCH,
+                "profile.room": matchId
+            }
+        }, {
+            multi: true
+        });
+    }
 }
 
 draft_startDrafting = function(gameId) {
