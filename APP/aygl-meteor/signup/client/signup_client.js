@@ -162,7 +162,7 @@ Template.verifiedsignupform.events({
                 },
                 ranking: {
                     rank: 'TBD',
-                    percentile: '0.4' //default value
+                    percentile: 40 //default value
                     //calibration: 5 //xz: not used
                 },
                 privateData: {

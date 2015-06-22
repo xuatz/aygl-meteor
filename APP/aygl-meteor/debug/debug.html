@@ -1,0 +1,319 @@
+<!-- THIS FILE IS TO BE CHANGED FREQUENTLY IN ACCORDANCE TO THE PAGE BEING BUILT -->
+<template name="pagebuilderlayout">
+    <div class="row">
+        <div class="col-xs-5 text-center">
+            <h3 id="radiantlabel">RADIANT</h3>
+            <div id="radiantprofile0" class="col-xs-3">
+                {{> cptPic}}
+            </div>
+            <div id="radiantprofile1" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="radiantprofile2" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="radiantprofile3" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="radiantprofile4" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="row">
+                <div class="col-xs-12 subpage-title">
+                    Draft Phase
+                </div>
+            </div>
+            {{> timer}}
+        </div>
+        <div class="col-xs-5 text-center">
+            <h3 id="direlabel">DIRE</h3>
+            <div class="col-xs-1"></div>
+            <div id="direprofile4" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="direprofile3" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="direprofile2" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="direprofile1" class="col-xs-2">
+                {{> playerPic}}
+            </div>
+            <div id="direprofile0" class="col-xs-3">
+                {{> cptPic}}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="row">
+                <div class="col-xs-9">
+                    <h2>Draft Your Team <small>Hit "MINE!" to reserve player!</small></h2>
+                </div>
+                <div class="col-xs-3">
+                    <h2>
+                    <button class="btn btn-danger btn-block">MINE!</button>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 triple-unit">
+                    <table style="table-layout:fixed;width:100%;" class="table table-striped table-condensed table-hover text-center draftpool">
+                        <thead>
+                            <tr>
+                                <th style="width:10%;">Rank</th>
+                                <th style="width:30%;">Username</th>
+                                <th style="width:30%;">Preferred Roles</th>
+                                <th style="width:20%;">Preferred Heroes</th>
+                                <th style="width:10%;">% Wins</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- {{#each eligiblePlayers}}
+            <tr>
+                <td>{{arrayPos}}</td>
+                <td>{{username}}</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+            </tr>
+            {{/each}} -->
+                            <tr>
+                                <td>1</td>
+                                <td style="word-wrap:break-word">WWWWWWWWWWWWWWWWWWWWWWWWW</td>
+                                <td>
+                                    <span class="label label-info">Position 6 Support</span>
+                                    <span class="label label-success">Farming Mid</span>
+                                    <span class="label label-danger">Carry</span>
+                                </td>
+                                <td>
+                                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/batrider_icon.png">&nbsp;
+                                    <img data-placement="top" data-toggle="tooltip" title="Zeus" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png">&nbsp;
+                                    <img data-placement="right" data-toggle="tooltip" title="Viper" src="http://cdn.dota2.com/apps/dota2/images/heroes/viper_icon.png">
+                                </td>
+                                <td>96.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>every_mother_son</td>
+                                <td>Support</td>
+                                <td>
+                                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/batrider_icon.png">
+                                    <img data-placement="top" data-toggle="tooltip" title="Zeus" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png">
+                                    <img data-placement="right" data-toggle="tooltip" title="Viper" src="http://cdn.dota2.com/apps/dota2/images/heroes/viper_icon.png">
+                                </td>
+                                <td>86.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>senpai</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>77.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>minnasan</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>73.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>cookie-monster99</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>57.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>smartplaya</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>55.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>a_username</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>54.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>clicky</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>53.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>flyings212</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>51.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>oh_gawd_why</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>50.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>itchyfishy</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>96.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>every_mother_son</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>86.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>senpai</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>77.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>minnasan</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>73.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>cookie-monster99</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>57.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>smartplaya</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>55.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>a_username</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>54.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>clicky</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>53.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>flyings212</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>51.8 %</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td>oh_gawd_why</td>
+                                <td>Support</td>
+                                <td>Batrider</td>
+                                <td>50.8 %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>My Team <small>Draft Composition</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Hero Composition</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/bloodseeker_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/crystal_maiden_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/naga_siren_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/antimage_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/lion_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/dazzle_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/drow_ranger_icon.png"> x 1
+                </div>
+                <div class="col-xs-3">
+                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/tinker_icon.png"> x 1
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Role Composition</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5><span class="label label-info">Support</span> x 3</h5>
+                </div>
+                <div class="col-xs-4">
+                    <h5><span class="label label-warning">Offlane</span> x 3</h5>
+                </div>
+                <div class="col-xs-4">
+                    <h5><span class="label label-success">Mid</span> x 3</h5>
+                </div>
+                <div class="col-xs-4">
+                    <h5><span class="label label-danger">Carry</span> x 3</h5>
+                </div>
+                <div class="col-xs-4">
+                    <h5><span class="label label-primary">Jungle</span> x 3</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="cptPic">
+    <img class="profilecircle radiant cptPic" src="../profileimg.jpg">
+</template>
+<template name="playerPic">
+    <img class="profilecircle dire playerPic" src="../profileimg.jpg">
+</template>

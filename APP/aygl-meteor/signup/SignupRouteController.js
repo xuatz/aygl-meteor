@@ -1,7 +1,9 @@
 SignupController = RouteController.extend();
 
 Router.route('/verifiedsignup/', function() {
-    var sig = encodeURI(this.params.query['s']) + '=';
+    var sig = decodeURIComponent(this.params.query['s']);
+    console.log(sig);
+    console.log(this.params.query.s);
     var routerObj = this;
     routerObj.render('loading');
     Meteor.call('checkValidSignup', sig, function(err, res) {
@@ -42,12 +44,13 @@ Router.route('/signin', function() {
     HTTP.call('POST', newlink, function(err, res) {
         if (res.content.search('is_valid:true') !== -1) {
             //IS VALID
+            console.log(newparams['openid.sig'] + 'LA DI DA');
             VerifyTab.insert({
                 steamID: newparams['openid.claimed_id'].substring(36, newparams['openid.claimed_id'].length),
                 sig: encodeURI(newparams['openid.sig'])
             });
             rinstance.response.writeHead(301, {
-                'Location': '/verifiedsignup/?s=' + newparams['openid.sig']
+                'Location': '/verifiedsignup/?s=' + encodeURIComponent(newparams['openid.sig'])
             });
             rinstance.response.end();
         } else {
