@@ -1,0 +1,21 @@
+.cptPic {
+	width:80px !important;
+	height:80px !important;
+}
+
+.playerPic {
+	width:60px !important;
+	height:60px !important;
+}
+
+.profilecircle.radiant {
+    border: 2px solid green;
+    box-shadow: 0px 0px 30px green;
+}
+.profilecircle.dire {
+    border: 2px solid firebrick;
+    box-shadow: 0px 0px 30px firebrick;
+}
+table.draftpool td{
+	vertical-align:middle !important;
+}

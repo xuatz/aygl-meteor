@@ -17,153 +17,164 @@ if (Meteor.isServer) {
     MatchesCollection.remove({});
     if (MatchesCollection.find().count() === 0) {
         console.log('im inserting starting data');
-        MatchesCollection.insert(
-          {
-            "status" : "PU",
-            "result" : "D",
-            "admin" : "moltencrap",
-            "screenshotUrl" : "www.niceurl.com/huatah",
-            "matchPlayerResults" : [
-              {
-                "minScore" : "1000",
-                "username" : "moltencrap",
-                "playerSlot" : 0,
-                "maxScore" : 3000,
-                "score" : 2000
-              },
-              {
-              "username" : "pikachu",
-              "playerSlot" : 1,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "hamtaro",
-              "playerSlot" : 2,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "kyubey",
-              "playerSlot" : 3,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "Dendi",
-              "playerSlot" : 4,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "itchyfishy",
-              "playerSlot" : 5,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "wertyteddy",
-              "playerSlot" : 6,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "bananafritters",
-              "playerSlot" : 7,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "tongkatali",
-              "playerSlot" : 8,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              },
-              {
-              "username" : "mongyethewha",
-              "playerSlot" : 9,
-              "minScore" : 1000,
-              "maxScore" : 3000,
-              "score" : 2000
-              }
-            ]
-          }
-        );
+        MatchesCollection.insert({
+            "status": "PU",
+            "result": "D",
+            "admin": "moltencrap",
+            "screenshotUrl": "www.niceurl.com/huatah",
+            "matchPlayerResults": [{
+                "minScore": "1000",
+                "username": "moltencrap",
+                "playerSlot": 0,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "pikachu",
+                "playerSlot": 1,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "hamtaro",
+                "playerSlot": 2,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "kyubey",
+                "playerSlot": 3,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "Dendi",
+                "playerSlot": 4,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "itchyfishy",
+                "playerSlot": 5,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "wertyteddy",
+                "playerSlot": 6,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "bananafritters",
+                "playerSlot": 7,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "tongkatali",
+                "playerSlot": 8,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }, {
+                "username": "mongyethewha",
+                "playerSlot": 9,
+                "minScore": 1000,
+                "maxScore": 3000,
+                "score": 2000
+            }]
+        });
     }
     var m = MatchesCollection.findOne();
     console.log(m);
 
     if (Games.find().count() === 0) {
         Games.insert({
+            "_id": "testlobby",
             "draft": [{
-                name: "itchyfishy",
-                team: "radiant"
+                "name": "DummyUser54",
+                "team": "D",
+                "teamslot":1,
+                "personaname": "Dummy Steam Name 54",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/night_stalker_hphover.png"
             }, {
-                name: "ohmysai",
-                team: "radiant",
+                "name": "DummyUser20",
+                "team": "R",
+                "teamslot":1,
+                "personaname": "Dummy Steam Name 20",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/storm_spirit_hphover.png"
             }, {
-                name: "moltencrap",
-                team: "radiant"
+                "name": "DummyUser86",
+                "team": "R",
+                "teamslot":2,
+                "personaname": "Dummy Steam Name 86",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_hphover.png"
             }, {
-                name: "user10",
-                team: "dire"
+                "name": "DummyUser92",
+                "team": "D",
+                "teamslot":2,
+                "personaname": "Dummy Steam Name 92",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/tidehunter_hphover.png"
             }, {
-                name: "wertyteddy",
-                team: "radiant"
+                "name": "DummyUser26",
+                "team": "R",
+                "teamslot":3,
+                "personaname": "Dummy Steam Name 26",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/lion_hphover.png"
             }, {
-                name: "user11",
-                team: "dire"
+                "name": "DummyUser100",
+                "team": "D",
+                "teamslot":3,
+                "personaname": "Dummy Steam Name 100",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/faceless_void_hphover.png"
             }, {
-                name: "breakthr",
-                team: "radiant"
+                "name": "DummyUser30",
+                "team": "R",
+                "teamslot":4,
+                "personaname": "Dummy Steam Name 30",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/disruptor_hphover.png"
             }, {
-                name: "user12",
-                team: "dire"
-            }, {
-                name: "user13",
-                team: "dire"
-            }, {
-                name: "user14",
-                team: "dire"
+                "name": "DummyUser36",
+                "team": "D",
+                "teamslot":4,
+                "personaname": "Dummy Steam Name 36",
+                "avatar": "http://cdn.dota2.com/apps/dota2/images/heroes/leshrac_hphover.png"
             }],
-            eligibleplayercount:8,
             "state": "hosted",
             "host": {
-                "name": "le_random_player",
-                "percentile": 77
+                "name": "user2",
+                "personaname": "iRefuse",
+                "percentile": 40
             },
             "challengers": [{
-                "name": "user10",
-                "personaname":"persona1",
-                "percentile": 55,
-                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
-            }, {
-                "name": "user11",
-                "personaname":"persona2",
-                "percentile": 65,
-                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
-            }, {
-                "name": "user12",
-                "personaname":"persona3",
-                "percentile": 75,
-                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
-            }, {
-                "name": "user13",
-                "personaname":"persona4",
-                "percentile": 85,
-                "avatar":"http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg"
+                "name": "user1",
+                "personaname": "itchyfishy",
+                "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9e/9eb8c3512cf31bc506bdd5a839066b1701d5bf28_full.jpg",
+                "percentile": 40
             }],
-            "avatar": "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg",
-            "matchmaking_threshold": 30,
-            "title": "Test Lobby for AYGL"
+            "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg",
+            "matchmaking_threshold": "15",
+            "title": "Just Another AYGL Match",
+            "createdDttm": "2015-06-20T17:15:02+08:00",
+            "createdBy": "9YLwr9zwjSNZfCWws",
+            "updatedDttm": "2015-06-20T17:19:32+08:00",
+            "updatedBy": "SYS",
+            "lobbyPercentile": 40,
+            "captains": [{
+                "name": "user2",
+                "personaname": "iRefuse",
+                "percentile": 40,
+                "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/91/9130744dcfd7cc3f3fc4cfff50145aff87355b11_full.jpg",
+                "team": "D"
+            }, {
+                "name": "user1",
+                "personaname": "itchyfishy",
+                "percentile": 40,
+                "avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/9e/9eb8c3512cf31bc506bdd5a839066b1701d5bf28_full.jpg",
+                "team": "R"
+            }],
+            "draftCount": 8,
+            "draftingSide": "D"
         });
     }
 }
@@ -193,17 +204,17 @@ logger = new function() {
       console.log(message);
     }
 
-    var username;
-    if (Meteor.user()) {
-      username = Meteor.user().username;
-    }
+        var username;
+        if (Meteor.user()) {
+            username = Meteor.user().username;
+        }
 
-    MyLogger.insert({
-      type: type,
-      message: message,
-      username: username
-    });
-  };
+        MyLogger.insert({
+            type: type,
+            message: message,
+            username: username
+        });
+    };
 
   /**
    * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
@@ -1024,68 +1035,68 @@ var heroList = arr;
 Schemas = {};
 
 Schemas.MatchmakingRole = new SimpleSchema({
-  role1: {
-      type: String,
-      label: "Role 1",
-      autoform: {
-          options: roleList
-      },
-      optional: true
-  },
-  role2: {
-      type: String,
-      label: "Role 2",
-      autoform: {
-          options: roleList
-      },
-      optional: true
-  },
-  role3: {
-      type: String,
-      label: "Role 3",
-      autoform: {
-          options: roleList
-      },
-      optional: true
-  }
+    role1: {
+        type: String,
+        label: "Role 1",
+        autoform: {
+            options: roleList
+        },
+        optional: true
+    },
+    role2: {
+        type: String,
+        label: "Role 2",
+        autoform: {
+            options: roleList
+        },
+        optional: true
+    },
+    role3: {
+        type: String,
+        label: "Role 3",
+        autoform: {
+            options: roleList
+        },
+        optional: true
+    }
 });
 
 Schemas.MatchmakingHero = new SimpleSchema({
-  hero1: {
-      type: String,
-      label: "Hero 1",
-      autoform: {
-          options: heroList
-      },
-      optional: true
-  },
-  hero2: {
-      type: String,
-      label: "Hero 2",
-      autoform: {
-          options: heroList
-      },
-      optional: true
-  },
-  hero3: {
-      type: String,
-      label: "Hero 3",
-      autoform: {
-          options: heroList
-      },
-      optional: true
-  }
+    hero1: {
+        type: String,
+        label: "Hero 1",
+        autoform: {
+            options: heroList
+        },
+        optional: true
+    },
+    hero2: {
+        type: String,
+        label: "Hero 2",
+        autoform: {
+            options: heroList
+        },
+        optional: true
+    },
+    hero3: {
+        type: String,
+        label: "Hero 3",
+        autoform: {
+            options: heroList
+        },
+        optional: true
+    }
 });
 
 Schemas.ProfileMatchmaking = new SimpleSchema({
-  preferred_role: {
-      type: Schemas.MatchmakingRole,
-      optional: true
-  },
-  preferred_hero: {
-      type: Schemas.MatchmakingHero,
-      optional: true
-  }
+    preferred_role: {
+        type: Schemas.MatchmakingRole,
+        optional: true
+    },
+    preferred_hero: {
+        type: Schemas.MatchmakingHero,
+        optional: true
+    }
 });
 
 // Schemas.UserProfile = new SimpleSchema({

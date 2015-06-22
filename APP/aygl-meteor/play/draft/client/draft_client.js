@@ -46,11 +46,17 @@ Template.draftinglayout.helpers({
 Template.draftingpool.helpers({
     eligiblePlayers: function() {
         var result;
-        result = _.filter(Meteor.users.find({},{sort:{"profile.ranking.percentile":-1}}).map(function(player, index) {
-            player.arrayPos = index+1;
+        result = Meteor.users.find({
+            "username": {
+                $ne: Meteor.user().username
+            }
+        }, {
+            sort: {
+                "profile.ranking.percentile": -1
+            }
+        }).map(function(player, index) {
+            player.arrayPos = index + 1;
             return player;
-        }), function(user) {
-            return (user.username !== Meteor.user().username);
         });
 
         return result;
