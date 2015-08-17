@@ -49,6 +49,10 @@ Meteor.methods({
                 pUpperLimit = 100;
             }
 
+            logger.info('percentile: ' + percentile);
+            logger.info('pLowerLimit: ' + pLowerLimit);
+            logger.info('pUpperLimit: ' + pUpperLimit);
+
             var state = (i % 2 === 0) ? PLAYER_STATE_READY : PLAYER_STATE_IDLE;
 
             console.log('Fields initialized. Invoking createUser() for Dummy ' + i);
