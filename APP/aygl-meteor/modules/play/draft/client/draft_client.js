@@ -39,8 +39,18 @@ Template.draftinglayout.helpers({
         });
         result.D = _.union(result.D, DTeammates);
 
+        // logger.info('result');
+        // logger.info(result);
+
         return result;
-    }
+    },
+    myDemo: function(side) {
+        if (side === 'R') {
+            return "radiant";
+        } else {
+            return "dire";
+        }
+    },
 });
 
 Template.draftingpool.helpers({
@@ -58,6 +68,9 @@ Template.draftingpool.helpers({
             player.arrayPos = index + 1;
             return player;
         });
+
+        logger.info('draftingpool.eligiblePlayers[0]');
+        logger.info(draftingpool.eligiblePlayers[0]);
 
         return result;
     }

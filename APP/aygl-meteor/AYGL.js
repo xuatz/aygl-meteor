@@ -195,14 +195,14 @@ Meteor.users.deny({
  * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
  */
 logger = new function() {
-  var insertMessage = function(type, message, printConsole) {
-    if (LOGGER_PRINT_CONSOLE) {
-      printConsole = true;
-    }
+    var insertMessage = function(type, message, printConsole) {
+        if (LOGGER_PRINT_CONSOLE) {
+          printConsole = true;
+        }
 
-    if (printConsole) {
-      console.log(message);
-    }
+        if (printConsole) {
+          console.log(message);
+        }
 
         var username;
         if (Meteor.user()) {
@@ -216,24 +216,24 @@ logger = new function() {
         });
     };
 
-  /**
-   * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
-   */
-  this.debug = function(message, printConsole) {
-    insertMessage("debug", message, printConsole);
-  };
+    /**
+     * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+     */
+    this.debug = function(message, printConsole) {
+        insertMessage("debug", message, printConsole);
+    };
 
-  this.info = function(message, printConsole) {
-    insertMessage("info", message, printConsole);
-  };
+    this.info = function(message, printConsole) {
+        insertMessage("info", message, printConsole);
+    };
 
-  this.warning = function(message, printConsole) {
-    insertMessage("warning", message, printConsole);
-  };
+    this.warning = function(message, printConsole) {
+        insertMessage("warning", message, printConsole);
+    };
 
-  this.error = function(message, printConsole) {
-    insertMessage("error", message, printConsole);
-  };
+    this.error = function(message, printConsole) {
+        insertMessage("error", message, printConsole);
+    };
 }
 
 /*
