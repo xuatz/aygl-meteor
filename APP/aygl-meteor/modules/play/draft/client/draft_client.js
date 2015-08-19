@@ -76,7 +76,22 @@ Template.draftingpool.helpers({
     }
 });
 
+Template.prefHeroIcon.helpers({
+    getHeroMiniIcon: function(heroKey) {
+        var hero = _.find(dota2assets.heroes, function(hero, key) {
+            return key === heroKey;
+        });
 
+        return hero.mini_icon;
+    },
+    getHeroName: function(heroKey) {
+        var hero = _.find(dota2assets.heroes, function(hero, key) {
+            return key === heroKey;
+        });
+
+        return hero.name;
+    }
+});
 
 
 

@@ -170,21 +170,31 @@ Any Templates used for the Drafting Screen will be placed here
 <template name="playerRow">
     <tr>
         <td>row number</td>
-        <td style="word-wrap:break-word">WWWWWWWWWWWWWWWWWWWWWWWWW</td>
+        <!-- <td style="word-wrap:break-word">WWWWWWWWWWWWWWWWWWWWWWWWW</td> -->
+        <td style="word-wrap:break-word">
+            {{profile.personaname}}
+        </td>
+
+
         <td>
-            <span class="label label-info">Position 6 Support</span>
-            <span class="label label-success">Farming Mid</span>
-            <span class="label label-danger">Carry</span>
+            <span class="label label-info">{{profile.matchmaking.preferred_role.role1}}</span>
+            <span class="label label-success">{{profile.matchmaking.preferred_role.role2}}</span>
+            <span class="label label-danger">{{profile.matchmaking.preferred_role.role3}}</span>
         </td>
         <td>
-            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/batrider_icon.png">&nbsp;
-            <img data-placement="top" data-toggle="tooltip" title="Zeus" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png">&nbsp;
-            <img data-placement="right" data-toggle="tooltip" title="Viper" src="http://cdn.dota2.com/apps/dota2/images/heroes/viper_icon.png">
+            {{> prefHeroIcon heroKey=profile.matchmaking.preferred_hero.hero1}}&nbsp;
+            {{> preferoIcon heroKey=profile.matchmaking.preferred_hero.hero2}}&nbsp;
+            {{> preferoIcon heroKey=profile.matchmaking.preferred_hero.hero3}}
         </td>
-        <td>96.8 %</td>
+        <td>{{profile.ranking.percentile}}</td>
     </tr>
 
 </template>
+
+<template name="prefHeroIcon">
+    <img data-placement="left" data-toggle="tooltip" title={{getHeroName heroKey}} src={{getHeroMiniIcon heroKey}}>
+</template>
+
 
 <template name="timer">
     <div class="timer">{{time}}</div>

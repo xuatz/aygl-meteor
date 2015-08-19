@@ -1020,12 +1020,12 @@ roleList = {
 
 var arr = [];
 
-_.each(dota2assets.heroes, function(item) {
+_.each(dota2assets.heroes, function(item, key) {
   var title = item.name;
   arr.push(
     {
       label: item.name,
-      value: item.name
+      value: key
     }
   );
 });
