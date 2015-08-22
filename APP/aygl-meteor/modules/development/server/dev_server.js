@@ -22,6 +22,11 @@ Meteor.methods({
             console.log('Creating Dummy: ' + i);
             //Initialise the dota2assets array and roleList array
             var d2a = _.toArray(dota2assets.heroes);
+
+            var prefHeroes = _.map(dota2assets.heroes, function(hero, key) {
+                return key;
+            });
+
             var rL = _.toArray(roleList);
             //Populate VerifyTab with dummy sig
             VerifyTab.insert({
@@ -38,9 +43,9 @@ Meteor.methods({
             var hash = 'dummyhash';
             var roles = [rL[Math.floor(Math.random() * rL.length)], rL[Math.floor(Math.random() * rL.length)], rL[Math.floor(Math.random() * rL.length)]];
             var heroes = [
-                [d2a[Math.floor(Math.random() * d2a.length)].name],
-                [d2a[Math.floor(Math.random() * d2a.length)].name],
-                [d2a[Math.floor(Math.random() * d2a.length)].name]
+                [prefHeroes[Math.floor(Math.random() * prefHeroes.length)]],
+                [prefHeroes[Math.floor(Math.random() * prefHeroes.length)]],
+                [prefHeroes[Math.floor(Math.random() * prefHeroes.length)]]
             ];
             var percentile = Math.floor(Math.random() * 100);
             var pLowerLimit = Math.round(percentile * 0.7);
