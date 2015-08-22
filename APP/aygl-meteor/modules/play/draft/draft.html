@@ -76,91 +76,30 @@ Any Templates used for the Drafting Screen will be placed here
             </div>
         </div>
         <div class="col-xs-4">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>My Team <small>Draft Composition</small></h2>
-                    *WIP hardcoded*
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Hero Composition</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/bloodseeker_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/crystal_maiden_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/naga_siren_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/antimage_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/lion_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/dazzle_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/drow_ranger_icon.png"> x 1
-                </div>
-                <div class="col-xs-3">
-                    <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/tinker_icon.png"> x 1
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Role Composition</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-4">
-                    <h5><span class="label label-info">Support</span> x 3</h5>
-                </div>
-                <div class="col-xs-4">
-                    <h5><span class="label label-warning">Offlane</span> x 3</h5>
-                </div>
-                <div class="col-xs-4">
-                    <h5><span class="label label-success">Mid</span> x 3</h5>
-                </div>
-                <div class="col-xs-4">
-                    <h5><span class="label label-danger">Carry</span> x 3</h5>
-                </div>
-                <div class="col-xs-4">
-                    <h5><span class="label label-primary">Jungle</span> x 3</h5>
-                </div>
-            </div>
+            {{> draftCompositionTemplate}}
         </div>
     </div>
 </template>
+
 <!--RENDERED TEMPLATES -->
+
+
 
 <template name="draftingpool2">
     <div class="col-xs-12 triple-unit">
         <table style="table-layout:fixed;width:100%;" class="table table-striped table-condensed table-hover text-center draftpool">
             <thead>
                 <tr>
-                    <th style="width:10%;">Rank</th>
+                    <th style="width:10%;">S/No.</th>
                     <th style="width:30%;">Username</th>
                     <th style="width:30%;">Preferred Roles</th>
                     <th style="width:20%;">Preferred Heroes</th>
-                    <th style="width:10%;">% Wins</th>
+                    <!-- <th style="width:10%;">% Wins</th> -->
                 </tr>
             </thead>
             <tbody>
                 {{#each eligiblePlayers}}
-                    {{> playerRow}}
+                    {{> playerRow this}}
                 {{/each}}
             </tbody>
         </table>
@@ -169,13 +108,13 @@ Any Templates used for the Drafting Screen will be placed here
 
 <template name="playerRow">
     <tr>
-        <td>row number</td>
+        <td>
+            {{arrayPos}}
+        </td>
         <!-- <td style="word-wrap:break-word">WWWWWWWWWWWWWWWWWWWWWWWWW</td> -->
         <td style="word-wrap:break-word">
             {{profile.personaname}}
         </td>
-
-
         <td>
             <span class="label label-info">{{profile.matchmaking.preferred_role.role1}}</span>
             <span class="label label-success">{{profile.matchmaking.preferred_role.role2}}</span>
@@ -183,10 +122,10 @@ Any Templates used for the Drafting Screen will be placed here
         </td>
         <td>
             {{> prefHeroIcon heroKey=profile.matchmaking.preferred_hero.hero1}}&nbsp;
-            {{> preferoIcon heroKey=profile.matchmaking.preferred_hero.hero2}}&nbsp;
-            {{> preferoIcon heroKey=profile.matchmaking.preferred_hero.hero3}}
+            {{> prefHeroIcon heroKey=profile.matchmaking.preferred_hero.hero2}}&nbsp;
+            {{> prefHeroIcon heroKey=profile.matchmaking.preferred_hero.hero3}}
         </td>
-        <td>{{profile.ranking.percentile}}</td>
+        <!-- <td>{{profile.ranking.percentile}}</td> -->
     </tr>
 
 </template>
@@ -459,4 +398,81 @@ Any Templates used for the Drafting Screen will be placed here
 </template>
 <template name="playerPic">
     <img class="profilecircle {{player.team}} playerPic" src={{player.avatar}}>
+</template>
+
+<template name="draftCompoHeroCompoTemplate">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Hero Composition</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/zuus_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/bloodseeker_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/crystal_maiden_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/naga_siren_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/antimage_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/lion_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/dazzle_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/drow_ranger_icon.png"> x 1
+        </div>
+        <div class="col-xs-3">
+            <img data-placement="left" data-toggle="tooltip" title="Batrider" src="http://cdn.dota2.com/apps/dota2/images/heroes/tinker_icon.png"> x 1
+        </div>
+    </div>
+</template>
+
+<template name="draftCompoRoleCompoTemplate">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Role Composition</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <h5><span class="label label-info">Support</span> x 3</h5>
+        </div>
+        <div class="col-xs-4">
+            <h5><span class="label label-warning">Offlane</span> x 3</h5>
+        </div>
+        <div class="col-xs-4">
+            <h5><span class="label label-success">Mid</span> x 3</h5>
+        </div>
+        <div class="col-xs-4">
+            <h5><span class="label label-danger">Carry</span> x 3</h5>
+        </div>
+        <div class="col-xs-4">
+            <h5><span class="label label-primary">Jungle</span> x 3</h5>
+        </div>
+    </div>
+</template>
+
+<template name="draftCompositionTemplate">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>My Team <small>Draft Composition</small></h2>
+            *WIP hardcoded*
+        </div>
+    </div>
+    {{> draftCompoHeroCompoTemplate}}
+
+    {{> draftCompoRoleCompoTemplate}}
 </template>

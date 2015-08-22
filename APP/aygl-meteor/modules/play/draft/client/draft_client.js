@@ -53,6 +53,26 @@ Template.draftinglayout.helpers({
     },
 });
 
+Template.draftingpool2.helpers({
+    eligiblePlayers: function() {
+        var result;
+        result = Meteor.users.find({
+            "username": {
+                $ne: Meteor.user().username
+            }
+        }, {
+            sort: {
+                "profile.ranking.percentile": -1
+            }
+        }).map(function(player, index) {
+            player.arrayPos = index + 1;
+            return player;
+        });
+
+        return result;
+    }
+});
+
 Template.draftingpool.helpers({
     eligiblePlayers: function() {
         var result;
@@ -69,27 +89,43 @@ Template.draftingpool.helpers({
             return player;
         });
 
-        logger.info('draftingpool.eligiblePlayers[0]');
-        logger.info(draftingpool.eligiblePlayers[0]);
-
         return result;
     }
 });
 
 Template.prefHeroIcon.helpers({
     getHeroMiniIcon: function(heroKey) {
-        var hero = _.find(dota2assets.heroes, function(hero, key) {
-            return key === heroKey;
+        console.log('getHeroMiniIcon()');
+        logger.info('heroKey: ' + heroKey);
+
+        var hero = _.find(dota2assets.heroes, function(item, key) {
+            // console.log('key: ' + key);
+            // console.log('heroKey: ' + heroKey);
+
+            return key == heroKey;
         });
 
-        return hero.mini_icon;
+        if (hero) {
+            logger.info('hero is found!');
+            logger.info(hero);
+
+            return hero.mini_icon;
+        } else {
+            logger.info('hero cannot be found');
+
+            return null;
+        }
     },
     getHeroName: function(heroKey) {
-        var hero = _.find(dota2assets.heroes, function(hero, key) {
-            return key === heroKey;
+        var hero = _.find(dota2assets.heroes, function(item, key) {
+            return key == heroKey;
         });
 
-        return hero.name;
+        if (hero) {
+            return hero.name;
+        } else {
+            return null;
+        }
     }
 });
 
