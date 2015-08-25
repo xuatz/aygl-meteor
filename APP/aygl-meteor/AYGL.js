@@ -483,12 +483,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/invoker_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/invoker_icon.png"
       },
-      io : {
+      wisp : {
         name: "Io",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/io_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/io_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/io_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/io_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/wisp_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/wisp_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/wisp_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/wisp_icon.png"
       },
       jakiro : {
         name: "Jakiro",
@@ -539,12 +539,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/lich_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/lich_icon.png"
       },
-      lifestealer : {
+      life_stealer : {
         name: "Lifestealer",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/lifestealer_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/lifestealer_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/lifestealer_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/lifestealer_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/life_stealer_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/life_stealer_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/life_stealer_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/life_stealer_icon.png"
       },
       lina : {
         name: "Lina",
@@ -763,12 +763,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/shadow_demon_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/shadow_demon_icon.png"
       },
-      shadow_fiend : {
+      nevermore : {
         name: "Shadow Fiend",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/shadow_fiend_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/shadow_fiend_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/shadow_fiend_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/shadow_fiend_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/nevermore_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/nevermore_icon.png"
       },
       shadow_shaman : {
         name: "Shadow Shaman",
@@ -868,12 +868,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/tidehunter_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/tidehunter_icon.png"
       },
-      timbersaw : {
+      shredder : {
         name: "Timbersaw",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/timbersaw_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/timbersaw_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/timbersaw_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/timbersaw_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/shredder_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/shredder_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/shredder_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/shredder_icon.png"
       },
       tinker : {
         name: "Tinker",
@@ -889,12 +889,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/tiny_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/tiny_icon.png"
       },
-      treant_protector : {
+      treant : {
         name: "Treant Protector",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_protector_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_protector_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_protector_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/treant_protector_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/treant_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/treant_icon.png"
       },
       troll_warlord : {
         name: "Troll Warlord",
