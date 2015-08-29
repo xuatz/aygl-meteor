@@ -198,11 +198,12 @@ Meteor.users.deny({
 logger = new function() {
     var insertMessage = function(type, message, printConsole) {
         if (LOGGER_PRINT_CONSOLE) {
-          printConsole = true;
+            printConsole = true;
         }
 
         if (printConsole) {
-          console.log(message);
+            console.log(type);
+            console.log(message);
         }
 
         var username;

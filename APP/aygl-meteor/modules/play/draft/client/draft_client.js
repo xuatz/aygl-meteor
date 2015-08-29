@@ -6,18 +6,15 @@ Template.joinedmenu.events({
 
 Template.playerRow.events({
     'click #playerRowElement' : function(evt) {
-        console.log(evt);
-
-        $('tr.success').removeClass('success');
-        $(event.target).closest('tr').addClass('success');
-
-        var isDraftingTurn = true;
-
-        if (isDraftingTurn) {
+        if (isUserDraftingTurn()) {
             console.log('i clicked on a player!');
+
+            $('tr.success').removeClass('success');
+            $(event.target).closest('tr').addClass('success');
+            
             Session.set('selectedDraftPlayerId', this._id);
-            console.log(this);
-            console.log(this.profile);
+            // console.log(this);
+            // console.log(this.profile);
         } else {
             logger.info('it is not this cpt turn to pick, ignore their input');
         }
@@ -26,9 +23,7 @@ Template.playerRow.events({
 
 Template.draftinglayout.events({
     'click #btnMine' : function(evt) {
-        var isDraftingTurn = true;
-
-        if (isDraftingTurn) {
+        if (isUserDraftingTurn()) {
             console.log('i clicked btnMine');
 
             var selectedUserId = Session.get('selectedDraftPlayerId');
