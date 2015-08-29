@@ -175,3 +175,9 @@ Template.timer.helpers({
         }
     }
 });
+
+
+Template.prefHeroIcon.rendered = function() {
+    //INITIALIZE POPOVERS
+        $('[data-toggle="tooltip"]').tooltip();
+};
