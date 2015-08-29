@@ -83,9 +83,10 @@ draft_newDraftingTurn = function(gameId) {
 
             Meteor.setTimeout(
                 function() {
-                    console.log('huat ah');
                     draft_checkIfCptDraftedPlayer(gameId, draftCount);
-                }, serverDraftDurationInMs);
+                }, 
+                serverDraftDurationInMs
+            );
         }
     }
 
@@ -105,8 +106,6 @@ draft_goToMatchLobby = function(game) {
         if (!game.captains) {
 
         } else {
-            logger.debug('pushing cpts to matchPlayerResults first');
-
             var cptRad;
             var cptDire;
 
@@ -123,9 +122,9 @@ draft_goToMatchLobby = function(game) {
             var mpr = {
                 'username': cptRad.name,
                 'playerSlot': 0,
-                'minScore': user.privateData.playerStats.minScore,
-                'maxScore': user.privateData.playerStats.maxScore,
-                'score': user.privateData.playerStats.score
+                'minScore': user.profile.privateData.playerStats.minScore,
+                'maxScore': user.profile.privateData.playerStats.maxScore,
+                'score': user.profile.privateData.playerStats.score
             };
 
             matchPlayerResults.push(mpr);
@@ -136,26 +135,45 @@ draft_goToMatchLobby = function(game) {
             mpr = {
                 'username': cptDire.name,
                 'playerSlot': 5,
-                'minScore': user.privateData.playerStats.minScore,
-                'maxScore': user.privateData.playerStats.maxScore,
-                'score': user.privateData.playerStats.score
+                'minScore': user.profile.privateData.playerStats.minScore,
+                'maxScore': user.profile.privateData.playerStats.maxScore,
+                'score': user.profile.privateData.playerStats.score
             };
 
             matchPlayerResults.push(mpr);
             usernames.push(mpr.username);
         }
 
-        logger.debug('game.draft.size: ' + game.draft.length);
+        logger.debug('game');
+        logger.debug(game);
 
-        _.each(game.draft, function(player) {
+        _.each(game.draft, function(player, index) {
+            // logger.debug('index: ' + index);
+            // logger.debug('player');
+            // logger.debug(player);
+
+            var radCount = 1;
+            var direCount = 1;
             if (!player.team) {
 
             } else {
-                var playerSlot = player.teamSlot;
+                var playerSlot = 0;
 
-                if (player.team === 'D') {
-                    playerSlot = player.teamSlot + 5;
+                logger.debug(player);
+                logger.debug('player');
+
+                switch(player.team) {
+                    case 'R':
+                        playerSlot = radCount;
+                        radCount++;
+                        break;
+                    case 'D':
+                        playerSlot = direCount + 5;
+                        direCount++;
+                        break;
                 }
+
+                logger.debug('playerSlot:after: ' + playerSlot);
 
                 var user = Meteor.users.findOne({ username: player.name });
 
@@ -163,23 +181,15 @@ draft_goToMatchLobby = function(game) {
                 var mpr = {
                     'username': player.name,
                     'playerSlot': playerSlot,
-                    'minScore': user.privateData.playerStats.minScore,
-                    'maxScore': user.privateData.playerStats.maxScore,
-                    'score': user.privateData.playerStats.score
+                    'minScore': user.profile.privateData.playerStats.minScore,
+                    'maxScore': user.profile.privateData.playerStats.maxScore,
+                    'score': user.profile.privateData.playerStats.score
                 };
 
                 matchPlayerResults.push(mpr);
                 usernames.push(mpr.username);
             }
         });
-
-        logger.debug('matchPlayerResults');
-        logger.debug(matchPlayerResults);
-        logger.debug('==============');
-
-        logger.debug('usernames');
-        logger.debug(usernames);
-        logger.debug('==============');
 
         //==============
 
@@ -196,8 +206,14 @@ draft_goToMatchLobby = function(game) {
 
         //==============
 
+        logger.debug('matchPlayerResults');
+        logger.debug(matchPlayerResults);
+
+        logger.debug('MATCH_STATUS_IN_PROGRESS: ' + MATCH_STATUS_IN_PROGRESS);
+
         var matchId = MatchesCollection.insert({
             gameId: game._id,
+            status: MATCH_STATUS_IN_PROGRESS,
             matchPlayerResults : matchPlayerResults
         });
 
@@ -287,14 +303,6 @@ draft_draftPlayer = function(gameId, team, playerId) {
 
 Meteor.methods({
     draft_updateGameForNextDraft: function(gameId) {
-        // Games.update({
-        //     _id: gameId
-        // }, {
-        //     $set: {
-        //         draftingSide: null
-        //     }
-        // });
-
         var g = Games.findOne({
             _id: gameId
         });
