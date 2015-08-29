@@ -393,12 +393,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/disruptor_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/disruptor_icon.png"
       },
-      doom : {
+      doom_bringer : {
         name: "Doom",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_bringer_icon.png"
       },
       dragon_knight : {
         name: "Dragon Knight",
@@ -652,12 +652,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/nyx_assassin_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/nyx_assassin_icon.png"
       },
-      orge_magi : {
-        name: "Orge Magi",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/orge_magi_icon.png"
+      ogre_magi : {
+        name: "Ogre Magi",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ogre_magi_icon.png"
       },
       omniknight : {
         name: "Omniknight",
