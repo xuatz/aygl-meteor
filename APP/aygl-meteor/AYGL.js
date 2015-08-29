@@ -207,8 +207,11 @@ logger = new function() {
         }
 
         var username;
-        if (Meteor.user()) {
-            username = Meteor.user().username;
+        if (this.userId) {
+            console.log('this.userId');
+            console.log(this.userId);
+
+            username = this.userId;
         }
 
         MyLogger.insert({
@@ -926,12 +929,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ursa_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ursa_icon.png"
       },
-      vengeful_spirit : {
+      vengefulspirit : {
         name: "Vengeful Spirit",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengeful_spirit_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengefulspirit_icon.png"
       },
       venomancer : {
         name: "Venomancer",
