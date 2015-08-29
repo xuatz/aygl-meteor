@@ -722,12 +722,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/pugna_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/pugna_icon.png"
       },
-      queen_of_pain : {
+      queenofpain : {
         name: "Queen of Pain",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queen_of_pain_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queenofpain_icon.png"
       },
       razor : {
         name: "Razor",
