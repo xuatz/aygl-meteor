@@ -340,14 +340,32 @@ Meteor.methods({
             }
         });
     },
-    draftPlayer: function(playerId, team) {
+    draftPlayer: function(playerId) {
         console.log('MeteorMethod:draftPlayer:triggered');
+
+        var game = getUserRoomObject();
+
+        var team = _.find(game.captains, function(item) {
+            return item.name == Meteor.user().username;
+        }).team;
+
+        // console.log(team);
+
+        // logger.info('game.captains');
+        // logger.info(game.captains);
+
+        // logger.info('game.draftingSide');
+        // logger.info(game.draftingSide);
+
+        // logger.info('Meteor.user()');
+        // logger.info(Meteor.user());
+
         //Check that captain is real
-        if (Meteor.user().state !== PLAYER_STATE_DRAFTING) {
+        if (Meteor.user().profile.state != PLAYER_STATE_DRAFTING) {
             throw draft_error_001_ACTION_NOT_ALLOWED;
         } else {
             //Draft the player in if check is successful
-            draft_draftPlayer(Meteor.user().room, team, playerId);
+            draft_draftPlayer(game._id, team, playerId);
         }
 
     }
