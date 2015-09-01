@@ -198,16 +198,20 @@ Meteor.users.deny({
 logger = new function() {
     var insertMessage = function(type, message, printConsole) {
         if (LOGGER_PRINT_CONSOLE) {
-          printConsole = true;
+            printConsole = true;
         }
 
         if (printConsole) {
-          console.log(message);
+            console.log(type);
+            console.log(message);
         }
 
         var username;
-        if (Meteor.user()) {
-            username = Meteor.user().username;
+        if (this.userId) {
+            console.log('this.userId');
+            console.log(this.userId);
+
+            username = this.userId;
         }
 
         MyLogger.insert({
@@ -393,12 +397,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/disruptor_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/disruptor_icon.png"
       },
-      doom : {
+      doom_bringer : {
         name: "Doom",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_bringer_icon.png"
       },
       dragon_knight : {
         name: "Dragon Knight",
@@ -652,12 +656,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/nyx_assassin_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/nyx_assassin_icon.png"
       },
-      orge_magi : {
-        name: "Orge Magi",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/orge_magi_icon.png"
+      ogre_magi : {
+        name: "Ogre Magi",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ogre_magi_icon.png"
       },
       omniknight : {
         name: "Omniknight",
@@ -722,12 +726,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/pugna_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/pugna_icon.png"
       },
-      queen_of_pain : {
+      queenofpain : {
         name: "Queen of Pain",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queen_of_pain_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queenofpain_icon.png"
       },
       razor : {
         name: "Razor",
@@ -925,12 +929,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ursa_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ursa_icon.png"
       },
-      vengeful_spirit : {
+      vengefulspirit : {
         name: "Vengeful Spirit",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengeful_spirit_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengefulspirit_icon.png"
       },
       venomancer : {
         name: "Venomancer",

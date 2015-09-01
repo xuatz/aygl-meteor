@@ -67,7 +67,7 @@ Any Templates used for the Drafting Screen will be placed here
                 </div>
                 <div class="col-xs-3">
                     <h2>
-                    <button class="btn btn-danger btn-block">MINE!</button>
+                    <button id="btnMine" class="btn btn-danger btn-block">MINE!</button>
                     </h2>
                 </div>
             </div>
@@ -107,7 +107,7 @@ Any Templates used for the Drafting Screen will be placed here
 </template>
 
 <template name="playerRow">
-    <tr>
+    <tr id="playerRowElement">
         <td>
             {{arrayPos}}
         </td>
