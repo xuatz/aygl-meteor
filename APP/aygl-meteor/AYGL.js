@@ -4,8 +4,8 @@ Server Configurations
 ======================================================================================================
 */
 
-//le_web_address = 'aygldev.meteor.com';
-le_web_address = 'localhost:3000'; //for local
+le_web_address = 'aygldev.meteor.com';
+//le_web_address = 'localhost:3000'; //for local
 //le_web_address = 'localhost:3050';
 //le_web_address = '52.74.37.252:3000'; //for SIT
 //le_web_address = '128.199.86.69:80'; //for PRD
@@ -582,12 +582,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/lycan_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/lycan_icon.png"
       },
-      magnus : {
+      magnataur : {
         name: "Magnus",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/magnus_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/magnataur_icon.png"
       },
       medusa : {
         name: "Medusa",
