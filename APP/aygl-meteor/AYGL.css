@@ -390,6 +390,8 @@ Direct Modification to bootstrap classes
 
 body {
     font-family: 'Cuprum', sans-serif;
+    background: url(background.jpg);
+    background-attachment: fixed;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Cuprum', sans-serif;
@@ -399,4 +401,26 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .panel-heading {
     padding: 2px 15px;
+}
+.panel-default {
+    background: linear-gradient(to top, rgba(10,10,10,1), rgba(50,50,50,0.2), rgba(50,50,50,0.5), rgba(10,10,10,1));
+    margin-left: 100px;
+    margin-right: 100px;
+    border-width: 10px;
+    border-top-width: 0px;
+    border-style: inset;
+    border-radius: 15px;
+}
+.panel-default > .panel-heading {
+    color: #333;
+    background: linear-gradient(to right, rgba(10,10,10,1), rgba(10,10,10,0.8), rgba(75,75,75,1), rgba(175,175,175,0.5), rgba(125,125,125,1), rgba(50,50,50,1));
+    padding: 5px 10px;
+    border-width:0px;
+    border-top-width: 0px;
+    border-bottom-width: 10px;
+    border-style: outset;   
+}
+.panel-default > .panel-heading > .panel-title {
+    color: white;
+    font-size: 1.5em;
 }
