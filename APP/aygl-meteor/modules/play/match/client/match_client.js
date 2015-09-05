@@ -3,6 +3,19 @@ Meteor.subscribe('PlayerReview');
 
 //TODO DT: the game document should generate a password upon "Draft Completion"
 
+Template.playerPanel.helpers({
+    playerDisplayPicture: function(username) {
+        var m = getUserRoomObject();
+        var g = getSelectedGame(m.gameId);
+
+        var res = _.union(g.captains, g.draft);
+
+        return _.find(res, function(player) {
+            return player.name == username;
+        }).avatar;
+    }
+});
+
 Template.matchradiant.helpers({
     getRadPlayers: function() {
         var m = getUserRoomObject(); //can assume to be a match
@@ -151,6 +164,8 @@ var checkIfReviewingYourself = function (username) {
         return false;
     }
 }
+
+
 
 Template.playerPanel.events({
     'click #thumbsUp' : function(event, template) {
