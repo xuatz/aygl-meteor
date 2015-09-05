@@ -19,6 +19,7 @@ if (Meteor.isServer) {
     if (MatchesCollection.find().count() === 0) {
         console.log('im inserting starting data');
         MatchesCollection.insert({
+            "gameId": "demoGameId",
             "status": "PU",
             "result": "D",
             "admin": "moltencrap",
@@ -202,7 +203,7 @@ logger = new function() {
         }
 
         if (printConsole) {
-            console.log(type);
+            //console.log(type);
             console.log(message);
         }
 
