@@ -7,8 +7,6 @@ Template.joinedmenu.events({
 Template.playerRow.events({
     'click #playerRowElement' : function(evt) {
         if (isUserDraftingTurn()) {
-            console.log('i clicked on a player!');
-
             $('tr.success').removeClass('success');
             $(event.target).closest('tr').addClass('success');
             
@@ -24,12 +22,9 @@ Template.playerRow.events({
 Template.draftinglayout.events({
     'click #btnMine' : function(evt) {
         if (isUserDraftingTurn()) {
-            console.log('i clicked btnMine');
-
             var selectedUserId = Session.get('selectedDraftPlayerId');
 
             if (selectedUserId) {
-                logger.info(selectedUserId);
                 Meteor.call('draftPlayer', selectedUserId);
                 Session.set('selectedDraftPlayerId', null);
             }
