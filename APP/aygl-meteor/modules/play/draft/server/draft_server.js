@@ -58,7 +58,11 @@ function draft_checkIfCptDraftedPlayer(gameId, draftCount) {
         var index = Math.floor((Math.random() * sortedEligibleList.length * 0.4));
         var player = sortedEligibleList[index];
 
-        draft_draftPlayer(gameId, g.draftingSide, player._id);
+        if (!player) {
+            logger.error('hmm something is wrong, player is null? maybe all players drafted liao');
+        } else {
+            draft_draftPlayer(gameId, g.draftingSide, player._id);    
+        }
     }
 
     console.log('end of checkIfCptDraftedPlayer');
@@ -147,13 +151,14 @@ draft_goToMatchLobby = function(game) {
         logger.debug('game');
         logger.debug(game);
 
+        var radCount = 1;
+        var direCount = 1;
+
         _.each(game.draft, function(player, index) {
             // logger.debug('index: ' + index);
             // logger.debug('player');
             // logger.debug(player);
-
-            var radCount = 1;
-            var direCount = 1;
+            
             if (!player.team) {
 
             } else {
@@ -216,6 +221,13 @@ draft_goToMatchLobby = function(game) {
             status: MATCH_STATUS_IN_PROGRESS,
             matchPlayerResults : matchPlayerResults
         });
+
+        logger.info('XZ:5/9/15: matchId: ' + matchId);
+
+        var randomM = MatchesCollection.findOne(matchId);
+
+        logger.debug('match obj');
+        logger.debug(randomM);
 
         //==============
 

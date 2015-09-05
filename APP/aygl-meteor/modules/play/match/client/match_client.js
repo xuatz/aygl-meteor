@@ -5,23 +5,21 @@ Meteor.subscribe('PlayerReview');
 
 Template.matchradiant.helpers({
     getRadPlayers: function() {
-        var m = getSelectedMatch();
+        var m = getUserRoomObject(); //can assume to be a match
 
-        // console.log('===================');
-        // console.log(m);
+        console.log('XZ:DEBUG:5/9/15: ===================');
+        console.log(m);
 
         var radPlayers = _.filter(m.matchPlayerResults,
             function(item) {
+                logger.debug("XZ:debug:5/9/15:item content: " + item);
                 return item.playerSlot < 5;
             }
         );
 
-        var radPlayers = _.sortBy(radPlayers, function(item) {
+        radPlayers = _.sortBy(radPlayers, function(item) {
             return item.playerSlot;
         });
-
-        // console.log('radPlayers: ' + radPlayers);
-        // console.log('radPlayers: ' + radPlayers[0].username);
 
         return radPlayers;
     }
@@ -29,7 +27,7 @@ Template.matchradiant.helpers({
 
 Template.matchdire.helpers({
     getDirePlayers: function() {
-        var m = getSelectedMatch();
+        var m = getUserRoomObject();
 
         // console.log('===== getDirePlayers!! ==============');
         // console.log(m);
@@ -53,7 +51,12 @@ Template.matchlayout.helpers({
         return getUserRoomObject();
     },
     selectedGame: function() {
-        return getSelectedGame(getUserRoomObject().gameId);
+        var res = getSelectedGame(getUserRoomObject().gameId);
+
+        logger.debug('checking the selectedGame obj');
+        logger.info(res);
+
+        return res;
     },
     hasReportedResult: function() {
         if (Session.get('resultReported')) {
