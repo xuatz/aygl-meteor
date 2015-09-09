@@ -65,7 +65,7 @@ Meteor.methods({
 		var matchId = Meteor.user().profile.room;
 		var m = MatchesCollection.findOne({_id: matchId});
 
-		var username = user.username;
+		var username = Meteor.user().username;
 		var playerSlot = getPlayerSlotOfUserFromMatchDetails(m, username);
 
 		var gameId = m.gameId;
@@ -281,10 +281,10 @@ var checkMatchResultReports = function(gameId) {
 								logger.debug('both cpts agree on the match result');
 
 								var reasonableTimeElapsedSinceMatchLobbyCreated = false;
-								var matchDetailsCreatedDttm = moment(matchDetails.createdDttm);
+								var matchDetailsCreatedDttm = moment(m.createdDttm);
 								var durationSinceCreation = moment.duration(moment().diff(matchDetailsCreatedDttm));
 
-								if (duration.minutes() > 10) {
+								if (durationSinceCreation.minutes() > 10) {
 									reasonableTimeElapsedSinceMatchLobbyCreated = true;
 								}
 
