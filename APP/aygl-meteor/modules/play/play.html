@@ -157,11 +157,13 @@ Any Templates used for the Play Screen will be placed here
 <template name="updateUserForm">
     {{#autoForm schema=mySchema id="contactForm" type="method" meteormethod="editPreferences" doc=doc}}
         <fieldset>
-            <div class="col-xs-6">
-                {{> afQuickField name='preferred_role'}}
-            </div>
-            <div class="col-xs-6">
-                {{> afQuickField name='preferred_hero'}}
+            <div class="row">
+                <div class="col-lg-6">
+                    {{> afQuickField name='preferred_role'}}
+                </div>
+                <div class="col-lg-6">
+                    {{> afQuickField name='preferred_hero'}}
+                </div>
             </div>
         </fieldset>
         <button id="preferenceUpdate" type="update" class="btn btn-primary">Update</button>
