@@ -4,8 +4,8 @@ Server Configurations
 ======================================================================================================
 */
 
-le_web_address = 'aygldev.meteor.com';
-//le_web_address = 'localhost:3000'; //for local
+//le_web_address = 'aygldev.meteor.com';
+le_web_address = 'localhost:3000'; //for local
 //le_web_address = 'localhost:3050';
 //le_web_address = '52.74.37.252:3000'; //for SIT
 //le_web_address = '128.199.86.69:80'; //for PRD
@@ -15,9 +15,76 @@ LOGGER_PRINT_CONSOLE = true;
 //=============================
 
 if (Meteor.isServer) {
-    MatchesCollection.remove({});
+    //you can declare and do stuff on startup, on server side, here
+    
+    //MatchesCollection.remove({});
+    //Games.remove({});
+    //seedDummyMatchAndGameObject();
+}
+
+Meteor.users.deny({
+    insert: function() {
+        return true;
+    },
+    update: function() {
+        return true;
+    },
+    remove: function() {
+        return true;
+    }
+});
+
+/**
+ * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+ */
+logger = new function() {
+    var insertMessage = function(type, message, printConsole) {
+        if (LOGGER_PRINT_CONSOLE) {
+            printConsole = true;
+        }
+
+        if (printConsole) {
+            //console.log(type);
+            console.log(message);
+        }
+
+        var username;
+        if (this.userId) {
+            console.log('this.userId');
+            console.log(this.userId);
+
+            username = this.userId;
+        }
+
+        MyLogger.insert({
+            type: type,
+            message: message,
+            username: username
+        });
+    };
+
+    /**
+     * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+     */
+    this.debug = function(message, printConsole) {
+        insertMessage("debug", message, printConsole);
+    };
+
+    this.info = function(message, printConsole) {
+        insertMessage("info", message, printConsole);
+    };
+
+    this.warning = function(message, printConsole) {
+        insertMessage("warning", message, printConsole);
+    };
+
+    this.error = function(message, printConsole) {
+        insertMessage("error", message, printConsole);
+    };
+}
+
+var seedDummyMatchAndGameObject = function() {
     if (MatchesCollection.find().count() === 0) {
-        console.log('im inserting starting data');
         MatchesCollection.insert({
             "gameId": "demoGameId",
             "status": "PU",
@@ -87,8 +154,6 @@ if (Meteor.isServer) {
             }]
         });
     }
-    var m = MatchesCollection.findOne();
-    console.log(m);
 
     if (Games.find().count() === 0) {
         Games.insert({
@@ -180,73 +245,6 @@ if (Meteor.isServer) {
         });
     }
 }
-
-Meteor.users.deny({
-    insert: function() {
-        return true;
-    },
-    update: function() {
-        return true;
-    },
-    remove: function() {
-        return true;
-    }
-});
-
-/**
- * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
- */
-logger = new function() {
-    var insertMessage = function(type, message, printConsole) {
-        if (LOGGER_PRINT_CONSOLE) {
-            printConsole = true;
-        }
-
-        if (printConsole) {
-            //console.log(type);
-            console.log(message);
-        }
-
-        var username;
-        if (this.userId) {
-            console.log('this.userId');
-            console.log(this.userId);
-
-            username = this.userId;
-        }
-
-        MyLogger.insert({
-            type: type,
-            message: message,
-            username: username
-        });
-    };
-
-    /**
-     * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
-     */
-    this.debug = function(message, printConsole) {
-        insertMessage("debug", message, printConsole);
-    };
-
-    this.info = function(message, printConsole) {
-        insertMessage("info", message, printConsole);
-    };
-
-    this.warning = function(message, printConsole) {
-        insertMessage("warning", message, printConsole);
-    };
-
-    this.error = function(message, printConsole) {
-        insertMessage("error", message, printConsole);
-    };
-}
-
-/*
-======================================================================================================
-Prototypes for Mongo Collections
-======================================================================================================
-*/
 
 dota2assets = new function () {
   this.heroes =
@@ -356,12 +354,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/clinkz_icon.png"
       },
-      clockwerk : {
+      rattletrap : {
         name: "Clockwerk",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/clockwerk_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/rattletrap_icon.png"
       },
       crystal_maiden : {
         name: "Crystal Maiden",
@@ -1038,6 +1036,12 @@ _.each(dota2assets.heroes, function(item, key) {
 
 var heroList = arr;
 
+/*
+======================================================================================================
+Prototypes for Mongo Collections
+======================================================================================================
+*/
+
 Schemas = {};
 
 Schemas.MatchmakingRole = new SimpleSchema({
@@ -1104,93 +1108,3 @@ Schemas.ProfileMatchmaking = new SimpleSchema({
         optional: true
     }
 });
-
-// Schemas.UserProfile = new SimpleSchema({
-//   steamID: {
-//     type: String,
-//     optional: true
-//   },
-//   personaname: {
-//     type: String,
-//     optional: true
-//   },
-//   avatar: {
-//     type: String,
-//     optional: true
-//   },
-//   hash: {
-//     type: String,
-//     optional: true
-//   },
-//   matchmaking: {
-//       type: Schemas.ProfileMatchmaking,
-//       optional: true
-//   },
-//   ranking: {
-//     type: Object,
-//     optional: true
-//   },
-//   // "ranking.$.rank": {
-//   //   type: String,
-//   //   optional: true
-//   // },
-//   // "ranking.$.percentile": {
-//   //   type: Number,
-//   //   optional: true
-//   // },
-//   privateData: {
-//     type: Object,
-//     optional: true
-//   },
-//   "privateData.$.playerStats": {
-//     type: [Object],
-//     optional: true
-//   },
-//   "privateData.$.playerStats.$.minScore": {
-//     type: Number,
-//     optional: true
-//   },
-//   "privateData.$.playerStats.$.maxScore": {
-//     type: Number,
-//     optional: true
-//   },
-//   updated: {
-//     type: String,
-//     optional: true
-//   },
-//   state: {
-//     type: String,
-//     optional: true
-//   },
-//   room: {
-//     type: String,
-//     optional: true
-//   },
-// });
-//
-// Schemas.User = new SimpleSchema({
-//   username: {
-//     type: String,
-//     optional: true
-//   },
-//   password: {
-//     type: Object,
-//     optional: true,
-//     blackbox: true
-//   },
-//   email: {
-//     type: String,
-//     optional: true
-//   },
-//   profile: {
-//     type: Schemas.UserProfile,
-//     optional: true
-//   },
-//   status: {
-//     type: Object,
-//     optional: true,
-//     blackbox: true
-//   }
-// });
-
-//Meteor.users.attachSchema(Schemas.User);
