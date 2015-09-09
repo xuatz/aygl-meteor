@@ -15,14 +15,10 @@ var increaseUserThumbsUpCount = function (username, increase) {
 	if (!user) {
 		console.log('user not found for: ' + username);
 	} else {
-		if (!user.thumbsUpCount) {
-			user.thumbsUpCount = 0;
-		}
-
 		if (increase) {
-			updateUserThumbsUpCount(username, user.thumbsUpCount + 1);
+			updateUserThumbsUpCount(username, user.profile.thumbsUpCount + 1);
 		} else {
-			updateUserThumbsUpCount(username, user.thumbsUpCount - 1);
+			updateUserThumbsUpCount(username, user.profile.thumbsUpCount - 1);
 		}
 	}
 }
@@ -33,20 +29,12 @@ var increaseUserThumbsDownCount = function(username, increase) {
 	});
 
 	if (!user) {
-		logger.info("myasda");
-		logger.error("ohaiyo");
-		logger.debug("tongkat");
-
 		console.log('user not found for: ' + username);
 	} else {
-		if (!user.thumbsDownCount) {
-			user.thumbsDownCount = 0;
-		}
-
 		if (increase) {
-			updateUserThumbsDownCount(username, user.thumbsDownCount + 1);
+			updateUserThumbsDownCount(username, user.profile.thumbsDownCount + 1);
 		} else {
-			updateUserThumbsDownCount(username, user.thumbsDownCount - 1);
+			updateUserThumbsDownCount(username, user.profile.thumbsDownCount - 1);
 		}
 	}
 }

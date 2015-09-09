@@ -172,6 +172,8 @@ Template.verifiedsignupform.events({
                         score: '2000' //default value
                     }
                 },
+                thumbsUpCount: 0,
+                thumbsDownCount: 0,
                 updated: steamIdentity.updated,
                 state: 'idle',
                 room: null
