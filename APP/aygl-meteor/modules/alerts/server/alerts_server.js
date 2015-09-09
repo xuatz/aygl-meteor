@@ -47,7 +47,7 @@ Meteor.methods({
                 }
                 break;
             default:
-                console.log('error!');
+                logger.error('error!');
                 break;
         }
     },

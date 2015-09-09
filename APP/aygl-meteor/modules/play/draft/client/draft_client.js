@@ -11,8 +11,6 @@ Template.playerRow.events({
             $(event.target).closest('tr').addClass('success');
             
             Session.set('selectedDraftPlayerId', this._id);
-            // console.log(this);
-            // console.log(this.profile);
         } else {
             logger.info('it is not this cpt turn to pick, ignore their input');
         }
@@ -135,9 +133,6 @@ Template.prefHeroIcon.helpers({
         // logger.debug('heroKey: ' + heroKey);
 
         var hero = _.find(dota2assets.heroes, function(item, key) {
-            // console.log('key: ' + key);
-            // console.log('heroKey: ' + heroKey);
-
             return key == heroKey;
         });
 

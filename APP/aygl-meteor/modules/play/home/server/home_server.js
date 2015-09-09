@@ -143,10 +143,10 @@ Meteor.methods({
         var gameId = Meteor.user().profile.room;
         home_grabPlayers(chosenOnes, gameId, function(grabResult, reservedPlayers) {
             if (grabResult) {
-                console.log('Reserved ' + reservedPlayers + ' players for match ' + Meteor.user().profile.room);
+                logger.debug('Reserved ' + reservedPlayers + ' players for match ' + Meteor.user().profile.room);
                 home_initializeGrabResult(gameId, 'drafting');
             } else {
-                console.log('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
+                logger.debug('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
                 //Do nothing because already in waiting state.
             }
         });
@@ -198,10 +198,10 @@ home_challengeAccepted = function(alert) {
             //Attempt Grab players
             home_grabPlayers(chosenOnes, alert.data, function(grabResult, reservedPlayers) {
                 if (grabResult) {
-                    console.log('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
+                    logger.debug('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
                     home_initializeGrabResult(alert.data, 'drafting');
                 } else {
-                    console.log('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
+                    logger.debug('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
                     home_initializeGrabResult(alert.data, 'waiting');
                 }
             });
@@ -247,7 +247,7 @@ home_checkLobbyEligibility = Meteor.wrapAsync(function(alert, callback) {
     });
     var eligibilePlayerCount = actualEligibleList.length;
 
-    console.log('ELIGIBLE PLAYER COUNT: ' + eligibilePlayerCount);
+    logger.debug('ELIGIBLE PLAYER COUNT: ' + eligibilePlayerCount);
 
     var result;
     if (eligibilePlayerCount > 7) {
@@ -264,7 +264,7 @@ home_initializeGrabResult = function(gameId, result) {
         _id: gameId
     });
     //Update states of Captains
-    console.log('Updating ' + gameObj.host.name + ' and ' + gameObj.challengers[0].name);
+    logger.debug('Updating ' + gameObj.host.name + ' and ' + gameObj.challengers[0].name);
     Meteor.users.update({
         username: {
             $in: [gameObj.host.name, gameObj.challengers[0].name]
@@ -424,12 +424,12 @@ home_grabPlayers = Meteor.wrapAsync(function(arrayOfPlayers, gameId, callback) {
     }, {
         multi: true
     });
-    console.log(reservedPlayers + ' grabbed.');
+    logger.debug(reservedPlayers + ' grabbed.');
     if (reservedPlayers > 7) {
-        console.log('GRAB SUCCESSFUL');
+        logger.debug('GRAB SUCCESSFUL');
         callback(true, reservedPlayers);
     } else {
-        console.log('GRAB FAILED. Cancelling players reservations.');
+        logger.debug('GRAB FAILED. Cancelling players reservations.');
         var unreservedPlayers = Meteor.users.update({
             $and: [{
                 username: {
@@ -448,9 +448,9 @@ home_grabPlayers = Meteor.wrapAsync(function(arrayOfPlayers, gameId, callback) {
         });
 
         if (unreservedPlayers === reservedPlayers) {
-            console.log('Cancellation succeeded.')
+            logger.debug('Cancellation succeeded.')
         } else {
-            console.log('Cancellation failed.')
+            logger.debug('Cancellation failed.')
         }
 
         callback(false, reservedPlayers);

@@ -16,30 +16,30 @@ draft_getGameHostSide = function(game) {
 }
 
 draft_isDraftingComplete = function(game) {
-    console.log("isDraftingComplete?");
+    logger.debug("isDraftingComplete?");
 
-    console.log("draft count: " + game.draftCount);
+    logger.debug("draft count: " + game.draftCount);
 
     if (game.draftCount === 8) {
-        console.log("isDraftingComplete: yes");
+        logger.debug("isDraftingComplete: yes");
         return true;
     } else {
-        console.log("isDraftingComplete: no");
+        logger.debug("isDraftingComplete: no");
         return false
     }
 }
 
 function draft_checkIfCptDraftedPlayer(gameId, draftCount) {
-    console.log('start of checkIfCptDraftedPlayer');
+    logger.debug('start of checkIfCptDraftedPlayer');
     var g = Games.findOne({
         _id: gameId
     });
 
-    console.log('g.draftCount: ' + g.draftCount);
-    console.log('draftCount: ' + draftCount);
+    logger.debug('g.draftCount: ' + g.draftCount);
+    logger.debug('draftCount: ' + draftCount);
 
     if (g.draftCount > draftCount) {
-        console.log("Cpt drafted before timer is up, hence do nothing.");
+        logger.debug("Cpt drafted before timer is up, hence do nothing.");
         //means the cpt drafted a player before timer is up
         //hence do nothing
     } else {
@@ -65,19 +65,19 @@ function draft_checkIfCptDraftedPlayer(gameId, draftCount) {
         }
     }
 
-    console.log('end of checkIfCptDraftedPlayer');
+    logger.debug('end of checkIfCptDraftedPlayer');
 }
 
 draft_newDraftingTurn = function(gameId) {
-    console.log('start of newDraftingTurn');
-    console.log(gameId);
+    logger.debug('start of newDraftingTurn');
+    logger.debug(gameId);
 
     var g = Games.findOne({
         _id: gameId
     });
 
     if (!g) {
-        console.log("Game not found!");
+        logger.debug("Game not found!");
     } else {
         if (draft_isDraftingComplete(g)) {
             logger.info('End of drafting, going to match lobby');
@@ -94,7 +94,7 @@ draft_newDraftingTurn = function(gameId) {
         }
     }
 
-    console.log('end of newDraftingTurn');
+    logger.debug('end of newDraftingTurn');
 }
 
 draft_goToMatchLobby = function(game) {
@@ -258,13 +258,13 @@ draft_goToMatchLobby = function(game) {
 }
 
 draft_startDrafting = function(gameId) {
-    console.log('start of startDrafting');
+    logger.debug('start of startDrafting');
     var g = Games.findOne({
         _id: gameId
     }) || Games.findOne();
 
     if (!g) {
-        console.log("Game not found");
+        logger.debug("Game not found");
     } else {
         // wait for 5s
         Meteor.setTimeout(function() {
@@ -284,7 +284,7 @@ draft_startDrafting = function(gameId) {
 
         }, 1000); //use 5000 in production
     }
-    console.log('end of startDrafting');
+    logger.debug('end of startDrafting');
 }
 
 draft_draftPlayer = function(gameId, team, playerId) {
@@ -372,7 +372,7 @@ Meteor.methods({
         });
     },
     draftPlayer: function(playerId) {
-        console.log('MeteorMethod:draftPlayer:triggered');
+        logger.debug('MeteorMethod:draftPlayer:triggered');
 
         var game = getUserRoomObject();
 
@@ -380,7 +380,7 @@ Meteor.methods({
             return item.name == Meteor.user().username;
         }).team;
 
-        // console.log(team);
+        // logger.debug(team);
 
         // logger.info('game.captains');
         // logger.info(game.captains);

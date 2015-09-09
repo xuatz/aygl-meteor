@@ -20,8 +20,8 @@ Template.matchradiant.helpers({
     getRadPlayers: function() {
         var m = getUserRoomObject(); //can assume to be a match
 
-        console.log('XZ:DEBUG:5/9/15: ===================');
-        console.log(m);
+        logger.debug('XZ:DEBUG:5/9/15: ===================');
+        logger.debug(m);
 
         var radPlayers = _.filter(m.matchPlayerResults,
             function(item) {
@@ -42,8 +42,8 @@ Template.matchdire.helpers({
     getDirePlayers: function() {
         var m = getUserRoomObject();
 
-        // console.log('===== getDirePlayers!! ==============');
-        // console.log(m);
+        // logger.debug('===== getDirePlayers!! ==============');
+        // logger.debug(m);
 
         var players = _.filter(m.matchPlayerResults,
             function(item) {
@@ -172,9 +172,8 @@ Template.playerPanel.events({
         event.preventDefault();
 
         if (checkIfReviewingYourself(template.data.username)) {
-            console.log("You are reviewing urself!");
+            logger.debug("You are reviewing urself!");
         } else {
-
             var pr = Session.get('playerReviews');
 
             if (!pr) {
@@ -188,32 +187,9 @@ Template.playerPanel.events({
                     title: this.username + " best player ever. Rated 10/10",
                     callback: function(result) {
                         if (result === null) {
-                            console.log('he left nothing');
+                            logger.debug('he left nothing');
                         } else {
                             var item = $(event.target);
-
-                            // var item2 = $(event.currentTarget);
-
-                            // var username = template.data.username;
-
-                            // // console.log(template.find('.member-name').innerHTML);
-                            // // console.log(template.data.username);
-
-                            // if (item.hasClass( "text-success" ) ) {
-                            //     item.removeClass('text-success');
-
-                            //     Meteor.call('increaseUserThumbsUpCount', username, false); 
-                            // } else {
-                            //     item.addClass('text-success');
-
-                            //     Meteor.call('increaseUserThumbsUpCount', username, true);
-                            //     var siblingThumbsDown = $(event.target).next('i');
-                            //     if (siblingThumbsDown.hasClass("text-danger") ) {
-                            //         siblingThumbsDown.removeClass('text-danger');
-                                    
-                            //         Meteor.call('increaseUserThumbsDownCount', username, false);
-                            //     }
-                            // }
 
                             Meteor.call('insertPlayerReview', 
                                 template.data.username, 
@@ -237,7 +213,7 @@ Template.playerPanel.events({
         event.preventDefault();
 
         if (checkIfReviewingYourself(template.data.username)) {
-            console.log("You are reviewing urself!");
+            logger.debug("You are reviewing urself!");
         } else {
             var pr = Session.get('playerReviews');
 
@@ -250,7 +226,7 @@ Template.playerPanel.events({
                     title: "disband plz " + this.username,
                     callback: function(result) {
                         if (result === null) {
-                            console.log('he left nothing');
+                            logger.debug('he left nothing');
                         } else {
                             var item = $(event.target);
                             // var username = template.data.username;

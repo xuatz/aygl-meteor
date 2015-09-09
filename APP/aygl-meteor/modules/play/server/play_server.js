@@ -8,7 +8,6 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 Meteor.methods({
     editPreferences: function(doc) {
         check(doc, Schemas.ProfileMatchmaking);
-        //console.log(doc);
         this.unblock();
         // Update Meteor.users
         Meteor.users.update(

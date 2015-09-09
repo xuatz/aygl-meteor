@@ -1,5 +1,5 @@
 Router.onBeforeAction(function() {
-    console.log('XZ:DEBUG:15/2/15: MainRouteController.onBeforeAction');
+    logger.debug('XZ:DEBUG:15/2/15: MainRouteController.onBeforeAction');
     this.render('loading');
     if (Meteor.loggingIn()) {
 

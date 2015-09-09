@@ -10,7 +10,7 @@ le_web_address = 'localhost:3000'; //for local
 //le_web_address = '52.74.37.252:3000'; //for SIT
 //le_web_address = '128.199.86.69:80'; //for PRD
 
-LOGGER_PRINT_CONSOLE = true;
+LOGGER_PRINT_CONSOLE = false;
 
 //=============================
 
