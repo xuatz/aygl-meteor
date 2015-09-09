@@ -1,3 +1,5 @@
+DOTA_MATCH_ID_COLON = "Dota Match ID:"
+
 GAME_STATE_HOSTED = "hosted";
 GAME_STATE_WAITING = "waiting";
 GAME_STATE_DRAFTING = "drafting";

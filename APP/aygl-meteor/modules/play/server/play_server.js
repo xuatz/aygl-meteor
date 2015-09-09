@@ -5,17 +5,6 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 ======================================================================================================
 */
 
-var crypto = Npm.require('crypto');
-
-generateMatchPassword = function() {
-    var now = new Date();
-    var hash = crypto.createHash('md5')
-                .update(now.toString())
-                .digest("hex");
-
-    return hash.substring(0,8)
-}
-
 Meteor.methods({
     editPreferences: function(doc) {
         check(doc, Schemas.ProfileMatchmaking);

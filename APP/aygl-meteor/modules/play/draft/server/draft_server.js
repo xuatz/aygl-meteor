@@ -198,6 +198,17 @@ draft_goToMatchLobby = function(game) {
 
         //==============
 
+        // var crypto = Npm.require('crypto');
+
+        // generateMatchPassword = function() {
+        //     var now = new Date();
+        //     var hash = crypto.createHash('md5')
+        //                 .update(now.toString())
+        //                 .digest("hex");
+
+        //     return hash.substring(0,8)
+        // }
+
         var password = CryptoJS.MD5(game._id).toString().substring(0, 8);
 
         Games.update(
