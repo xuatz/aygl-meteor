@@ -43,8 +43,7 @@ Meteor.methods({
         }
 
         //Create the game JSON to be inserted into the Collection
-        var newGame;
-        newGame = {
+        var newGame = {
             draft: [],
             state: 'hosted',
             host: {
@@ -55,7 +54,8 @@ Meteor.methods({
             challengers: [],
             avatar: hostingplayer.profile.avatar,
             matchmaking_threshold: matchmaking_threshold,
-            title: title
+            title: title,
+            resultReports: []
         };
         //Insert the new Game JSON into the Collection
         var gameId = Games.insert(newGame);
