@@ -166,6 +166,11 @@ var checkIfReviewingYourself = function (username) {
 }
 
 
+Template.leaveLobbyPanel.events({
+    'click #btnLeaveLobby' : function(event) {
+        event.preventDefault();
+    }
+});
 
 Template.playerPanel.events({
     'click #thumbsUp' : function(event, template) {

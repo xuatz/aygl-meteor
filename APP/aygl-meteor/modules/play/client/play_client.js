@@ -44,17 +44,7 @@ Template.registerHelper("optionsRole", function() {
         
     ];
 });
-// <li><a href="#">Mid</a></li>
-            //             <li><a href="#">Tempo Mid</a></li>
-            //             <li><a href="#">Farming Mid</a></li>
-            //             <li><a href="#">Offlane</a></li>
-            //             <li><a href="#">Carry</a></li>
-            //             <li><a href="#">Greedy Carry</a></li>
-            //             <li><a href="#">Support</a></li>
-            //             <li><a href="#">Greedy Support</a></li>
-            //             <li><a href="#">Roaming Support</a></li>
-            //             <li><a href="#">Defensive Support</a></li>
-            //             <li><a href="#">Position 6 Support</a></li>
+
 Template.updateUserForm.helpers({
     doc: function() {
         return Meteor.users.findOne().profile.matchmaking;
@@ -84,7 +74,7 @@ Template.joinedmenu.helpers({
                 result = "Leave Drafting";
                 break;
             case "in-match":
-                result = "ABANDON MATCH";
+                result = "Leave Match Lobby";
                 break;
             case "pending accept":
                 result = "Stop Challenge";
@@ -108,7 +98,7 @@ All Template handlers for templates defined within signup.html will be placed he
 */
 
 Template.joinedmenu.events({
-    'click #leavegame': function() {
+    'click #btnGenericExit': function() {
         Meteor.call('resetState');
     }
 });
