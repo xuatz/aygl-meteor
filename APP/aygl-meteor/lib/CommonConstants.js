@@ -5,15 +5,15 @@ GAME_STATE_WAITING = "waiting";
 GAME_STATE_DRAFTING = "drafting";
 GAME_STATE_IN_MATCH = "in-match";
 
-PLAYER_STATE_HOSTING 			= "hosting";
-PLAYER_STATE_PENDING_ACCEPT 	= "drafting";
-PLAYER_STATE_WAITING 			= "waiting";
-PLAYER_STATE_DRAFTING 			= "drafting";
-PLAYER_STATE_IN_MATCH 			= "in-match";
 PLAYER_STATE_IDLE 				= "idle";
 PLAYER_STATE_READY 				= "ready";
 PLAYER_STATE_RESERVED 			= "reserved";
 PLAYER_STATE_SELECTED 			= "selected";
+PLAYER_STATE_HOSTING 			= "hosting";
+PLAYER_STATE_WAITING 			= "waiting";
+PLAYER_STATE_PENDING_ACCEPT 	= "pending accept";
+PLAYER_STATE_DRAFTING 			= "drafting";
+PLAYER_STATE_IN_MATCH 			= "in-match";
 
 PLAYER_REVIEW_TYPE_UP = "UP";
 PLAYER_REVIEW_TYPE_DOWN = "DOWN";
