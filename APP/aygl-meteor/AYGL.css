@@ -404,8 +404,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .panel-default {
     background: linear-gradient(to top, rgba(10,10,10,1), rgba(50,50,50,0.2), rgba(50,50,50,0.5), rgba(10,10,10,1));
-    margin-left: 100px;
-    margin-right: 100px;
+    /*margin-left: 100px;
+    margin-right: 100px;*/
     border-width: 10px;
     border-top-width: 0px;
     border-style: inset;
