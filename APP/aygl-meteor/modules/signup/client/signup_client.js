@@ -139,6 +139,14 @@ Template.verifiedsignupform.events({
 
         var steamIdentity = VerifyTab.findOne();
 
+
+        var percentile  = 40; //default value
+        var pLowerLimit = Math.round(percentile * 0.7);
+        var pUpperLimit = Math.round(percentile * 1.1);
+        if (pUpperLimit > 100) {
+            pUpperLimit = 100;
+        }
+
         Accounts.createUser({
             username: username,
             password: password,
@@ -162,8 +170,9 @@ Template.verifiedsignupform.events({
                 },
                 ranking: {
                     rank: 'TBD',
-                    percentile: 40 //default value
-                    //calibration: 5 //xz: not used
+                    percentile: percentile,
+                    pLowerLimit: pLowerLimit,
+                    pUpperLimit: pUpperLimit
                 },
                 privateData: {
                     playerStats: {
