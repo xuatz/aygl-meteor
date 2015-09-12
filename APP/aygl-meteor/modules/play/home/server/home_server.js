@@ -20,7 +20,6 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 
 Meteor.methods({
     createNewGame: function(title, matchmaking_threshold) {
-
         //Get the user who called the method
         var hostingplayer = Meteor.users.findOne({
             _id: this.userId
@@ -360,21 +359,34 @@ topUpPlayers = function(amtOfTopUp, avgPercentile) {
 }
 
 home_eligiblePlayers = function(avgPercentile) {
+    logger.debug('XZ:12/9/15:home_eligiblePlayers() start');
+    logger.debug('avgPercentile: ' + avgPercentile);
+
     var result;
-    if (avgPercentile < 60) {
+    if (avgPercentile < 60) { //if the game is not a top level game; less than 60 percentile
         result = Meteor.users.find({
+            //1) select users that are ready/reserved??
             "profile.state": {
                 $in: ['ready', 'reserved']
             },
-            "profile.ranking.pLowerLimit": {
-                $lt: avgPercentile
-            },
-            "profile.ranking.pUpperLimit": {
-                $gt: avgPercentile
-            },
+            //2) players of skill level less than 60 (reserve the top 40% for the premier players)
             "profile.ranking.percentile": {
-                $lt: 60
+                $lte: 60
             }
+            //xz:12/9/15: the 2 filters below is reserved for phase 1.5 
+            /*
+            ,
+            //3) users where their "lowest acceptable skill level is below the current match's avg"
+            //i.e. basically the cpt's skill level is lower than him, but he still okay with this diffenence
+            "profile.ranking.pLowerLimit": {
+                $lte: avgPercentile
+            },
+            //4) users where their "highest acceptable skill level is higher than the avg"
+            //i.e. 1k mmr dun wan to play against 5k mmr ppl
+            "profile.ranking.pUpperLimit": {
+                $gte: avgPercentile
+            }
+            */
         }, {
             fields: {
                 username: 1,
@@ -385,13 +397,15 @@ home_eligiblePlayers = function(avgPercentile) {
         result = Meteor.users.find({
             "profile.state": {
                 $in: ['ready', 'reserved']
-            },
-            "profile.ranking.pLowerLimit": {
-                $lt: avgPercentile
-            },
-            "profile.ranking.pUpperLimit": {
-                $gt: avgPercentile
             }
+            //xz:12/9/15: phase 1.5
+            // ,
+            // "profile.ranking.pLowerLimit": {
+            //     $lte: avgPercentile
+            // },
+            // "profile.ranking.pUpperLimit": {
+            //     $gte: avgPercentile
+            // }
         }, {
             fields: {
                 username: 1,
