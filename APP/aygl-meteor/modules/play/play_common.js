@@ -81,18 +81,17 @@ getPlayerSlotOfUserFromMatchDetails = function(matchDetails, username) {
 
 getUserRoomObject = function() {
     var state = Meteor.user().profile.state;
-    logger.debug('Player state: ' + state);
+    //logger.debug('Player state: ' + state);
 
     if (!state) {
         // there is something wrong
         logger.error('there is something wrong, there is no state');
     } else {
-        logger.debug('Meteor.user().profile.room');
-        logger.debug(Meteor.user().profile.room);
+        // logger.debug('Meteor.user().profile.room');
+        // logger.debug(Meteor.user().profile.room);
 
-        logger.debug('Meteor.user()');
-        logger.debug(Meteor.user());
-
+        // logger.debug('Meteor.user()');
+        // logger.debug(Meteor.user());
         switch(state) {
             case PLAYER_STATE_DRAFTING:
                 logger.debug('drafting case');
