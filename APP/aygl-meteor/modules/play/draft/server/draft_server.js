@@ -35,33 +35,45 @@ function draft_checkIfCptDraftedPlayer(gameId, draftCount) {
         _id: gameId
     });
 
-    logger.debug('g.draftCount: ' + g.draftCount);
-    logger.debug('draftCount: ' + draftCount);
-
-    if (g.draftCount > draftCount) {
-        logger.debug("Cpt drafted before timer is up, hence do nothing.");
-        //means the cpt drafted a player before timer is up
-        //hence do nothing
+    if (!g) {
+        logger.error('Game cannot be found!');
     } else {
-        //cpt didn pick a player within timer duration
+        logger.debug('g.draftCount: ' + g.draftCount);
+        logger.debug('draftCount: ' + draftCount);
 
-        //randomly pick 1 from top 40% of eligible player pool for the current drafting side
-        var eligiblePlayers = home_eligiblePlayers(g.lobbyPercentile).fetch();
-        var actualEligibleList = _.filter(eligiblePlayers, function(player) {
-            var result = false;
-            if (player.profile.state === 'reserved' || player.profile.state === 'ready') {
-                result = true;
-            }
-            return result;
-        });
-        var sortedEligibleList = _.sortBy(actualEligibleList, function(x){return -(x.profile.ranking.percentile)})
-        var index = Math.floor((Math.random() * sortedEligibleList.length * 0.4));
-        var player = sortedEligibleList[index];
-
-        if (!player) {
-            logger.error('hmm something is wrong, player is null? maybe all players drafted liao');
+        if (g.draftCount > draftCount) {
+            logger.debug("Cpt drafted before timer is up, hence do nothing.");
+            //means the cpt drafted a player before timer is up
+            //hence do nothing
         } else {
-            draft_draftPlayer(gameId, g.draftingSide, player._id);    
+            //cpt didn pick a player within timer duration
+            
+            logger.debug('g.draft.length: ' + g.draft.length);
+            logger.debug('g.draft: ');
+            logger.debug(g.draft);
+
+            if (g.draft.length) {
+                if (g.draft.length < 8) {
+                    //randomly pick 1 from top 40% of eligible player pool for the current drafting side
+                    var eligiblePlayers = home_eligiblePlayers(g.lobbyPercentile).fetch();
+                    var actualEligibleList = _.filter(eligiblePlayers, function(player) {
+                        var result = false;
+                        if (player.profile.state === 'reserved' || player.profile.state === 'ready') {
+                            result = true;
+                        }
+                        return result;
+                    });
+                    var sortedEligibleList = _.sortBy(actualEligibleList, function(x){return -(x.profile.ranking.percentile)})
+                    var index = Math.floor((Math.random() * sortedEligibleList.length * 0.4));
+                    var player = sortedEligibleList[index];
+
+                    if (!player) {
+                        logger.error('hmm something is wrong, player is null? maybe all players drafted liao');
+                    } else {
+                        draft_draftPlayer(gameId, g.draftingSide, player._id);    
+                    }    
+                }
+            }
         }
     }
 
@@ -79,6 +91,8 @@ draft_newDraftingTurn = function(gameId) {
     if (!g) {
         logger.debug("Game not found!");
     } else {
+        logger.debug('g.draft.length: ' + g.draft.length);
+        
         if (draft_isDraftingComplete(g)) {
             logger.info('End of drafting, going to match lobby');
             draft_goToMatchLobby(g);
