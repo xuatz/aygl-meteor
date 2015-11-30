@@ -26,7 +26,7 @@
   "appName": "aygl-meteor",
 
   // Location of app (local directory)
-  "app": "/Users/joneswatson/aygl-meteor/APP/aygl-meteor", -- MBA
+  "app": "/Users/joneswatson/aygl-meteor/APP/aygl-meteor", // MBA
   //"app": "E:/WorkingSpace/aygl-meteor/APP/aygl-meteor",
 
   // Configure environment

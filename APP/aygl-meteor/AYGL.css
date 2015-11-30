@@ -203,7 +203,7 @@ table.text-center thead tr th, table.text-center tbody tr td {
 }
 .match .member-name
 {
-    width:calc(100% - 150px);
+    width:calc(100% - 200px); /* TODO XZ:wtf is this, need to make it less hardcodey */
 }
 
 .radiant .member-name
