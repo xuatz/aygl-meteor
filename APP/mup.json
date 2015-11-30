@@ -5,7 +5,8 @@
       "host": "128.199.86.69",
       "username": "root",
       // or pem file (ssh based authentication)
-      "pem": "~/.ssh/id_rsa_no_pass"
+      "pem": "~/.ssh/id_rsa_no_pass" //macbook air
+      //"pem": "D:/Dropbox/workingSpace/SSH/xuatz-private-key" //desktop
     }
   ],
 
@@ -16,7 +17,7 @@
   "setupNode": true,
 
   // WARNING: If nodeVersion omitted will setup 0.10.36 by default. Do not use v, only version number.
-  "nodeVersion": "0.10.36",
+  "nodeVersion": "0.10.40",
 
   // Install PhantomJS in the server
   "setupPhantom": true,
@@ -25,7 +26,8 @@
   "appName": "aygl-meteor",
 
   // Location of app (local directory)
-  "app": "/Users/joneswatson/aygl-meteor/APP/aygl-meteor",
+  "app": "/Users/joneswatson/aygl-meteor/APP/aygl-meteor", -- MBA
+  //"app": "E:/WorkingSpace/aygl-meteor/APP/aygl-meteor",
 
   // Configure environment
   "env": {
