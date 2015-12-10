@@ -28,17 +28,17 @@ match = MatchesCollection.findOne();
 
 Meteor.methods({
 	getSelectedMatch: function(selectedMatchId) {
-		console.log('selectedMatchId: '+ Meteor.user().profile.selectedMatchId);
+		logger.debug('selectedMatchId: '+ Meteor.user().profile.selectedMatchId);
         //var m = MatchesCollection.findOne(Meteor.user().profile.selectedMatchId);
         var m = MatchesCollection.findOne();
 
-        console.log(m);
+        logger.debug(m);
 
         return m;
 	},
 	updateSelectedMatchId: function(selectedMatchId) {
-		console.log('=============');
-		console.log('check selectedMatchId: ' + selectedMatchId)
+		logger.debug('=============');
+		logger.debug('check selectedMatchId: ' + selectedMatchId)
 		Meteor.users.update(
             {"_id" : this.userId}, 
             {

@@ -4,6 +4,7 @@ Server Configurations
 ======================================================================================================
 */
 
+//le_web_address = 'aygldev.meteor.com';
 le_web_address = 'localhost:3000'; //for local
 //le_web_address = 'localhost:3050';
 //le_web_address = '52.74.37.252:3000'; //for SIT
@@ -14,10 +15,78 @@ LOGGER_PRINT_CONSOLE = true;
 //=============================
 
 if (Meteor.isServer) {
-    MatchesCollection.remove({});
+    //you can declare and do stuff on startup, on server side, here
+    
+    // MatchesCollection.remove({});
+    // Games.remove({});
+    //seedDummyMatchAndGameObject();
+}
+
+Meteor.users.deny({
+    insert: function() {
+        return true;
+    },
+    update: function() {
+        return true;
+    },
+    remove: function() {
+        return true;
+    }
+});
+
+/**
+ * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+ */
+logger = new function() {
+    var insertMessage = function(type, message, printConsole) {
+        if (LOGGER_PRINT_CONSOLE) {
+            printConsole = true;
+        }
+
+        if (printConsole) {
+            //console.log(type);
+            console.log(message);
+        }
+
+        var username;
+        if (this.userId) {
+            console.log('this.userId');
+            console.log(this.userId);
+
+            username = this.userId;
+        }
+
+        MyLogger.insert({
+            type: type,
+            message: message,
+            username: username
+        });
+    };
+
+    /**
+     * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
+     */
+    this.debug = function(message, printConsole) {
+        insertMessage("debug", message, printConsole);
+    };
+
+    this.info = function(message, printConsole) {
+        insertMessage("info", message, printConsole);
+    };
+
+    this.warning = function(message, printConsole) {
+        insertMessage("warning", message, printConsole);
+    };
+
+    this.error = function(message, printConsole) {
+        insertMessage("error", message, printConsole);
+    };
+}
+
+var seedDummyMatchAndGameObject = function() {
     if (MatchesCollection.find().count() === 0) {
-        console.log('im inserting starting data');
         MatchesCollection.insert({
+            "gameId": "demoGameId",
             "status": "PU",
             "result": "D",
             "admin": "moltencrap",
@@ -85,8 +154,6 @@ if (Meteor.isServer) {
             }]
         });
     }
-    var m = MatchesCollection.findOne();
-    console.log(m);
 
     if (Games.find().count() === 0) {
         Games.insert({
@@ -178,69 +245,6 @@ if (Meteor.isServer) {
         });
     }
 }
-
-Meteor.users.deny({
-    insert: function() {
-        return true;
-    },
-    update: function() {
-        return true;
-    },
-    remove: function() {
-        return true;
-    }
-});
-
-/**
- * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
- */
-logger = new function() {
-    var insertMessage = function(type, message, printConsole) {
-        if (LOGGER_PRINT_CONSOLE) {
-          printConsole = true;
-        }
-
-        if (printConsole) {
-          console.log(message);
-        }
-
-        var username;
-        if (Meteor.user()) {
-            username = Meteor.user().username;
-        }
-
-        MyLogger.insert({
-            type: type,
-            message: message,
-            username: username
-        });
-    };
-
-    /**
-     * PLACEHOLDER METEORDOC MESSAGE BY XUATZ
-     */
-    this.debug = function(message, printConsole) {
-        insertMessage("debug", message, printConsole);
-    };
-
-    this.info = function(message, printConsole) {
-        insertMessage("info", message, printConsole);
-    };
-
-    this.warning = function(message, printConsole) {
-        insertMessage("warning", message, printConsole);
-    };
-
-    this.error = function(message, printConsole) {
-        insertMessage("error", message, printConsole);
-    };
-}
-
-/*
-======================================================================================================
-Prototypes for Mongo Collections
-======================================================================================================
-*/
 
 dota2assets = new function () {
   this.heroes =
@@ -350,12 +354,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/clinkz_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/clinkz_icon.png"
       },
-      clockwerk : {
+      rattletrap : {
         name: "Clockwerk",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/clockwerk_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/clockwerk_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/rattletrap_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/rattletrap_icon.png"
       },
       crystal_maiden : {
         name: "Crystal Maiden",
@@ -392,12 +396,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/disruptor_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/disruptor_icon.png"
       },
-      doom : {
+      doom_bringer : {
         name: "Doom",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/doom_bringer_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/doom_bringer_icon.png"
       },
       dragon_knight : {
         name: "Dragon Knight",
@@ -581,12 +585,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/lycan_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/lycan_icon.png"
       },
-      magnus : {
+      magnataur : {
         name: "Magnus",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/magnus_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/magnus_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/magnataur_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/magnataur_icon.png"
       },
       medusa : {
         name: "Medusa",
@@ -651,12 +655,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/nyx_assassin_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/nyx_assassin_icon.png"
       },
-      orge_magi : {
-        name: "Orge Magi",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/orge_magi_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/orge_magi_icon.png"
+      ogre_magi : {
+        name: "Ogre Magi",
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ogre_magi_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ogre_magi_icon.png"
       },
       omniknight : {
         name: "Omniknight",
@@ -721,12 +725,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/pugna_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/pugna_icon.png"
       },
-      queen_of_pain : {
+      queenofpain : {
         name: "Queen of Pain",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queen_of_pain_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queen_of_pain_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/queenofpain_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/queenofpain_icon.png"
       },
       razor : {
         name: "Razor",
@@ -924,12 +928,12 @@ dota2assets = new function () {
         port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/ursa_vert.jpg",
         mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/ursa_icon.png"
       },
-      vengeful_spirit : {
+      vengefulspirit : {
         name: "Vengeful Spirit",
-        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_hphover.png",
-        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_full.png",
-        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengeful_spirit_vert.jpg",
-        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengeful_spirit_icon.png"
+        landscape_hover: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_hphover.png",
+        landscape_full: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_full.png",
+        port_vert: "http://cdn.dota2.com/apps/dota2/images/heroes/vengefulspirit_vert.jpg",
+        mini_icon: "http://cdn.steamstatic.com/apps/dota2/images/heroes/vengefulspirit_icon.png"
       },
       venomancer : {
         name: "Venomancer",
@@ -1032,6 +1036,12 @@ _.each(dota2assets.heroes, function(item, key) {
 
 var heroList = arr;
 
+/*
+======================================================================================================
+Prototypes for Mongo Collections
+======================================================================================================
+*/
+
 Schemas = {};
 
 Schemas.MatchmakingRole = new SimpleSchema({
@@ -1098,93 +1108,3 @@ Schemas.ProfileMatchmaking = new SimpleSchema({
         optional: true
     }
 });
-
-// Schemas.UserProfile = new SimpleSchema({
-//   steamID: {
-//     type: String,
-//     optional: true
-//   },
-//   personaname: {
-//     type: String,
-//     optional: true
-//   },
-//   avatar: {
-//     type: String,
-//     optional: true
-//   },
-//   hash: {
-//     type: String,
-//     optional: true
-//   },
-//   matchmaking: {
-//       type: Schemas.ProfileMatchmaking,
-//       optional: true
-//   },
-//   ranking: {
-//     type: Object,
-//     optional: true
-//   },
-//   // "ranking.$.rank": {
-//   //   type: String,
-//   //   optional: true
-//   // },
-//   // "ranking.$.percentile": {
-//   //   type: Number,
-//   //   optional: true
-//   // },
-//   privateData: {
-//     type: Object,
-//     optional: true
-//   },
-//   "privateData.$.playerStats": {
-//     type: [Object],
-//     optional: true
-//   },
-//   "privateData.$.playerStats.$.minScore": {
-//     type: Number,
-//     optional: true
-//   },
-//   "privateData.$.playerStats.$.maxScore": {
-//     type: Number,
-//     optional: true
-//   },
-//   updated: {
-//     type: String,
-//     optional: true
-//   },
-//   state: {
-//     type: String,
-//     optional: true
-//   },
-//   room: {
-//     type: String,
-//     optional: true
-//   },
-// });
-//
-// Schemas.User = new SimpleSchema({
-//   username: {
-//     type: String,
-//     optional: true
-//   },
-//   password: {
-//     type: Object,
-//     optional: true,
-//     blackbox: true
-//   },
-//   email: {
-//     type: String,
-//     optional: true
-//   },
-//   profile: {
-//     type: Schemas.UserProfile,
-//     optional: true
-//   },
-//   status: {
-//     type: Object,
-//     optional: true,
-//     blackbox: true
-//   }
-// });
-
-//Meteor.users.attachSchema(Schemas.User);

@@ -46,7 +46,7 @@ renderAlert = function(alert) {
     var settings = {};
     // Check to ensure alert does not already exist
     if ($('[data-notify]#challengeAccepted_' + alert._id).length > 0) {
-        console.log('Repeated Alert!');
+        logger.debug('Repeated Alert!');
         return;
     }
 
@@ -94,7 +94,7 @@ renderAlert = function(alert) {
             };
             break;
         default:
-            console.log('Unrecognized Alert. Dang it!');
+            logger.debug('Unrecognized Alert. Dang it!');
             return false;
             break;
     }

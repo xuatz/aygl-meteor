@@ -10,16 +10,16 @@ This function will generate any number of dummy users with fully populated and r
 ======================================================================================================*/
 Meteor.methods({
     spawnDummies: function(dummyCount) {
-        console.log('debug_spawnDummies: STARTED');
+        logger.debug('debug_spawnDummies: STARTED');
         var startingIndex = Meteor.users.find({
             username: /^DummyUser.*/
         }).count() + 1
-        console.log('debug_spawnDummies: Found ' + (startingIndex - 1) + ' DummyUsers already present.');
-        console.log('debug_spawnDummies: Creating DummyUsers ' + startingIndex + ' to ' + (startingIndex + dummyCount - 1) + ' now.');
+        logger.debug('debug_spawnDummies: Found ' + (startingIndex - 1) + ' DummyUsers already present.');
+        logger.debug('debug_spawnDummies: Creating DummyUsers ' + startingIndex + ' to ' + (startingIndex + dummyCount - 1) + ' now.');
 
 
         for (var i = startingIndex; i < (startingIndex + dummyCount); i++) {
-            console.log('Creating Dummy: ' + i);
+            logger.debug('Creating Dummy: ' + i);
             //Initialise the dota2assets array and roleList array
             var d2a = _.toArray(dota2assets.heroes);
 
@@ -60,7 +60,7 @@ Meteor.methods({
 
             var state = (i % 2 === 0) ? PLAYER_STATE_READY : PLAYER_STATE_IDLE;
 
-            console.log('Fields initialized. Invoking createUser() for Dummy ' + i);
+            logger.debug('Fields initialized. Invoking createUser() for Dummy ' + i);
             //Invoke createUser()
             Accounts.createUser({
                 username: username,
@@ -101,19 +101,19 @@ Meteor.methods({
                     room: null
                 }
             });
-            console.log('createUser() end for Dummy ' + i);
+            logger.debug('createUser() end for Dummy ' + i);
 
         }
         //Clearing out VerifyTab
         VerifyTab.remove({
             sig: 'dummyhash'
         });
-        console.log('debug_spawnDummies: ENDED');
+        logger.debug('debug_spawnDummies: ENDED');
     },
     despawnDummies: function() {
         var result = Meteor.users.remove({
             username: /^DummyUser.*/
         });
-        console.log(result + ' DummyUsers were removed.');
+        logger.debug(result + ' DummyUsers were removed.');
     }
 });

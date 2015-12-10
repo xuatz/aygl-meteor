@@ -1,3 +1,37 @@
+Template.joinedmenu.events({
+    'click #leavegame': function() {
+        Meteor.call('resetState');
+    }
+});
+
+Template.playerRow.events({
+    'click #playerRowElement' : function(evt) {
+        if (isUserDraftingTurn()) {
+            $('tr.success').removeClass('success');
+            $(event.target).closest('tr').addClass('success');
+            
+            Session.set('selectedDraftPlayerId', this._id);
+        } else {
+            logger.info('it is not this cpt turn to pick, ignore their input');
+        }
+    }
+});
+
+Template.draftinglayout.events({
+    'click #btnMine' : function(evt) {
+        if (isUserDraftingTurn()) {
+            var selectedUserId = Session.get('selectedDraftPlayerId');
+
+            if (selectedUserId) {
+                Meteor.call('draftPlayer', selectedUserId);
+                Session.set('selectedDraftPlayerId', null);
+            }
+        } else {
+            logger.info('it is not this cpt turn to pick, ignore their input');
+        }
+    }
+});
+
 Template.draftinglayout.helpers({
     selectedGame: function() {
         return getUserRoomObject();
@@ -95,24 +129,19 @@ Template.draftingpool.helpers({
 
 Template.prefHeroIcon.helpers({
     getHeroMiniIcon: function(heroKey) {
-        console.log('getHeroMiniIcon()');
-        logger.info('heroKey: ' + heroKey);
+        // logger.info('getHeroMiniIcon()');
+        // logger.debug('heroKey: ' + heroKey);
 
         var hero = _.find(dota2assets.heroes, function(item, key) {
-            // console.log('key: ' + key);
-            // console.log('heroKey: ' + heroKey);
-
             return key == heroKey;
         });
 
         if (hero) {
-            logger.info('hero is found!');
-            logger.info(hero);
-
+            // logger.debug('hero is found!');
+            // logger.debug(hero);
             return hero.mini_icon;
         } else {
-            logger.info('hero cannot be found');
-
+            logger.error('hero cannot be found');
             return null;
         }
     },
@@ -154,24 +183,33 @@ Template.prefHeroIcon.helpers({
 
 Template.timer.helpers({
     time: function() {
-        //get the timer ticking
-        console.log('tick tock');
+        //logger.debug('tick tock');
         var game = Games.findOne({
             _id: Meteor.user().profile.room
         });
 
-        if (game.draft.length >= 8) {
-            return 0;
-        }
-        var endTime = moment(game.updatedDttm).add(DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME, 'seconds');
-        var now = moment(TimeSync.serverTime());
-        var duration = moment.duration(endTime - now);
-        if (duration.asSeconds() > 30) {
-            return 30;
-        } else if (duration.asSeconds() < 0) {
-            return 0;
+        if (game) {
+            if (game.draft.length >= 8) {
+                return 0;
+            }
+            var endTime = moment(game.updatedDttm).add(DRAFT_PICK_PLAYER_DURATION + BONUS_PREP_TIME, 'seconds');
+            var now = moment(TimeSync.serverTime());
+            var duration = moment.duration(endTime - now);
+            if (duration.asSeconds() > 30) {
+                return 30;
+            } else if (duration.asSeconds() < 0) {
+                return 0;
+            } else {
+                return Math.floor(duration.asSeconds());
+            }
         } else {
-            return Math.floor(duration.asSeconds());
+            return 0;   
         }
     }
 });
+
+
+Template.prefHeroIcon.rendered = function() {
+    //INITIALIZE POPOVERS
+    $('[data-toggle="tooltip"]').tooltip();
+};

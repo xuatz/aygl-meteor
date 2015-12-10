@@ -11,9 +11,9 @@ if (Meteor.isServer) {
       callback = hmac;
     }
 
-    console.log('data: ');
-    console.log(data);
-    console.log('hmac: ' + hmac);
+    logger.debug('data: ');
+    logger.debug(data);
+    logger.debug('hmac: ' + hmac);
 
     crypto.pbkdf2(data, salt, 2, 128, function (err, hash) {
       if (err) {
@@ -54,22 +54,22 @@ if (Meteor.isServer) {
     }
 
     if (!_.isEmpty(params)) {
-      console.log('not empty!');
+      logger.debug('not empty!');
       sum = concatRequest(req.path, params);
     } else {
-      console.log('its empty =(, so he taking the req.path');
+      logger.debug('its empty =(, so he taking the req.path');
       sum = req.path;
     }
 
-    console.log('sum: ' + sum);
+    logger.debug('sum: ' + sum);
 
     if (req.headers.authorization) {
       var authorizationCode = req.headers.authorization.split(' ')[1];
 
       genAuthorization(sum, function (err, hash) {
         if (hash !== authorizationCode) {
-          console.log('hash: ' + hash);
-          console.log('authorizationCode: ' + authorizationCode);
+          logger.debug('hash: ' + hash);
+          logger.debug('authorizationCode: ' + authorizationCode);
 
           res.status(401).send('Unauthorized.');
         } else {

@@ -5,21 +5,9 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 ======================================================================================================
 */
 
-var crypto = Npm.require('crypto');
-
-generateMatchPassword = function() {
-    var now = new Date();
-    var hash = crypto.createHash('md5')
-                .update(now.toString())
-                .digest("hex");
-
-    return hash.substring(0,8)
-}
-
 Meteor.methods({
     editPreferences: function(doc) {
         check(doc, Schemas.ProfileMatchmaking);
-        //console.log(doc);
         this.unblock();
         // Update Meteor.users
         Meteor.users.update(
@@ -40,7 +28,8 @@ Meteor.methods({
             });
         }
 
-        if (targetUser.profile.state === "idle" || targetUser.profile.state === "in-match") {
+        switch (targetUser.profile.state) {
+        case PLAYER_STATE_IDLE:
             //All is well, do nothing
             /*
                 If a player is currently in a match, do not change his state in order to force him to report
@@ -49,10 +38,17 @@ Meteor.methods({
                 Take note that, once a match result has been officially decided, there shld be a method to
                 reset all players who are in that match to "idle"
             */
-
-            //TODO if 'im-match gt problem'
             return;
-        } else if (targetUser.profile.state === "hosting" || targetUser.profile.state === "drafting" || targetUser.profile.state === "waiting") {
+            break; //probably dun need this line due to return
+        case PLAYER_STATE_IN_MATCH:
+            /*
+            XZ:10/9/15: i think, if already in match lobby, if any1 zhao, just let it be
+            they can get reported if needed. proceed with the default reset function below
+            */
+            break;
+        case PLAYER_STATE_HOSTING:
+        case PLAYER_STATE_DRAFTING:
+        case PLAYER_STATE_WAITING:
             //User is a captain. We must remove the game and inform the involved players about the removal
             //Removing Game
             Games.remove({
@@ -92,7 +88,9 @@ Meteor.methods({
             }, {
                 multi: true
             });
-        } else if (targetUser.profile.state === "pending accept") {
+
+            break;
+        case PLAYER_STATE_PENDING_ACCEPT:
             //User has challenged a captain. He/She should be removed from the Game list and reset to idle
             //Remove the player from the Challengers' List
             Games.update({
@@ -117,11 +115,20 @@ Meteor.methods({
             }, {
                 multi: true
             });
+            break;
 
-        } else if (targetUser.profile.state === "ready" || targetUser.profile.state === "reserved") {
+        case PLAYER_STATE_READY:
+        case PLAYER_STATE_RESERVED:
             //User shld be returned to idle. Nothing else done.
             //DOING NOTHING NOW
-        } else if (targetUser.profile.state === "selected") {
+            break;
+        case PLAYER_STATE_SELECTED:
+            /*
+            TODO XZ:10/9/15: this is very questionable. 
+            what happens to the drafting if they are missing 1 player originally drafted?
+            I'm afraid that this is quite tricky
+            */
+
             //User was already drafted into a team. He/She should be removed from the team
             Games.update({
                 _id: targetuser.profile.room
@@ -132,6 +139,7 @@ Meteor.methods({
                     }
                 }
             });
+            break;
         }
 
         //Setting status to idle and reset room value to null
@@ -139,11 +147,10 @@ Meteor.methods({
             _id: targetUser._id
         }, {
             $set: {
-                "profile.state": "idle",
+                "profile.state": PLAYER_STATE_IDLE,
                 "profile.room": null
             }
         });
-
     },
     changeState: function(state) {
         //DEBUGGING TOOL. REMOVE BEFORE PRODUCTION

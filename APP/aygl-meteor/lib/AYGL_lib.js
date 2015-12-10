@@ -29,7 +29,6 @@ Meteor.startup(function () {
 VerifyTab = new Mongo.Collection('vtab');
 Games = new Mongo.Collection('games');
 Alerts = new Mongo.Collection('alerts');
-
 MatchesCollection = new Mongo.Collection("Match");
 
 MatchesCollection.allow({

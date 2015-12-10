@@ -3,25 +3,36 @@ Meteor.subscribe('PlayerReview');
 
 //TODO DT: the game document should generate a password upon "Draft Completion"
 
+Template.playerPanel.helpers({
+    playerDisplayPicture: function(username) {
+        var m = getUserRoomObject();
+        var g = getSelectedGame(m.gameId);
+
+        var res = _.union(g.captains, g.draft);
+
+        return _.find(res, function(player) {
+            return player.name == username;
+        }).avatar;
+    }
+});
+
 Template.matchradiant.helpers({
     getRadPlayers: function() {
-        var m = getSelectedMatch();
+        var m = getUserRoomObject(); //can assume to be a match
 
-        // console.log('===================');
-        // console.log(m);
+        logger.debug('XZ:DEBUG:5/9/15: ===================');
+        logger.debug(m);
 
         var radPlayers = _.filter(m.matchPlayerResults,
             function(item) {
+                logger.debug("XZ:debug:5/9/15:item content: " + item);
                 return item.playerSlot < 5;
             }
         );
 
-        var radPlayers = _.sortBy(radPlayers, function(item) {
+        radPlayers = _.sortBy(radPlayers, function(item) {
             return item.playerSlot;
         });
-
-        // console.log('radPlayers: ' + radPlayers);
-        // console.log('radPlayers: ' + radPlayers[0].username);
 
         return radPlayers;
     }
@@ -29,10 +40,10 @@ Template.matchradiant.helpers({
 
 Template.matchdire.helpers({
     getDirePlayers: function() {
-        var m = getSelectedMatch();
+        var m = getUserRoomObject();
 
-        // console.log('===== getDirePlayers!! ==============');
-        // console.log(m);
+        // logger.debug('===== getDirePlayers!! ==============');
+        // logger.debug(m);
 
         var players = _.filter(m.matchPlayerResults,
             function(item) {
@@ -53,7 +64,12 @@ Template.matchlayout.helpers({
         return getUserRoomObject();
     },
     selectedGame: function() {
-        return getSelectedGame(getUserRoomObject().gameId);
+        var res = getSelectedGame(getUserRoomObject().gameId);
+
+        logger.debug('checking the selectedGame obj');
+        logger.info(res);
+
+        return res;
     },
     hasReportedResult: function() {
         if (Session.get('resultReported')) {
@@ -149,14 +165,20 @@ var checkIfReviewingYourself = function (username) {
     }
 }
 
+
+Template.leaveLobbyPanel.events({
+    'click #btnLeaveLobby' : function(event) {
+        event.preventDefault();
+    }
+});
+
 Template.playerPanel.events({
     'click #thumbsUp' : function(event, template) {
         event.preventDefault();
 
         if (checkIfReviewingYourself(template.data.username)) {
-            console.log("You are reviewing urself!");
+            logger.debug("You are reviewing urself!");
         } else {
-
             var pr = Session.get('playerReviews');
 
             if (!pr) {
@@ -170,32 +192,9 @@ Template.playerPanel.events({
                     title: this.username + " best player ever. Rated 10/10",
                     callback: function(result) {
                         if (result === null) {
-                            console.log('he left nothing');
+                            logger.debug('he left nothing');
                         } else {
                             var item = $(event.target);
-
-                            // var item2 = $(event.currentTarget);
-
-                            // var username = template.data.username;
-
-                            // // console.log(template.find('.member-name').innerHTML);
-                            // // console.log(template.data.username);
-
-                            // if (item.hasClass( "text-success" ) ) {
-                            //     item.removeClass('text-success');
-
-                            //     Meteor.call('increaseUserThumbsUpCount', username, false); 
-                            // } else {
-                            //     item.addClass('text-success');
-
-                            //     Meteor.call('increaseUserThumbsUpCount', username, true);
-                            //     var siblingThumbsDown = $(event.target).next('i');
-                            //     if (siblingThumbsDown.hasClass("text-danger") ) {
-                            //         siblingThumbsDown.removeClass('text-danger');
-                                    
-                            //         Meteor.call('increaseUserThumbsDownCount', username, false);
-                            //     }
-                            // }
 
                             Meteor.call('insertPlayerReview', 
                                 template.data.username, 
@@ -219,7 +218,7 @@ Template.playerPanel.events({
         event.preventDefault();
 
         if (checkIfReviewingYourself(template.data.username)) {
-            console.log("You are reviewing urself!");
+            logger.debug("You are reviewing urself!");
         } else {
             var pr = Session.get('playerReviews');
 
@@ -232,7 +231,7 @@ Template.playerPanel.events({
                     title: "disband plz " + this.username,
                     callback: function(result) {
                         if (result === null) {
-                            console.log('he left nothing');
+                            logger.debug('he left nothing');
                         } else {
                             var item = $(event.target);
                             // var username = template.data.username;

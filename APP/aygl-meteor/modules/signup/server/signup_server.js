@@ -48,8 +48,6 @@ var createNewUserOnMainDB = function(username) {
     }
     if (res) {
       logger.debug('==================');
-      logger.debug('there is an res');
-      logger.debug(JSON.stringify(res));
       if (res.statusCode === 201) {
         Meteor.users.update({
           username: username

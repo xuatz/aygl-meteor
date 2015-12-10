@@ -20,7 +20,6 @@ Methods used by during the Matchmaking/Drafting/Display process will be placed h
 
 Meteor.methods({
     createNewGame: function(title, matchmaking_threshold) {
-
         //Get the user who called the method
         var hostingplayer = Meteor.users.findOne({
             _id: this.userId
@@ -43,8 +42,7 @@ Meteor.methods({
         }
 
         //Create the game JSON to be inserted into the Collection
-        var newGame;
-        newGame = {
+        var newGame = {
             draft: [],
             state: 'hosted',
             host: {
@@ -55,7 +53,8 @@ Meteor.methods({
             challengers: [],
             avatar: hostingplayer.profile.avatar,
             matchmaking_threshold: matchmaking_threshold,
-            title: title
+            title: title,
+            resultReports: []
         };
         //Insert the new Game JSON into the Collection
         var gameId = Games.insert(newGame);
@@ -143,10 +142,10 @@ Meteor.methods({
         var gameId = Meteor.user().profile.room;
         home_grabPlayers(chosenOnes, gameId, function(grabResult, reservedPlayers) {
             if (grabResult) {
-                console.log('Reserved ' + reservedPlayers + ' players for match ' + Meteor.user().profile.room);
+                logger.debug('Reserved ' + reservedPlayers + ' players for match ' + Meteor.user().profile.room);
                 home_initializeGrabResult(gameId, 'drafting');
             } else {
-                console.log('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
+                logger.debug('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
                 //Do nothing because already in waiting state.
             }
         });
@@ -198,10 +197,10 @@ home_challengeAccepted = function(alert) {
             //Attempt Grab players
             home_grabPlayers(chosenOnes, alert.data, function(grabResult, reservedPlayers) {
                 if (grabResult) {
-                    console.log('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
+                    logger.debug('Reserved ' + reservedPlayers + ' players for match ' + alert.data)
                     home_initializeGrabResult(alert.data, 'drafting');
                 } else {
-                    console.log('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
+                    logger.debug('Failed to grab. Only grabbed ' + reservedPlayers + ' players.');
                     home_initializeGrabResult(alert.data, 'waiting');
                 }
             });
@@ -247,7 +246,7 @@ home_checkLobbyEligibility = Meteor.wrapAsync(function(alert, callback) {
     });
     var eligibilePlayerCount = actualEligibleList.length;
 
-    console.log('ELIGIBLE PLAYER COUNT: ' + eligibilePlayerCount);
+    logger.debug('ELIGIBLE PLAYER COUNT: ' + eligibilePlayerCount);
 
     var result;
     if (eligibilePlayerCount > 7) {
@@ -264,7 +263,7 @@ home_initializeGrabResult = function(gameId, result) {
         _id: gameId
     });
     //Update states of Captains
-    console.log('Updating ' + gameObj.host.name + ' and ' + gameObj.challengers[0].name);
+    logger.debug('Updating ' + gameObj.host.name + ' and ' + gameObj.challengers[0].name);
     Meteor.users.update({
         username: {
             $in: [gameObj.host.name, gameObj.challengers[0].name]
@@ -360,21 +359,34 @@ topUpPlayers = function(amtOfTopUp, avgPercentile) {
 }
 
 home_eligiblePlayers = function(avgPercentile) {
+    logger.debug('XZ:12/9/15:home_eligiblePlayers() start');
+    logger.debug('avgPercentile: ' + avgPercentile);
+
     var result;
-    if (avgPercentile < 60) {
+    if (avgPercentile < 60) { //if the game is not a top level game; less than 60 percentile
         result = Meteor.users.find({
+            //1) select users that are ready/reserved??
             "profile.state": {
                 $in: ['ready', 'reserved']
             },
-            "profile.ranking.pLowerLimit": {
-                $lt: avgPercentile
-            },
-            "profile.ranking.pUpperLimit": {
-                $gt: avgPercentile
-            },
+            //2) players of skill level less than 60 (reserve the top 40% for the premier players)
             "profile.ranking.percentile": {
-                $lt: 60
+                $lte: 60
             }
+            //xz:12/9/15: the 2 filters below is reserved for phase 1.5 
+            /*
+            ,
+            //3) users where their "lowest acceptable skill level is below the current match's avg"
+            //i.e. basically the cpt's skill level is lower than him, but he still okay with this diffenence
+            "profile.ranking.pLowerLimit": {
+                $lte: avgPercentile
+            },
+            //4) users where their "highest acceptable skill level is higher than the avg"
+            //i.e. 1k mmr dun wan to play against 5k mmr ppl
+            "profile.ranking.pUpperLimit": {
+                $gte: avgPercentile
+            }
+            */
         }, {
             fields: {
                 username: 1,
@@ -385,13 +397,15 @@ home_eligiblePlayers = function(avgPercentile) {
         result = Meteor.users.find({
             "profile.state": {
                 $in: ['ready', 'reserved']
-            },
-            "profile.ranking.pLowerLimit": {
-                $lt: avgPercentile
-            },
-            "profile.ranking.pUpperLimit": {
-                $gt: avgPercentile
             }
+            //xz:12/9/15: phase 1.5
+            // ,
+            // "profile.ranking.pLowerLimit": {
+            //     $lte: avgPercentile
+            // },
+            // "profile.ranking.pUpperLimit": {
+            //     $gte: avgPercentile
+            // }
         }, {
             fields: {
                 username: 1,
@@ -424,12 +438,12 @@ home_grabPlayers = Meteor.wrapAsync(function(arrayOfPlayers, gameId, callback) {
     }, {
         multi: true
     });
-    console.log(reservedPlayers + ' grabbed.');
+    logger.debug(reservedPlayers + ' grabbed.');
     if (reservedPlayers > 7) {
-        console.log('GRAB SUCCESSFUL');
+        logger.debug('GRAB SUCCESSFUL');
         callback(true, reservedPlayers);
     } else {
-        console.log('GRAB FAILED. Cancelling players reservations.');
+        logger.debug('GRAB FAILED. Cancelling players reservations.');
         var unreservedPlayers = Meteor.users.update({
             $and: [{
                 username: {
@@ -448,9 +462,9 @@ home_grabPlayers = Meteor.wrapAsync(function(arrayOfPlayers, gameId, callback) {
         });
 
         if (unreservedPlayers === reservedPlayers) {
-            console.log('Cancellation succeeded.')
+            logger.debug('Cancellation succeeded.')
         } else {
-            console.log('Cancellation failed.')
+            logger.debug('Cancellation failed.')
         }
 
         callback(false, reservedPlayers);

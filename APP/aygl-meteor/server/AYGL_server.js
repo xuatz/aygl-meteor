@@ -63,8 +63,8 @@ Meteor.methods({
         var user =
         Meteor.users.findOne();
 
-        console.log(user);
-        console.log(user.profile.privateData);
+        logger.debug(user);
+        logger.debug(user.profile.privateData);
     }
 });
 
@@ -152,9 +152,9 @@ Meteor.setInterval(function() {
         }
     }
     if (doRetrieve) {
-        console.log('---------- Account Retrieval Start ----------');
-        console.log(playersToUpdate.length + ' profile refreshes');
-        console.log(playersToRetrieve.length + ' registration verifications');
+        logger.debug('---------- Account Retrieval Start ----------');
+        logger.debug(playersToUpdate.length + ' profile refreshes');
+        logger.debug(playersToRetrieve.length + ' registration verifications');
         var url = api_steam_playerSummary + '&steamids=' + steamIDs;
         var registerCount = 0;
         var userCount = 0;
@@ -162,7 +162,7 @@ Meteor.setInterval(function() {
         HTTP.call('GET', url, function(err, res) {
             if (res !== null) {
                 var playerArray = res.data.response.players;
-                console.log('---------- ' + playerArray.length + ' steam accounts retrieved ----------');
+                logger.debug('---------- ' + playerArray.length + ' steam accounts retrieved ----------');
 
                 playerArray.forEach(function(player) {
                     VerifyTab.update({
@@ -178,7 +178,7 @@ Meteor.setInterval(function() {
                         }
                     }, function(vErr, vRes) {
                         if (vErr) {
-                            console.log(vErr);
+                            logger.debug(vErr);
                         }
                         if (vRes === 0) {
                             Meteor.users.update({
@@ -194,16 +194,16 @@ Meteor.setInterval(function() {
                                 }
                             }, function(uErr, uRes) {
                                 if (uErr) {
-                                    console.log(uErr);
+                                    logger.debug(uErr);
                                 }
                             });
                         }
                     });
                 });
             } else {
-                console.log('Error retrieving results from Steam');
+                logger.debug('Error retrieving results from Steam');
             }
-            console.log('---------- End of Retrieval ----------');
+            logger.debug('---------- End of Retrieval ----------');
         });
     }
 }, 5000);

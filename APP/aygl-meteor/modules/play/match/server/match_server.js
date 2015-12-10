@@ -13,16 +13,12 @@ var increaseUserThumbsUpCount = function (username, increase) {
 	});
 
 	if (!user) {
-		console.log('user not found for: ' + username);
+		logger.debug('user not found for: ' + username);
 	} else {
-		if (!user.thumbsUpCount) {
-			user.thumbsUpCount = 0;
-		}
-
 		if (increase) {
-			updateUserThumbsUpCount(username, user.thumbsUpCount + 1);
+			updateUserThumbsUpCount(username, user.profile.thumbsUpCount + 1);
 		} else {
-			updateUserThumbsUpCount(username, user.thumbsUpCount - 1);
+			updateUserThumbsUpCount(username, user.profile.thumbsUpCount - 1);
 		}
 	}
 }
@@ -33,80 +29,46 @@ var increaseUserThumbsDownCount = function(username, increase) {
 	});
 
 	if (!user) {
-		logger.info("myasda");
-		logger.error("ohaiyo");
-		logger.debug("tongkat");
-
-		console.log('user not found for: ' + username);
+		logger.debug('user not found for: ' + username);
 	} else {
-		if (!user.thumbsDownCount) {
-			user.thumbsDownCount = 0;
-		}
-
 		if (increase) {
-			updateUserThumbsDownCount(username, user.thumbsDownCount + 1);
+			updateUserThumbsDownCount(username, user.profile.thumbsDownCount + 1);
 		} else {
-			updateUserThumbsDownCount(username, user.thumbsDownCount - 1);
+			updateUserThumbsDownCount(username, user.profile.thumbsDownCount - 1);
 		}
 	}
 }
 
 Meteor.methods({
-	demo11: function() {
-		console.log("hi guys");
-
-		MyLogger.insert({
-	      type: "info",
-	      message: "huatah"
-	    });
-
-	    var a = Logger.findOne();
-
-	    console.log(a);
-	},
-	demo2: function() {
-		generateMatchPassword();
-	},
-	insertPlayerReview: function(reviewee, type, comment) {
-		PlayerReview.insert({
-            reviewer: Meteor.user().username,
-            reviewee: reviewee,
-            type: type,
-            comment: comment
-            // gameId: optional //not used for now
-            // matchId: optional //not used for now
-            // matchDuration: optional,
+	insertPlayerReview: function(reviewee, type, comment, matchId) {
+		PlayerReview.upsert(
+		{
+			matchId: matchId,
+			reviewer: Meteor.user().username,
+            reviewee: reviewee
+		},
+		{
+			$set : {
+				type: type,
+	            comment: comment
+	            // matchDuration: optional,
+			}
         });
-
-        switch (type) {
-        case PLAYER_REVIEW_TYPE_UP:
-        	increaseUserThumbsUpCount(reviewee, true);
-        	break;
-        case PLAYER_REVIEW_TYPE_DOWN:
-        	increaseUserThumbsDownCount(reviewee, true);
-        	break;
-        }
-	},
-	increaseUserThumbsUpCount: function(username, increase) {
-		// console.log(username);
-		// console.log(increase);
-		increaseUserThumbsUpCount(username, increase);
-	},
-	increaseUserThumbsDownCount: function(username, increase) {
-		increaseUserThumbsDownCount(username, increase);
 	},
 	updatePlayerResultReport: function(result) {
+		/*
+		//old code
 		var user = getUserByUserId(Meteor.userId());
-
 		var matchId = user.profile.room;
-		var m = MatchesCollection.findOne({_id: matchId}) || MatchesCollection.findOne();
+		*/
 
-		var username = user.username;
+		var matchId = Meteor.user().profile.room;
+		var m = MatchesCollection.findOne({_id: matchId});
+
+		var username = Meteor.user().username;
 		var playerSlot = getPlayerSlotOfUserFromMatchDetails(m, username);
 
-		//TODO TBR (to be removed)
-        var g = Games.findOne({}); 	//demo for dev purpose only
-        var gameId = m.gameId || g._id;
+		var gameId = m.gameId;
 
 		//================
 
@@ -131,89 +93,96 @@ Meteor.methods({
 		checkMatchResultReports(gameId);
 	},
 	sendMatchDetailsToMainDB: function(matchId) {
-		console.log('sendMatchDetailsToMainDB');
+		logger.debug('sendMatchDetailsToMainDB');
 
-		var matchDetails = MatchesCollection.findOne({
-			_id : matchId
-		});
+		var notReadyForUse = true;
+		if (notReadyForUse) {
+			logger.error('sendMatchDetailsToMainDB is not ready for use yet.');
+		} else {
+			//TODO code is quite outdated, pending update
 
-		//hardcoded for dev
-		if (!matchDetails) {
-			matchDetails = MatchesCollection.findOne();
-		}
+			var matchDetails = MatchesCollection.findOne({
+				_id : matchId
+			});
 
-		console.log(matchDetails);
+			//hardcoded for dev
+			if (!matchDetails) {
+				matchDetails = MatchesCollection.findOne();
+			}
 
-		var matchString = JSON.stringify(matchDetails);
+			logger.debug(matchDetails);
 
-		console.log(matchString);
+			var matchString = JSON.stringify(matchDetails);
 
-	    var header = '/match';
-	    var payload = matchString;
-	    var hash = ayglHash(header, payload);
+			logger.debug(matchString);
 
-	    // console.log('==================');
-	    // console.log(hash);
+		    var header = '/match';
+		    var payload = matchString;
+		    var hash = ayglHash(header, payload);
 
-	    var fut = new Future();
+		    // logger.debug('==================');
+		    // logger.debug(hash);
 
-	    HTTP.call("POST", "http://localhost:3000/match",
-	        {
-	            headers: {
-	                authorization: "aygldb " + hash
-	            }
-	            , params: {matchDetails: matchString}
-	        }, function(err, res) {
-	        	if (err) {
-	        		console.log('==================');
-	        		console.log('there is an error');
-	        		console.log(err);
+		    var fut = new Future();
 
-	        		//TODO log error somewhere???
+		    HTTP.call("POST", "http://localhost:3000/match",
+		        {
+		            headers: {
+		                authorization: "aygldb " + hash
+		            }
+		            , params: {matchDetails: matchString}
+		        }, function(err, res) {
+		        	if (err) {
+		        		logger.debug('==================');
+		        		logger.debug('there is an error');
+		        		logger.debug(err);
 
-	        		fut.throw(err);
-	        	}
-	        	if (res) {
-	        		console.log('==================');
-	        		console.log('there is an res');
-	        		console.log(res);
-	        		console.log('==================');
-	        		console.log(res.content);
+		        		//TODO log error somewhere???
 
-	        		if (res.statusCode === 201) {
-	        			//its a success!
-	        			//TODO delete corresponding matchDetails and Game
-	                } else {
-	                	//if fail
-	                	MatchesCollection.update(
-							{
-								_id : matchDetails._id
-							},
-							{
-								$set: {
-									status : 'PU'
+		        		fut.throw(err);
+		        	}
+		        	if (res) {
+		        		logger.debug('==================');
+		        		logger.debug('there is an res');
+		        		logger.debug(res);
+		        		logger.debug('==================');
+		        		logger.debug(res.content);
+
+		        		if (res.statusCode === 201) {
+		        			//its a success!
+		        			//TODO delete corresponding matchDetails and Game
+		                } else {
+		                	//if fail
+		                	MatchesCollection.update(
+								{
+									_id : matchDetails._id
+								},
+								{
+									$set: {
+										status : 'PU'
+									}
+
 								}
+							);
+		                	//TODO log error somewhere???
+		                }
 
-							}
-						);
-	                	//TODO log error somewhere???
-	                }
+		                fut.return(res.statusCode);
+		            }
+		        }
+		    );
 
-	                fut.return(res.statusCode);
-	            }
-	        }
-	    );
-
-	    return fut.wait();
+		    return fut.wait();
+		}
 	}
 });
 
 //======================================
 
 var updateUserThumbsUpCount = function(username, newCount) {
-	// console.log('updateUserThumbsUpCount start');
-	// console.log('username: ' +  username);
-	// console.log('newCount: ' +  newCount);
+	// logger.debug('updateUserThumbsUpCount start');
+	// logger.debug('username: ' +  username);
+	// logger.debug('newCount: ' +  newCount);
 
 	Meteor.users.update(
 		{
@@ -228,9 +197,9 @@ var updateUserThumbsUpCount = function(username, newCount) {
 }
 
 var updateUserThumbsDownCount = function(username, newCount) {
-	// console.log('updateUserThumbsDownCount start');
-	// console.log('username: ' +  username);
-	// console.log('newCount: ' +  newCount);
+	// logger.debug('updateUserThumbsDownCount start');
+	// logger.debug('username: ' +  username);
+	// logger.debug('newCount: ' +  newCount);
 
 	Meteor.users.update(
 		{
@@ -245,20 +214,13 @@ var updateUserThumbsDownCount = function(username, newCount) {
 }
 
 var checkMatchResultReports = function(gameId) {
-	console.log('Start of checkMatchResultReports');
+	logger.debug('Start of checkMatchResultReports');
 
-	var g = Games.findOne({_id: gameId}) || Games.findOne({});
+	var g = Games.findOne({_id: gameId});
 
 	if (!g) {
-		console.log('game no found, perhaps its already processed?');
+		logger.info('game no found, perhaps its already processed?');
 	} else {
-		if (!g.resultReports) {
-			g.resultReports = [];
-		}
-
-		// console.log(g);
-		// console.log('==========');
-
 		var count = 0;
 		_.each(g.resultReports, function(item) {
 			if(item !== null) {
@@ -266,10 +228,10 @@ var checkMatchResultReports = function(gameId) {
 			}
 		});
 
-		// console.log('count: ' + count);
-
 		if (count > 0) {
 			if (!g.matchResultReportedDttm) {
+				//this means this is the first score report for this game/match;
+
 				Games.update(
 					{ _id : g._id },
 					{
@@ -279,29 +241,19 @@ var checkMatchResultReports = function(gameId) {
 					}
 				);
 
-				//TODO insert code to run this method again after 3 hours for section Z
-
-				console.log('check if the local object is updated');
-				console.log('g.matchResultReportedDttm: ' + g.matchResultReportedDttm);
-				console.log(g.matchResultReportedDttm);
-
-				console.log('im fetching the game again from db, compare the value with above!');
-				g = Games.findOne({});
-				//g = Games.findOne({'_id': gameId});
-				console.log('resultReportedDttm: ' + g.matchResultReportedDttm);
+				//TODO create a job to call method again after i.e. 3 hours
+				//https://atmospherejs.com/vsivsi/job-collection
+				//Alpha build we just leave this alone
 
 			} else {
-				//TODO DT: note: upon draft completion, a matchDetails will be created liao, with the games._id as FK
-				var m = MatchesCollection.findOne({'gameId': g._id}) || MatchesCollection.findOne();
+				var m = MatchesCollection.findOne({'gameId': g._id});
 				//we fetch latest before taking action cos maybe some1 else's action already resolved this game
 
 				if (!m) {
-					console.log('There is a big problem, why is there no matchDetails?');
+					logger.error('Match cannot be found gameId: ' + g._id);
 				} else {
-					console.log(m.result);
-					m.result = null;
 					if (m.result) {
-						//since the matchDetails already have a result liao, dun need to do anything liao
+						logger.info('There is already a match result for matchId: ' + m._id);
 					} else {
 						var cptRadResultReport = _.find(g.resultReports, function(item){
 													if (item) {
@@ -314,58 +266,62 @@ var checkMatchResultReports = function(gameId) {
 													}
 												});
 
-						console.log('cptRadReportedResult: ' + cptRadResultReport);
-						console.log('cptDireReportedResult: ' + cptDireResultReport);
+						logger.debug('cptRadReportedResult: ' + cptRadResultReport);
+						logger.debug('cptDireReportedResult: ' + cptDireResultReport);
+
+						/*
+						Case 1: Both cpts reported score
+						Case 2: Only 1 cpt reported score
+						Case 3: No cpts reported score
+						*/
 
 						if (cptRadResultReport && cptDireResultReport) {
-							console.log('both cpt reported result');
+							logger.debug('both cpt reported result');
 							if (cptRadResultReport.result == cptDireResultReport.result) {
+								logger.debug('both cpts agree on the match result');
 
-								var reasonableTimeElapsedSinceMatchLobbyCreated = true;
-								var matchDetailsCreatedDttm = moment(matchDetails.createdDttm);
+								var reasonableTimeElapsedSinceMatchLobbyCreated = false;
+								var matchDetailsCreatedDttm = moment(m.createdDttm);
 								var durationSinceCreation = moment.duration(moment().diff(matchDetailsCreatedDttm));
 
-								if (duration.minutes() > 10) {
+								if (durationSinceCreation.minutes() > 10) {
 									reasonableTimeElapsedSinceMatchLobbyCreated = true;
-								} else {
-									reasonableTimeElapsedSinceMatchLobbyCreated = false;
 								}
 
 								m.result = cptRadResultReport.result;
 								takeActionOnMatchDetailsBasedOnResult(m, reasonableTimeElapsedSinceMatchLobbyCreated);
 
 							} else {
-								updateMatchDetailsResultAsInvestigation(m);
+								logger.debug('both cpts dun agree with the match result');
+								updateMatchAsInvestigation(m);
 							}
 						} else {
-							console.log('not both cpt reported result yet');
-
+							logger.debug('not both cpt reported result yet');
 
 							//The point is that, we will in general, use the cpt report as absolute
 							//hence we give a 3 hours grace peroid starting from first match report timing
 
-							console.log('resultReportedDttm: ' + g.matchResultReportedDttm);
+							logger.debug('resultReportedDttm: ' + g.matchResultReportedDttm);
 
 							var reportDttm = moment(g.matchResultReportedDttm);
 							var duration = moment.duration(moment().diff(reportDttm));
 
-							//console.log(duration);
-							console.log(duration.minutes());
-							console.log(duration.hours());
+							//logger.debug(duration);
+							logger.debug(duration.minutes());
+							logger.debug(duration.hours());
 
-							var moreThan3Hours = duration.hours() >= 3;
-							//TODO section Z
-							if (true) { //supposed to be moreThan3Hours
+							var moreThan3Hours = ( duration.hours() >= 3 );
+
+							if (moreThan3Hours) {
 								//after 3 hours, we will take the party member reports into consideration
 
-								console.log(g);
-								console.log('===============');
-								console.log(g.resultReports);
-								console.log('===============');
+								logger.debug(g);
+								logger.debug('===============');
+								logger.debug(g.resultReports);
+								logger.debug('===============');
 
-
-								console.log('_.size(g.resultReports)');
-								console.log(_.size(g.resultReports));
+								logger.debug('_.size(g.resultReports)');
+								logger.debug(_.size(g.resultReports));
 
 								if (_.size(g.resultReports)>0) {
 									var topResult = getMostPopularResult(g);
@@ -374,7 +330,7 @@ var checkMatchResultReports = function(gameId) {
 										m.result = topResult;
 										takeActionOnMatchDetailsBasedOnResult(m, true);
 									} else {
-										updateMatchDetailsResultAsInvestigation(m);
+										updateMatchAsInvestigation(m);
 									}
 								}
 							}
@@ -420,8 +376,8 @@ var getMostPopularResult = function(game) {
 			return item.count;
 	});
 
-	console.log('hi im checking the content of getMostPopularResult()');
-	console.log(counts);
+	logger.debug('hi im checking the content of getMostPopularResult()');
+	logger.debug(counts);
 
 	if (counts[1] == counts[2]) {
 		return null;
@@ -430,54 +386,58 @@ var getMostPopularResult = function(game) {
 	}
 }
 
-var updateMatchDetailsResultAsInvestigation = function(matchDetails) {
-	console.log('Match pending investigation!');
-	//TODO XZ: implement CommonConstants
-	MatchesCollection.update(
-		{
-			_id : matchDetails._id
-		},
-		{
-			$set: {
-				status : 'PI',
-				result : matchDetails.result
+var updateMatchAsInvestigation = function(matchDetails) {
+	if (!matchDetails) {
+		logger.error('updateMatchAsInvestigation(): why is matchDetails empty!!!')
+	} else {
+		MatchesCollection.update(
+			{
+				_id : matchDetails._id
+			},
+			{
+				$set: {
+					status : MATCH_STATUS_PENDING_INVESTIGATION
+				}
 			}
-		}
-	);
+		);
+	}
 }
 
 var takeActionOnMatchDetailsBasedOnResult = function(matchDetails, reasonableTimeElapsedSinceMatchLobbyCreated) {
-	//TODO XZ: implement CommonConstants
-
-	console.log("matchDetails._id");
-	console.log(matchDetails._id);
-
-	switch (matchDetails.result) {
-		case 'V':
-			//TODO delete match and game
-			console.log('Match deleted(Void)');
-			break;
-		case 'R':
-		case 'D':
-			if (reasonableTimeElapsedSinceMatchLobbyCreated) {
-				MatchesCollection.update(
-					{
-						_id : matchDetails._id
-					},
-					{
-						$set: {
-							status : 'PU',
-							result : matchDetails.result
+	if (!matchDetails) {
+		logger.error('takeActionOnMatchDetailsBasedOnResult(): why is matchDetails empty!!!')
+	} else {
+		if (matchDetails.status == MATCH_STATUS_IN_PROGRESS) {
+			switch (matchDetails.result) {
+			case 'V':
+				//TODO delete match and game
+				logger.debug('Match deleted(Void)');
+				break;
+			case 'R':
+			case 'D':
+				if (reasonableTimeElapsedSinceMatchLobbyCreated) {
+					MatchesCollection.update(
+						{
+							_id : matchDetails._id
+						},
+						{
+							$set: {
+								status : MATCH_STATUS_PROCESSED,
+								result : matchDetails.result
+							}
 						}
-					}
-				);
+					);
 
-				Meteor.call('sendMatchDetailsToMainDB', matchDetails._id);
-			} else {
-				//potentially some1 is abusing the system
-				//i.e. both cpt just spam DIRE win without any games played to boost result
-				updateMatchDetailsResultAsInvestigation(matchDetails);
+					// Meteor.call('sendMatchDetailsToMainDB', matchDetails._id);
+				} else {
+					//potentially some1 is abusing the system
+					//i.e. both cpt just spam DIRE win without any games played to boost result
+					updateMatchAsInvestigation(matchDetails);
+				}
+				break;
 			}
-			break;
+		} else {
+			logger.info('match was already updated');
+		}
 	}
 }

@@ -71,6 +71,10 @@ MatchesCollection.attachSchema(new SimpleSchema({
     label: "DOTA Match ID",
     optional: true
   },
+  gameId: {
+    type: String,
+    label: "Game ID"
+  },
   status: {
     type: String,
     max: 4,

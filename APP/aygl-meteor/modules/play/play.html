@@ -5,7 +5,7 @@ Any Templates used for the Play Screen will be placed here
 <!--LAYOUT TEMPLATE -->
 <template name="playLayout">
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-lg-8">
             <h1>AYGL - The Arena | 
             {{#with catchphrase}}
                 <span class="h3">{{string}}</span>
@@ -14,7 +14,7 @@ Any Templates used for the Play Screen will be placed here
             {{/with}}
             </h1>
         </div>
-        <div class="col-xs-2">
+        <!-- <div class="col-xs-2">
             <div class="row toppadding">
                 <div class="btn-group col-xs-12">
                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -32,8 +32,8 @@ Any Templates used for the Play Screen will be placed here
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-4">
+        </div> -->
+        <div class="col-lg-4">
             <div class="row">
                 <div class="col-xs-4">
                     <div class="col-xs-12">
@@ -58,7 +58,7 @@ Any Templates used for the Play Screen will be placed here
     <div class="col-xs-8">
         <div class="row toppadding">
             <div class="col-xs-12">
-                <button id="leavegame" class="btn btn-block btn-danger">{{buttontext}}</button>
+                <button id="btnGenericExit" class="btn btn-block btn-danger">{{buttontext}}</button>
             </div>
         </div>
     </div>
@@ -157,11 +157,13 @@ Any Templates used for the Play Screen will be placed here
 <template name="updateUserForm">
     {{#autoForm schema=mySchema id="contactForm" type="method" meteormethod="editPreferences" doc=doc}}
         <fieldset>
-            <div class="col-xs-6">
-                {{> afQuickField name='preferred_role'}}
-            </div>
-            <div class="col-xs-6">
-                {{> afQuickField name='preferred_hero'}}
+            <div class="row">
+                <div class="col-lg-6">
+                    {{> afQuickField name='preferred_role'}}
+                </div>
+                <div class="col-lg-6">
+                    {{> afQuickField name='preferred_hero'}}
+                </div>
             </div>
         </fieldset>
         <button id="preferenceUpdate" type="update" class="btn btn-primary">Update</button>

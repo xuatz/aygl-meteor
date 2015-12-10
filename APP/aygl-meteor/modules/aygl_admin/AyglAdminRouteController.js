@@ -3,7 +3,7 @@ AyglAdminController = RouteController.extend({
 });
 
 Router.onBeforeAction(function(){
-    console.log('XZ:DEBUG:15/2/15: hi im in myAdminHookFunction');
+    logger.debug('XZ:DEBUG:15/2/15: hi im in myAdminHookFunction');
 
     if (!Meteor.user()) {
         //do nothing? dun need this.next() ?
@@ -34,13 +34,13 @@ Router.onBeforeAction(function(){
 Router.route('/aygl_admin', function() {
     switch (Session.get('adminTabSelection')) {
     case 1:
-        console.log('im gonna render some nice stuff');
+        logger.debug('im gonna render some nice stuff');
         this.render('adminMatchPendingUpdateList', {
             to: "tabContent"
         });
         break;
     case 2:
-        console.log('selectedMatchId: ' + Session.get('selectedAyglMatchId'));
+        logger.debug('selectedMatchId: ' + Session.get('selectedAyglMatchId'));
         this.render('adminMatchPendingUpdateDetail', {
             to: "tabContent"
         });
